@@ -1,0 +1,9 @@
+###get all bids
+GET http://{{host}}:{{port}}/bids
+Accept: application/json
+
+
+###get one bid by id 2
+GET http://{{host}}:{{port}}/bids/2
+Accept: application/json
+
