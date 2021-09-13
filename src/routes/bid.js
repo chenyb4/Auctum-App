@@ -1,6 +1,6 @@
 const router=require('express').Router();
 
-const bids=require('../data/data.js');
+const {bids} =require('../data/data.js');
 
 //get all bids
 router.get('',(req,res)=>{
@@ -11,8 +11,6 @@ router.get('',(req,res)=>{
 router.get('/:id',(req, res) => {
    res.end(res.param.id);
 });
-
-
 
 module.exports=router;
 
