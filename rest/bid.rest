@@ -2,8 +2,38 @@
 GET http://{{host}}:{{port}}/bids
 Accept: application/json
 
-
 ###get one bid by id 2
 GET http://{{host}}:{{port}}/bids/2
 Accept: application/json
+
+###get all clients
+http://{{host}}:{{port}}/clients
+Accept: application/json
+
+###get one client by id 1
+GET http://{{host}}:{{port}}/clients/1
+Accept: application/json
+
+###get all products
+GET http://{{host}}:{{port}}/products
+Accept: application/json
+
+###get one product by id 1
+GET http://{{host}}:{{port}}/products/1
+Accept: application/json
+
+
+###create a client
+POST http://{{host}}:{{port}}/clients
+Content-Type: application/json
+
+{
+  "name": "Lukman"
+}
+
+
+###one client post a bid
+PUT
+
+
 
