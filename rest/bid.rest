@@ -3,7 +3,7 @@ GET http://{{host}}:{{port}}/bids
 Accept: application/json
 
 ###get one bid by id 2
-GET http://{{host}}:{{port}}/bids/2
+GET http://{{host}}:{{port}}/bids/6
 Accept: application/json
 
 ###get all clients
