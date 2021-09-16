@@ -33,7 +33,8 @@ Content-Type: application/json
 
 
 ###one client post a bid
-
+POST http://{{host}}:{{port}}/clients
+Content-Type:
 
 
 
