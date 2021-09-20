@@ -3,6 +3,7 @@ const router=require('express').Router();
 const {bids} =require('../data/data.js');
 const {StatusCodes} = require('http-status-codes');
 
+
 //get all bids
 router.get('',(req,res)=>{
 
@@ -44,6 +45,14 @@ router.get('/:id',(req, res) => {
 
    res.send(result);
 });
+
+
+
+
+
+
+
+
 
 module.exports=router;
 
