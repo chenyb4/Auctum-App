@@ -1,22 +1,60 @@
+###bids
+
 ###get all bids
 GET http://{{host}}:{{port}}/bids
 Accept: application/json
 
 ###get one bid by id 2
-GET http://{{host}}:{{port}}/bids/6
+GET http://{{host}}:{{port}}/bids/2
 Accept: application/json
+
+###get bids filtered by price 5
+GET http://{{host}}:{{port}}/bids?price=5
+Accept: application/json
+
+
+
+
+
+
+
+
+
+###cleints
 
 ###get all clients
 http://{{host}}:{{port}}/clients
 Accept: application/json
 
-###get one client by id 1
-GET http://{{host}}:{{port}}/clients/1
+###get one client by id 2
+GET http://{{host}}:{{port}}/clients/2
 Accept: application/json
+
+
+###get clients filtered on gender
+GET http://{{host}}:{{port}}/clients?gender=male
+Accept: application/json
+
+
+
+###delete a client on id 1
+DELETE http://{{host}}:{{port}}/clients/1
+Accept: application/json
+
+###delete a client on an id that doesnt exist e.g. 89
+DELETE http://{{host}}:{{port}}/clients/89
+Accept: application/json
+
+
+
+###products
 
 ###get all products
 GET http://{{host}}:{{port}}/products
 Accept: application/json
+
+###get all products filtered on ending date
+GET http://{{host}}:{{port}}/products
 
 ###get one product by id 1
 GET http://{{host}}:{{port}}/products/1
@@ -35,6 +73,7 @@ Content-Type: application/json
 ###one client post a bid
 POST http://{{host}}:{{port}}/clients
 Content-Type:
+
 
 
 

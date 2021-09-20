@@ -1,24 +1,71 @@
 const router=require('express').Router();
 
-const {clients} =require('../data/data.js');
+let {clients} =require('../data/data.js');
 
-
-//get all the clients
+//get all clients, can be filtered on gender
 router.get('',(req,res)=>{
-    res.send(clients);
+
+    const gender = req.query.gender;
+
+    let result = clients;
+
+    if (gender){
+        result = clients.filter((client) => {
+            return client.gender == gender;
+        });
+        res.send(result);
+    }else {
+        res.send(clients);
+    }
+
+    if (result == []){
+        res
+            .send(`Cannot find client with gender: ${gender}`)
+            .sendStatus(StatusCodes.NOT_FOUND);
+    }
+
 });
 
 
 //get one client by id
 router.get('/:id',(req, res) => {
-    res.end(res.param.id);
+    const id = req.params.id;
+
+    let result;
+    result = clients.find((client) => {
+
+        return client.id == id;
+
+    });
+
+    if (result == null){
+        res
+            .send(`Cannot find client with id: ${id}`)
+            .sendStatus(StatusCodes.NOT_FOUND);
+    }
+
+    res.send(result);
 });
 
 
-//create one client
-router.post('',((req, res) => {
+//delete a client on id
+router.delete('/:id',((req, res) => {
+    for (let client in clients) {
+        if(client.id==req.id){
+            clients = clients.filter(x=>x.id!=req.params.id)
+            res.send('deleted client at id /:id');
+        }
+    }
 
-}))
+    res.send('cannot find a client with this id');
+
+
+
+
+}) );
+
+
+
 
 module.exports=router;
 

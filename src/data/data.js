@@ -44,31 +44,26 @@ const products=[
     {
         id: 1,
         name:'Teddy bear',
-
         endingDate: new Date(2021,8,31)
     },
     {
         id: 2,
         name:'Gold necklace',
-
         endingDate: new Date(2022,0,10)
     },
     {
         id: 3,
         name:'Old boat',
-
         endingDate: new Date(2022,9,20)
     },
     {
         id: 4,
         name:'Yacht',
-
         endingDate: new Date(2022,7,9)
     },
     {
         id: 5,
         name:'High end laptop',
-
         endingDate: new Date(2022,11,30)
     }
 ];
