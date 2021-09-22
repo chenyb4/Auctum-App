@@ -2,69 +2,90 @@ const bids=[
     {
         id: 1,
         price: 5,
-        clientId:1,
-        productId:1
+        placedByUserId:1,
+        forBikeId:1
     },
     {
         id: 2,
         price: 10,
-        clientId:2,
-        productId:2
+        placedByUserId:2,
+        forBikeId:2
     },
     {
         id: 3,
         price: 3,
-        clientId:3,
-        productId:3
-    },
-
+        placedByUserId:3,
+        forBikeId:3
+    }
 ];
 
-const clients=[
+const users=[
     {
         id: 1,
         name:'John Doe',
-        gender: 'male'
+        role: ['client'],
+        email: 'johndoe@hotmail.com',
+        passwordHashValue: '' //Todo: To be determined later
     },
     {
         id: 2,
         name:'Yibing Doe',
-        gender: 'male'
+        role: ['client','admin'],
+        email: 'yibingdoe@hotmail.com',
+        passwordHashValue: ''
+
     },
     {
         id: 3,
         name:'Lukman Doe',
-        gender: 'gender unknown feminist and LGBTQ+ ambassador'
+        role: ['admin'],
+        email: 'lukmandoe@hotmail.com',
+        passwordHashValue: ''
     }
 ];
 
-const products=[
+const bikes=[
     {
         id: 1,
-        name:'Teddy bear',
-        endingDate: new Date(2021,8,31)
+        brand:'Gazelle',
+        frameType: 'Diamond',
+        frameHeightInCm: '123',
+        endingDate: new Date(2021,8,31),
+        winnerId: -1 //Todo: to be calculated later
     },
     {
         id: 2,
-        name:'Gold necklace',
-        endingDate: new Date(2022,0,10)
+        brand:'Hammer',
+        frameType: 'Prone',
+        frameHeightInCm: '100',
+        endingDate: new Date(2022,0,10),
+        winnerId: -1
     },
     {
         id: 3,
-        name:'Old boat',
-        endingDate: new Date(2022,9,20)
+        brand:'Urban Arrow',
+        frameType: 'Truss',
+        frameHeightInCm: '95',
+        endingDate: new Date(2022,9,20),
+        winnerId: -1
     },
     {
         id: 4,
-        name:'Yacht',
-        endingDate: new Date(2022,7,9)
+        brand:'Koga',
+        frameType: 'Cantilever',
+        frameHeightInCm: '115',
+        endingDate: new Date(2022,7,9),
+        winnerId: -1
     },
     {
         id: 5,
-        name:'High end laptop',
-        endingDate: new Date(2022,11,30)
+        brand:'Cortina',
+        frameType: 'Folding',
+        frameHeightInCm: '133',
+        endingDate: new Date(2022,11,30),
+        winnerId: -1
     }
 ];
 
-module.exports = {bids,clients,products}
+module.exports = { bids,users,bikes }
 
