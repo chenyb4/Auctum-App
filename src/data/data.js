@@ -12,7 +12,6 @@ const bids=[
         productId:2
     },
     {
-
         id: 3,
         price: 3,
         clientId:3,
@@ -31,7 +30,6 @@ const clients=[
         id: 2,
         name:'Yibing Doe',
         gender: 'male'
-
     },
     {
         id: 3,
