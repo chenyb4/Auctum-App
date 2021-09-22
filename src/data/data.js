@@ -84,15 +84,9 @@ const bikes=[
         frameType: 'Folding',
         frameHeightInCm: '133',
         endingDate: new Date(2022,11,30),
-        winnerId: getHighestBid(bids)
+        winnerId: -1
     }
 ];
 
-const getHighestBid = (array) => {
-    if (bikes.endingDate - Date.now() < 1){
-        return Math.max(array.price);
-    }
-    return -1;
-};
 module.exports = { bids,users,bikes }
 
