@@ -12,11 +12,16 @@ Accept: application/json
 GET http://{{host}}:{{port}}/bids?price=5
 Accept: application/json
 
+### Post a new bid
+POST http://{{host}}:{{port}}/bids
+Content-Type: application/json
 
-
-
-
-
+{
+  "id": 30,
+  "price": 5,
+  "placedByUserId": 3,
+  "forBikeId": 3
+}
 
 
 
