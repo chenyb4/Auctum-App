@@ -1,50 +1,53 @@
-const router=require('express').Router();
+const router = require('express').Router();
+const { users } = require('../data/data.js');
+const { StatusCodes } = require('http-status-codes');
 
-let {clients} =require('../data/data.js');
-
-//get all clients, can be filtered on gender
+//get all users
 router.get('',(req,res)=>{
-
-    const gender = req.query.gender;
-
-    let result = clients;
-
-    if (gender){
-        result = clients.filter((client) => {
-            return client.gender == gender;
-        });
-        res.send(result);
-    }else {
-        res.send(clients);
-    }
-
-    if (result == []){
-        res
-            .send(`Cannot find client with gender: ${gender}`)
-            .sendStatus(StatusCodes.NOT_FOUND);
-    }
-
+    res.status(StatusCodes.OK).send(users);
 });
 
 
-//get one client by id
+//get one user by id
 router.get('/:id',(req, res) => {
     const id = req.params.id;
 
     let result;
-    result = clients.find((client) => {
+    result = users.find((user) => {
 
-        return client.id == id;
+        return user.id == id;
 
     });
 
     if (result == null){
         res
-            .send(`Cannot find client with id: ${id}`)
+            .send(`Cannot find user with id: ${id}`)
             .sendStatus(StatusCodes.NOT_FOUND);
     }
 
     res.send(result);
+});
+
+router.post('',(req,res) => {
+    const { name,role,email,passwordHashValue } = req.body;
+
+    let highestId = users[users.length-1].id;
+    highestId++;
+
+    if (name && role && email && passwordHashValue){
+        users.push({
+            id:highestId,
+            name:name,
+            role:role,
+            email:email,
+            passwordHashValue:passwordHashValue
+        });
+
+        return res.status(StatusCodes.CREATED).send('User created successfully!');
+
+    } else {
+        return res.status(StatusCodes.NOT_FOUND).send('Something is wrong with your inputs!')
+    }
 });
 
 
