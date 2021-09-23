@@ -94,6 +94,24 @@ router.put('',(req,res) => {
 });
 
 
+//delete a product
+router.delete('/:id',((req, res) => {
+    for (let product in products) {
+        if(product.id==req.id){
+            products = products.filter(x=>x.id!=req.params.id)
+            res.send('deleted product at id /:id');
+        }
+    }
+
+    res.send('cannot find a product with this id');
+
+
+
+
+}) );
+
+
+
 module.exports=router;
 
 

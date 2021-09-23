@@ -12,7 +12,6 @@ const bids=[
         forBikeId:2
     },
     {
-
         id: 3,
         price: 3,
         placedByUserId:3,
