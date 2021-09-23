@@ -52,7 +52,6 @@ const bikes=[
         frameType: 'Diamond',
         frameHeightInCm: '123',
         endingDate: new Date(2021,8,31),
-        winnerId: -1 //Todo: to be calculated later
     },
     {
         id: 2,
@@ -60,7 +59,6 @@ const bikes=[
         frameType: 'Prone',
         frameHeightInCm: '100',
         endingDate: new Date(2022,0,10),
-        winnerId: -1
     },
     {
         id: 3,
@@ -68,7 +66,6 @@ const bikes=[
         frameType: 'Truss',
         frameHeightInCm: '95',
         endingDate: new Date(2022,9,20),
-        winnerId: -1
     },
     {
         id: 4,
@@ -76,7 +73,6 @@ const bikes=[
         frameType: 'Cantilever',
         frameHeightInCm: '115',
         endingDate: new Date(2022,7,9),
-        winnerId: -1
     },
     {
         id: 5,
@@ -84,7 +80,6 @@ const bikes=[
         frameType: 'Folding',
         frameHeightInCm: '133',
         endingDate: new Date(2022,11,30),
-        winnerId: -1
     }
 ];
 
