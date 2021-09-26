@@ -1,70 +1,40 @@
 const router=require('express').Router();
 
-let {clients} =require('../data/data.js');
+let {users} =require('../data/data.js');
 
-//get all clients, can be filtered on gender
+//get all clients ---it works
 router.get('',(req,res)=>{
-
-    const gender = req.query.gender;
-
-    let result = clients;
-
-    if (gender){
-        result = clients.filter((client) => {
-            return client.gender == gender;
-        });
-        res.send(result);
-    }else {
-        res.send(clients);
-    }
-
-    if (result == []){
-        res
-            .send(`Cannot find client with gender: ${gender}`)
-            .sendStatus(StatusCodes.NOT_FOUND);
-    }
-
+    let result = users;
+    res.send(result);
 });
 
-
-//get one client by id
+//get one client by id---- it works
 router.get('/:id',(req, res) => {
     const id = req.params.id;
-
     let result;
-    result = clients.find((client) => {
-
-        return client.id == id;
-
+    result = users.find((user) => {
+        return user.id == id;
     });
-
     if (result == null){
         res
-            .send(`Cannot find client with id: ${id}`)
+            .send(`Cannot find user with id: ${id}`)
             .sendStatus(StatusCodes.NOT_FOUND);
     }
-
     res.send(result);
 });
 
 
-//delete a client on id
+//delete a client on id ---it works
 router.delete('/:id',((req, res) => {
-    for (let client in clients) {
-        if(client.id==req.id){
-            clients = clients.filter(x=>x.id!=req.params.id)
-            res.send('deleted client at id /:id');
+    for (let user in users) {
+        if(user.id==req.id){
+            users = users.filter(x=>x.id!=req.params.id)
+            return res.send(`deleted user at id ${req.params.id}`);
+           // res.send('deleted user at id'+req.params.id);
         }
     }
-
-    res.send('cannot find a client with this id');
-
-
-
-
+    res.send('cannot find a user with this id');
 }) );
-
-
 
 
 module.exports=router;
