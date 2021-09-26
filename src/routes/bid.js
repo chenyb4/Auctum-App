@@ -2,32 +2,27 @@ const router=require('express').Router();
 const { bids,users,bikes } =require('../data/data.js');
 const { StatusCodes } = require('http-status-codes');
 
-//get all bids
+//lukman please delete it later
+/*
+const forBike = (forBikeId) => {
+   if (bikes.id.includes(forBikeId)){
+      return true;
+   }
+};
+*/
+
+
+//get all bids ---it works
 router.get('',(req,res)=>{
 
-   const price = req.query.price;
-
    let result = bids;
-
-   if (price) {
-      result = bids.filter((bid) => {
-         return bid.price == price;
-      });
-      res.send(result);
-   } else {
-      res.send(bids);
-   }
-
-   if (result == []) {
-      res.status(StatusCodes.NOT_FOUND).send(`Cannot find bid with price: ${price}`);
-   }
+   res.send(result);
 
 });
 
-//get one bid by id
+//get one bid by id  ---it works
 router.get('/:id',(req, res) => {
    const id = req.params.id;
-
    let result;
    result = bids.find((bid) => {
       return bid.id == id;
@@ -36,7 +31,6 @@ router.get('/:id',(req, res) => {
    if (result == null){
       res.status(StatusCodes.NOT_FOUND).send(`Cannot find bid with id: ${id}`);
    }
-
    res.send(result);
 
 });
@@ -61,6 +55,20 @@ router.post('',(req,res) => {
       return res.status(StatusCodes.NOT_FOUND).send('Something is wrong with your inputs!')
    }
 });
+
+
+
+//delete a bid by id
+router.delete('/:id',((req, res) => {
+   for (let bid in bids) {
+      if(user.id==req.id){
+         users = users.filter(x=>x.id!=req.params.id)
+         return res.send(`deleted user at id ${req.params.id}`);
+         // res.send('deleted user at id'+req.params.id);
+      }
+   }
+   res.send('cannot find a user with this id');
+}) );
 
 
 module.exports=router;
