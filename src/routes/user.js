@@ -1,4 +1,6 @@
-const router=require('express').Router();
+const router = require('express').Router();
+const { users } = require('../data/data.js');
+const { StatusCodes } = require('http-status-codes');
 
 let {users} =require('../data/data.js');
 
@@ -21,6 +23,28 @@ router.get('/:id',(req, res) => {
             .sendStatus(StatusCodes.NOT_FOUND);
     }
     res.send(result);
+});
+
+router.post('',(req,res) => {
+    const { name,role,email,passwordHashValue } = req.body;
+
+    let highestId = users[users.length-1].id;
+    highestId++;
+
+    if (name && role && email && passwordHashValue){
+        users.push({
+            id:highestId,
+            name:name,
+            role:role,
+            email:email,
+            passwordHashValue:passwordHashValue
+        });
+
+        return res.status(StatusCodes.CREATED).send('User created successfully!');
+
+    } else {
+        return res.status(StatusCodes.NOT_FOUND).send('Something is wrong with your inputs!')
+    }
 });
 
 

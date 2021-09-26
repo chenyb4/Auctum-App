@@ -36,28 +36,24 @@ router.get('/:id',(req, res) => {
 });
 
 router.post('',(req,res) => {
-   const { id,price,placedByUserId,forBikeId } = req.body;
+   const { price,placedByUserId,forBikeId } = req.body;
 
-   if (id && price && placedByUserId && forBikeId) {
-      for (let i = 0; i < bids.length; i++) {
-         if (id == bids[i].id){
-            return res.status(StatusCodes.BAD_REQUEST).send(`Id must be unique! you entered (${id}) `);
-         }
-      }
+   let highestId = bids[bids.length-1].id;
+   highestId++;
 
+   if (price && placedByUserId && forBikeId){
       bids.push({
-         id: id,
+         id: highestId,
          price: price,
          placedByUserId: placedByUserId,
          forBikeId: forBikeId
       });
 
-      return res.status(StatusCodes.CREATED).send("Created!");
+      return res.status(StatusCodes.CREATED).send('Bid placed successfully!');
 
    } else {
-      return res.status(StatusCodes.BAD_REQUEST).send('Something is wrong ith your input!');
+      return res.status(StatusCodes.NOT_FOUND).send('Something is wrong with your inputs!')
    }
-
 });
 
 
