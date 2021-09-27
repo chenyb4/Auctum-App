@@ -23,7 +23,8 @@ Content-Type: application/json
   "forBikeId": 3
 }
 
-
+###delete bid at id 2
+DELETE http://{{host}}:{{port}}/bids/2
 
 ###cleints
 
@@ -52,18 +53,21 @@ Accept: application/json
 
 
 
-###products
+###bikes
 
-###get all products
-GET http://{{host}}:{{port}}/products
+###get all bikes
+GET http://{{host}}:{{port}}/bikes
 Accept: application/json
 
-###get all products filtered on ending date
-GET http://{{host}}:{{port}}/products
+###get all bikes filtered on ending date
+GET http://{{host}}:{{port}}/bikes
 
-###get one product by id 1
-GET http://{{host}}:{{port}}/products/1
+###get one bike by id 1
+GET http://{{host}}:{{port}}/bikes/1
 Accept: application/json
+
+###delete a bike on id 2
+DELETE http://{{host}}:{{port}}/bikes/2
 
 
 ###create a client
