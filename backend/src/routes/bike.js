@@ -3,10 +3,19 @@ const {StatusCodes} = require('http-status-codes');
 let {bikes, bids} =require('../data/data.js');
 const {parse} = require("nodemon/lib/cli");
 
-//get all the products,can be filtered on ending date
+//get all the bikes
 router.get('',(req,res)=>{
 
-    const endingDate = req.query.endingDate;
+    const brand=req.query.brand;
+    const frameType=req.query.frameType;
+    const frameHeightInCm=req.query.frameHeightInCm;
+
+    let result=bikes;
+
+    if()
+
+
+    /*const endingDate = req.query.endingDate;
 
     let result = bikes;
 
@@ -20,7 +29,7 @@ router.get('',(req,res)=>{
     }
     if (result == []){
         res.status(StatusCodes.NOT_FOUND).send(`Cannot find product with ending date: ${endingDate}`)
-    }
+    }*/
 
 });
 
