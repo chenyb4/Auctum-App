@@ -1,6 +1,6 @@
 const router=require('express').Router();
 const {StatusCodes} = require('http-status-codes');
-const {bikes, bids} =require('../data/data.js');
+let {bikes, bids} =require('../data/data.js');
 const {parse} = require("nodemon/lib/cli");
 
 //get all the products,can be filtered on ending date
@@ -94,12 +94,12 @@ router.put('',(req,res) => {
 });
 
 
-//delete a product
+//delete a bike ---it works
 router.delete('/:id',((req, res) => {
-    for (let product in products) {
-        if(product.id==req.id){
-            products = products.filter(x=>x.id!=req.params.id)
-            res.send('deleted product at id /:id');
+    for (let bike in bikes) {
+        if(bike.id==req.id){
+            bikes = bikes.filter(x=>x.id!=req.params.id)
+            res.send(`deleted bike at id ${req.params.id}`);
         }
     }
 

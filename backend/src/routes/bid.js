@@ -1,5 +1,5 @@
 const router=require('express').Router();
-const { bids,users,bikes } =require('../data/data.js');
+let { bids,users,bikes } =require('../data/data.js');
 const { StatusCodes } = require('http-status-codes');
 
 //lukman please delete it later
@@ -58,12 +58,12 @@ router.post('',(req,res) => {
 
 
 
-//delete a bid by id
+//delete a bid by id ---it works
 router.delete('/:id',((req, res) => {
    for (let bid in bids) {
-      if(user.id==req.id){
-         users = users.filter(x=>x.id!=req.params.id)
-         return res.send(`deleted user at id ${req.params.id}`);
+      if(bid.id==req.id){
+         bids = bids.filter(x=>x.id!=req.params.id)
+         return res.send(`deleted bid at id ${req.params.id}`);
          // res.send('deleted user at id'+req.params.id);
       }
    }

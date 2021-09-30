@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { users } = require('../data/data.js');
+
 const { StatusCodes } = require('http-status-codes');
 
 let {users} =require('../data/data.js');
