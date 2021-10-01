@@ -55,7 +55,7 @@ const bikes=[
     {
         id: 2,
         brand:'Hammer',
-        frameType: 'Prone',
+        frameType: 'Male',
         frameHeightInCm: '100',
         endingDate: new Date(2022,0,10),
     },
@@ -79,6 +79,20 @@ const bikes=[
         frameType: 'Folding',
         frameHeightInCm: '133',
         endingDate: new Date(2022,11,30),
+    },
+    {
+        id: 6,
+        brand:'Hammer',
+        frameType: 'Prone',
+        frameHeightInCm: '100',
+        endingDate: new Date(2022,0,10),
+    },
+    {
+        id: 7,
+        brand:'Hammer',
+        frameType: 'Prone',
+        frameHeightInCm: '130',
+        endingDate: new Date(2022,0,10),
     }
 ];
 
