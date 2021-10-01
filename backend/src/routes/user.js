@@ -26,16 +26,16 @@ router.get('/:id',(req, res) => {
 });
 
 router.post('',(req,res) => {
-    const { name,role,email,passwordHashValue } = req.body;
+    const { name,email,passwordHashValue } = req.body;
 
     let highestId = users[users.length-1].id;
     highestId++;
 
-    if (name && role && email && passwordHashValue){
+    if (name && email && passwordHashValue){
         users.push({
             id:highestId,
             name:name,
-            role:role,
+            role:['client'],
             email:email,
             passwordHashValue:passwordHashValue
         });
