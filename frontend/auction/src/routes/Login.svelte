@@ -1,6 +1,6 @@
 <script>
-let email;
-let password;
+let email = '';
+let password = '';
 
 //login function
 function logIn(){
@@ -24,7 +24,7 @@ function logIn(){
             <div class="card shadow-lg o-hidden border-0 my-5">
                 <div class="card-body p-0">
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-flex">                         <!-- This is correct dont mind the red line -->
+                        <div class="col-lg-6 d-none d-lg-flex">              <!-- This is correct dont mind the red line -->
                             <div class="flex-grow-1 bg-login-image" style="background: url('images/login.jpg') center / cover no-repeat;"></div>
                         </div>
                         <div class="col-lg-6">
@@ -41,17 +41,17 @@ function logIn(){
                                     </h4>
                                 </div>
                                 <form class="user">
-                                    <div class="mb-3"><input value={email} class="form-control form-control-user" type="email"
+                                    <div class="mb-3"><input bind:value={email} class="form-control form-control-user" type="email"
                                                              id="exampleInputEmail" aria-describedby="emailHelp"
                                                              placeholder="Enter Email Address" name="email"
                                                              autocomplete="on" inputmode="email" required=""></div>
-                                    <div class="mb-3"><input value={password} class="form-control form-control-user" type="password"
+                                    <div class="mb-3"><input bind:value={password} class="form-control form-control-user" type="password"
                                                              id="exampleInputPassword" placeholder="Password"
                                                              name="password" required=""></div>
                                     <div class="mb-3">
                                         <div class="custom-control custom-checkbox small"></div>
                                     </div>
-                                    <button on:click={}class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
+                                    <button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
                                 </form>
                                 <div class="text-center"></div>
                                 <div class="text-center" style="margin-top: 5px;"><a class="small" href="/register">Create
