@@ -1,3 +1,6 @@
+const {v4:uuidv4}=require('uuid');
+
+
 const bids=[
     {
         id: 1,
@@ -25,22 +28,24 @@ const users=[
         name:'John Doe',
         role: ['client'],
         email: 'johndoe@hotmail.com',
-        passwordHashValue: '' //Todo: To be determined later
+        passwordHashValue: '$2a$10$D8GtvFzKc8hB/BMf4fitR.lYtYOK.F8b0of3qrhscTDwTNHB0L5Ku', //c123
+        secret:uuidv4()
     },
     {
         id: 2,
         name:'Yibing Doe',
         role: ['client','admin'],
         email: 'yibingdoe@hotmail.com',
-        passwordHashValue: ''
-
+        passwordHashValue: '$2a$10$xVYcfY6h.XkMk51k2NONF.kR0GTvB07lu/Y5yhfxWVb5iY9bkJX7a',//haha12
+        secret:uuidv4()
     },
     {
         id: 3,
         name:'Lukman Doe',
         role: ['admin'],
         email: 'lukmandoe@hotmail.com',
-        passwordHashValue: ''
+        passwordHashValue: '$2a$10$hv.LKxrlGfa8zgJJNx/R8OhUQmLBRdK0yNlYtsfQdUzXqiAJ14Eoe',//oiyoi34
+        secret:uuidv4()
     }
 ];
 
