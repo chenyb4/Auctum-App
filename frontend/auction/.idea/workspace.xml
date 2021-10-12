@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="a2676c03-8669-4547-805e-171211e0b156" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/../../backend/src/data/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/data/data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../backend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../backend/src/routes/bike.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/routes/bike.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../backend/src/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/routes/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fontawesome5-overrides.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/script.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/login.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/register.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/styles.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/Home.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/Login.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/Register.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/auction.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/auction.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Login" />
+        <option value="Register" />
+        <option value="AddBicycle" />
+        <option value="Home" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/public/styles.min.css" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/public/assets/js/script.min.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1yrXZaTNeFPWeje0vLWGEgcq1jh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -27,9 +54,26 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/images" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\luqma\Desktop\Study materials\2nd year HBO-ICT\Web Technology\frontend\auction\public\images" />
+      <recent name="C:\Users\luqma\Desktop\Study materials\2nd year HBO-ICT\Web Technology\frontend\auction\src\assets" />
+      <recent name="C:\Users\luqma\Desktop\Study materials\2nd year HBO-ICT\Web Technology\frontend\auction\public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\luqma\Desktop\Study materials\2nd year HBO-ICT\Web Technology\frontend\auction\public" />
+    </key>
   </component>
   <component name="RunManager" selected="npm.dev">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
@@ -80,6 +124,8 @@
       <updated>1633010739576</updated>
       <workItem from="1633010741200" duration="15000" />
       <workItem from="1633013354249" duration="1326000" />
+      <workItem from="1633958871227" duration="2328000" />
+      <workItem from="1634036139344" duration="3996000" />
     </task>
     <servers />
   </component>
@@ -96,5 +142,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
