@@ -1,15 +1,7 @@
 const router=require('express').Router();
 let { bids,users,bikes } =require('../data/data.js');
 const { StatusCodes } = require('http-status-codes');
-
-//lukman please delete it later
-/*
-const forBike = (forBikeId) => {
-   if (bikes.id.includes(forBikeId)){
-      return true;
-   }
-};
-*/
+const isLoggedIn=require('../middleware/is-logged-in');
 
 
 //get all bids ---it works
@@ -35,7 +27,7 @@ router.get('/:id',(req, res) => {
 
 });
 
-router.post('',(req,res) => {
+router.post('',isLoggedIn,(req,res) => {
    const { price,placedByUserId,forBikeId } = req.body;
 
    let highestId = bids[bids.length-1].id;
