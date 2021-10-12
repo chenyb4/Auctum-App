@@ -1,5 +1,11 @@
 <script>
+let email;
+let password;
 
+//login function
+function logIn(){
+
+}
 
 </script>
 
@@ -35,17 +41,17 @@
                                     </h4>
                                 </div>
                                 <form class="user">
-                                    <div class="mb-3"><input class="form-control form-control-user" type="email"
+                                    <div class="mb-3"><input value={email} class="form-control form-control-user" type="email"
                                                              id="exampleInputEmail" aria-describedby="emailHelp"
                                                              placeholder="Enter Email Address" name="email"
                                                              autocomplete="on" inputmode="email" required=""></div>
-                                    <div class="mb-3"><input class="form-control form-control-user" type="password"
+                                    <div class="mb-3"><input value={password} class="form-control form-control-user" type="password"
                                                              id="exampleInputPassword" placeholder="Password"
                                                              name="password" required=""></div>
                                     <div class="mb-3">
                                         <div class="custom-control custom-checkbox small"></div>
                                     </div>
-                                    <button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
+                                    <button on:click={}class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
                                 </form>
                                 <div class="text-center"></div>
                                 <div class="text-center" style="margin-top: 5px;"><a class="small" href="/register">Create
