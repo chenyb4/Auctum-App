@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { StatusCodes } = require('http-status-codes');
-
+const bcrypt = require("bcrypt");
 let {users} =require('../data/data.js');
 
 //get all clients ---it works
@@ -25,10 +25,14 @@ router.get('/:id',(req, res) => {
     res.send(result);
 });
 
+//Does work
 router.post('',(req,res) => {
-    const { name,email,passwordHashValue } = req.body;
+    const { name,email,password } = req.body;
 
+    let passwordHashValue;
 
+    const salt = bcrypt.genSaltSync(10);
+    passwordHashValue = bcrypt.hashSync(password, salt);
 
     let highestId = users[users.length-1].id;
     highestId++;
