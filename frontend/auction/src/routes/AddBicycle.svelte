@@ -1,15 +1,25 @@
 <script>
+    import tokenStore from '../stores/token';
     let targetURL = 'http://localhost:3000/bikes';
     let bikes = [];
-    import tokenStore from '../stores/token'
+    let postNewBrand,postNewFrameType,postNewFrameHeight,postNewDate = '';
+    let bikeId,editBrand,editFrameType,editFrameHeight = '';
+    let today = new Date().toISOString().split("T")[0];
 
+    //How do I get the token form login page
+    /*if ($tokenStore.token == ''){
+        alert('You are not logged in, returning back to login page...');
+        window.location = '/login';
+    }*/
+
+    //does work
     async function getBikes () {
         try {
             await fetch(targetURL, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
-                    'authorization': 'Bearer '+$tokenStore
+                    'authorization': 'Bearer '+$tokenStore.token
                 }
             })
                 .then(response => response.json())
@@ -19,6 +29,92 @@
             console.error(e);
         }
     }
+
+    //does work
+    async function addBike() {
+        await fetch(targetURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': 'Bearer '+$tokenStore.token
+            },
+            body: JSON.stringify({
+                brand:postNewBrand,
+                frameType:postNewFrameType,
+                frameHeightInCm:postNewFrameHeight,
+                endingDate:postNewDate
+            }),
+        })
+            .then(async (res) => {
+                if (res.ok) {
+                    console.log("Success!");
+                } else {
+                    res.json().then((body) => {
+                        console.error(body.message || "Internal error");
+                    });
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }
+
+    //does work
+    async function editBike () {
+        await fetch(targetURL, {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json',
+                'authorization': 'Bearer '+$tokenStore.token
+            },
+            body: JSON.stringify({
+                id: bikeId,
+                brand:editBrand,
+                frameType:editFrameType,
+                frameHeightInCm:editFrameHeight
+            })
+        }).then((res) => {
+            if (res.ok) {
+                console.log("Success!");
+            } else {
+                res.json().then((body) => {
+                    console.error(body.message || "Internal error");
+                });
+            }
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
+
+    //does work
+    async function deleteBike (bikeId) {
+
+        await fetch(targetURL+'/'+bikeId, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json',
+                'authorization': 'Bearer '+$tokenStore.token
+            }
+        })
+            .then(async (res) => {
+                if (res.ok) {
+                    console.log("Success!");
+                } else {
+                    res.json().then((body) => {
+                        console.error(body.message || "Internal error");
+                    });
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }
+
+    function getId(id) {
+        bikeId = id;
+        return id;
+    }
+
     getBikes();
 </script>
 
@@ -42,11 +138,23 @@
             </div>
         </a>
             <ul class="navbar-nav text-light" id="accordionSidebar" style="margin-top: 16px;">
-                <li class="nav-item"><a class="nav-link" href="/home"><i class="fas fa-tachometer-alt"></i><span>&nbsp;Auctions</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Auctions</span>
+                    </a>
                 </li>
-                <li class="nav-item"><a class="nav-link active" href="/add-bicycle"><i
-                        class="far fa-user-circle"></i><span>Add bicycle</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="/login"><i class="far fa-user-circle"></i><span>Log out</span></a>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/add-bicycle">
+                        <i class="far fa-user-circle"></i>
+                        <span>Add bicycle</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a on:click={$tokenStore.token = ''} class="nav-link" href="/login">
+                        <i class="far fa-user-circle"></i>
+                        <span>Log out</span>
+                    </a>
                 </li>
             </ul>
             <div class="text-center d-none d-md-inline">
@@ -75,10 +183,13 @@
                 <div><h3 class="text-dark">Welcome admin</h3><h4 class="text-dark"
                                                                  style="margin: -1px -1px 5px;">Here you can
                     add, remove or modify bikes</h4>
-                    <h4 class="text-dark" style="margin-bottom: 13px;">Add bicycle here&nbsp;<button
+                    <h4 class="text-dark" style="margin-bottom: 13px;">Add bicycle here&nbsp;
+                        <button
                             class="btn btn-primary border rounded-circle justify-content-xl-center align-items-xl-center"
                             id="add-button" type="button" style="border-radius: 0;" data-bs-target="#modal-3"
-                            data-bs-toggle="modal"><i class="fas fa-plus"></i></button>
+                            data-bs-toggle="modal">
+                            <i class="fas fa-plus"></i>
+                        </button>
                     </h4>
                 </div>
                 <div class="row">
@@ -89,7 +200,7 @@
                                 <tr class="text-center">
                                     <th>Brand</th>
                                     <th>Frame Type</th>
-                                    <th>Frame Height</th>
+                                    <th>Frame Height in cm</th>
                                     <th>Ending date</th>
                                     <th></th>
                                     <th></th>
@@ -103,14 +214,16 @@
                                         <td>{bike.frameHeightInCm}</td>
                                         <td>{bike.endingDate}</td>
                                         <td>
-                                            <button class="btn btn-danger" type="button">Delete</button>
+                                            <button on:click={deleteBike(bike.id)} class="btn btn-danger" type="button">Delete</button>
                                         </td>
                                         <td>
-                                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                            <button on:click={getId(bike.id)} class="btn btn-primary" type="button" data-bs-toggle="collapse"
                                                     data-bs-target="#form">Modify
                                             </button>
                                         </td>
                                     </tr>
+                                    {:else}
+                                    <span class="spinner-border mt-2" role="status"></span>
                                 {/each}
                                 </tbody>
                             </table>
@@ -119,14 +232,16 @@
                 </div>
                 <div class="row collapse" id="form">
                     <div class="col">
-                        <form><input class="form-control oneLine" type="text" name="brand"
-                                     placeholder="Enter the modified brand" style="width: 60%;margin-bottom: 10px;"
-                                     required=""><input class="form-control oneLine" type="text"
-                                                        placeholder="Enter your frame type" name="frame-type"
-                                                        style="width: 60%;margin-bottom: 10px;" required=""><input
-                                class="form-control oneLine" type="text" placeholder="Enter frame height" name="frame-height"
-                                style="width: 60%;margin-bottom: 10px;" required="">
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                        <form>
+                            <input bind:value={editBrand} class="form-control oneLine" type="text" name="brand"
+                                     placeholder="Enter the brand" style="width: 60%;margin-bottom: 10px;"
+                                     required>
+                            <input bind:value={editFrameType} class="form-control oneLine" type="text"
+                                   placeholder="Enter your frame type" name="frame-type"
+                                   style="width: 60%;margin-bottom: 10px;" required>
+                            <input bind:value={editFrameHeight} class="form-control oneLine" type="number" placeholder="Enter frame height (cm)" name="frame-height"
+                                style="width: 60%;margin-bottom: 10px;" required>
+                            <button on:click={editBike} class="btn btn-primary mb-4" type="submit">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -134,7 +249,7 @@
         </div>
         <footer class="bg-white d-xl-flex justify-content-xl-center align-items-xl-end sticky-footer">
             <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © Brand 2021</span></div>
+                <div class="text-center my-auto copyright"><span>Copyright © Auctum 2021</span></div>
             </div>
         </footer>
     </div>
@@ -146,15 +261,17 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form><input class="form-control oneLine" type="text" style="margin-bottom: 8px;" placeholder="Enter the brand"><input
-                        class="form-control oneLine" type="text" style="margin-bottom: 8px;" placeholder="Enter the frame type"><input
-                        class="form-control oneLine" type="number" style="margin-bottom: 8px;"
-                        placeholder="Enter the frame height"><label class="form-label" for="date">Enter the ending
-                    date</label><input class="form-control oneLine" id="date" type="date" name="date"></form>
+                <form>
+                    <input bind:value={postNewBrand} class="form-control oneLine" type="text" style="margin-bottom: 8px;" placeholder="Enter the brand" required>
+                    <input bind:value={postNewFrameType} class="form-control oneLine" type="text" style="margin-bottom: 8px;" placeholder="Enter the frame type" required>
+                    <input bind:value={postNewFrameHeight} class="form-control oneLine" type="number" style="margin-bottom: 8px;" placeholder="Enter the frame height in cm" required>
+                    <label class="form-label" for="date">Enter the ending date</label>
+                    <input min={today} bind:value={postNewDate} class="form-control oneLine" id="date" type="date" name="date" required>
+                </form>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="button">Save</button>
+                <button on:click={addBike} class="btn btn-primary" type="submit">Save</button>
             </div>
         </div>
     </div>
