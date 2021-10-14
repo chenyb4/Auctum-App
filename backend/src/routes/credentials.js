@@ -33,7 +33,7 @@ router.post('',(req, res) => {
     if(email&&password){
         const token=logIn(email,password);
         if(token){
-            res.send({token:token});
+            res.send({token});
         }else{
             res.status(StatusCodes.UNAUTHORIZED).send('credentials incorrect!');
         }

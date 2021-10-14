@@ -8,6 +8,7 @@
 	let page;
 	let params;
 
+	routes('/', (ctx) => page = (Login));
 	routes('/home', (ctx) => page = (Home));
 	routes('/login', (ctx) => page = (Login));
 	routes('/register', (ctx) => page = (Register));
