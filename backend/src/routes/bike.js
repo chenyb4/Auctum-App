@@ -135,12 +135,6 @@ router.delete('/:id',((req, res) => {
     }
 
     res.send('cannot find a product with this id');
-
-
-
-
-
-
 }) );
 
 

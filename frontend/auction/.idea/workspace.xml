@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2676c03-8669-4547-805e-171211e0b156" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/../../backend/src/routes/credentials.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/register.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/node_modules/.package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../backend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../backend/src/middleware/is-logged-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/middleware/is-logged-in.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/routes/bike.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/routes/bike.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/routes/credentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/routes/credentials.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/styles.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/styles.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/Home.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Home.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/Login.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Login.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/Register.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Register.svelte" afterDir="false" />
     </list>
@@ -35,8 +41,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/public/assets/js/script.min.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/public/styles.min.css" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/public/bootstrap.min.css" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/public/assets/js/script.min.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1yrXZaTNeFPWeje0vLWGEgcq1jh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -121,6 +128,9 @@
       <workItem from="1633958871227" duration="2328000" />
       <workItem from="1634036139344" duration="3996000" />
       <workItem from="1634058037978" duration="1963000" />
+      <workItem from="1634147828366" duration="5313000" />
+      <workItem from="1634159179723" duration="5786000" />
+      <workItem from="1634217235368" duration="2293000" />
     </task>
     <servers />
   </component>

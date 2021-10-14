@@ -1,18 +1,18 @@
 const router=require('express').Router();
 let { bids,users,bikes } =require('../data/data.js');
 const { StatusCodes } = require('http-status-codes');
-const isLoggedIn=require('../middleware/is-logged-in');
+const isLoggedIn =require('../middleware/is-logged-in');
 const bcrypt = require("bcrypt");
-const jwt=require('jsonwebtoken');
+const jwt =require('jsonwebtoken');
 
-const logIn=(email,password)=>{
-    const user= users.find((user)=>{
+const logIn = (email,password) => {
+    const user= users.find((user) => {
         return user.email===email;
     });
 
     //if user found, check password. if not, status code unauthorized
     if(user){
-        const result=bcrypt.compareSync(password, user.passwordHashValue);
+        const result = bcrypt.compareSync(password, user.passwordHashValue);
         if(result){
             //user is authenticated, send a token
             return jwt.sign({
@@ -21,8 +21,6 @@ const logIn=(email,password)=>{
             },user.secret);
         }
     }
-
-
     return false;
 };
 

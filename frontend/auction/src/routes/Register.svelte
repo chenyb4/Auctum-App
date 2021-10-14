@@ -39,33 +39,42 @@
                 </div>
                 <div class="col-lg-7">
                     <div class="p-5">
-                        <div class="text-center"><h4 class="text-dark mb-4" style="font-family: Nunito, sans-serif;">
-                            Create an Account!</h4></div>
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Create an Account!</h4>
+                        </div>
                         <form class="user">
                             <div class="row mb-3">
-                                <div class="col mb-3 mb-sm-0"><input bind:value={name} class="form-control form-control-user" type="text"
-                                                                     id="exampleFirstName" placeholder="Enter your name"
-                                                                     name="name" required="" minlength="3"></div>
+                                <div class="col mb-3 mb-sm-0">
+                                    <input bind:value={name} class="form-control form-control-user" type="text"
+                                           id="exampleFirstName" placeholder="Enter your name"
+                                           name="name" required="" minlength="3">
+                                </div>
                             </div>
-                            <div class="mb-3"><input bind:value={email} class="form-control form-control-user" type="email"
-                                                     id="exampleInputEmail" aria-describedby="emailHelp"
-                                                     placeholder="Enter your Email Address" name="email" required=""
-                                                     inputmode="email"></div>
+                            <div class="mb-3">
+                                <input bind:value={email} class="form-control form-control-user" type="email"
+                                       id="exampleInputEmail" aria-describedby="emailHelp"
+                                       placeholder="Enter your Email Address" name="email" required
+                                       inputmode="email">
+                            </div>
                             <div class="row mb-3">
-                                <div class="col-sm-6 mb-3 mb-sm-0"><input bind:value={password} class="form-control form-control-user"
-                                                                          type="password" id="examplePasswordInput"
-                                                                          placeholder="Enter your Password"
-                                                                          name="password" required=""></div>
-                                <div class="col-sm-6"><input bind:value={passwordRepeat} class="form-control form-control-user" type="password"
-                                                             id="exampleRepeatPasswordInput"
-                                                             placeholder="Repeat your Password" name="password_repeat"
-                                                             required=""></div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input bind:value={password} class="form-control form-control-user"
+                                           type="password" id="examplePasswordInput"
+                                           placeholder="Enter your Password"
+                                           name="password" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input bind:value={passwordRepeat} class="form-control form-control-user" type="password"
+                                           id="exampleRepeatPasswordInput"
+                                           placeholder="Repeat your Password" name="password_repeat" required>
+                                </div>
                             </div>
                             <button class="btn btn-primary d-block btn-user w-100" type="submit">Register Account
                             </button>
                         </form>
-                        <div class="text-center" style="margin-top: 5px;"><a class="small" href="/login">Already
-                            have an account? Login!</a></div>
+                        <div class="text-center" style="margin-top: 5px;">
+                            <a class="small" href="/login">Already have an account? Login!</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,5 +90,4 @@
         overflow: auto;
         height: 100vh;
     }
-
 </style>
