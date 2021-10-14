@@ -10,7 +10,18 @@
         }
         return false;
     }
-    console.log(currentUser);*/
+    console.log(currentUser);
+
+
+    // for displaying the auctions
+    let bikes;
+    async function getAllBikes(){
+        let response= await fetch('http://localhost:3000/bikes');
+        let respJson=response.json();
+
+    }
+
+
 </script>
 
 <head>
