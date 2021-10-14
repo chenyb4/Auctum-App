@@ -1,16 +1,16 @@
 <script>
 
-    let name,email,password,passwordRepeat;
+    let name,email,password,passwordRepeat = '';
 
     function register(){
 
-        if(password==passwordRepeat){
+        if(password == passwordRepeat){
             let userBody=[];
             userBody.name=name;
             userBody.email=email;
             userBody.password=password;
 
-        }else {
+        } else {
             alert('The passwords you entered are not the same. Please check.')
         }
 
@@ -34,9 +34,8 @@
     <div class="card shadow-lg o-hidden border-0 my-5">
         <div class="card-body p-0">
             <div class="row">
-                <div class="col-lg-5 d-none d-lg-flex">
-                    <div class="flex-grow-1 bg-register-image"
-                         style="background: url('src/images/register.jpg') center / cover no-repeat;"></div>
+                <div class="col-lg-5 d-none d-lg-flex">                           <!-- Also this is correct -->
+                    <div class="flex-grow-1 bg-register-image" style="background: url('images/register.jpg') center / cover no-repeat;"></div>
                 </div>
                 <div class="col-lg-7">
                     <div class="p-5">
@@ -44,20 +43,20 @@
                             Create an Account!</h4></div>
                         <form class="user">
                             <div class="row mb-3">
-                                <div class="col mb-3 mb-sm-0"><input value={name} class="form-control form-control-user" type="text"
+                                <div class="col mb-3 mb-sm-0"><input bind:value={name} class="form-control form-control-user" type="text"
                                                                      id="exampleFirstName" placeholder="Enter your name"
                                                                      name="name" required="" minlength="3"></div>
                             </div>
-                            <div class="mb-3"><input value={email} class="form-control form-control-user" type="email"
+                            <div class="mb-3"><input bind:value={email} class="form-control form-control-user" type="email"
                                                      id="exampleInputEmail" aria-describedby="emailHelp"
                                                      placeholder="Enter your Email Address" name="email" required=""
                                                      inputmode="email"></div>
                             <div class="row mb-3">
-                                <div class="col-sm-6 mb-3 mb-sm-0"><input value={password} class="form-control form-control-user"
+                                <div class="col-sm-6 mb-3 mb-sm-0"><input bind:value={password} class="form-control form-control-user"
                                                                           type="password" id="examplePasswordInput"
                                                                           placeholder="Enter your Password"
                                                                           name="password" required=""></div>
-                                <div class="col-sm-6"><input value={passwordRepeat} class="form-control form-control-user" type="password"
+                                <div class="col-sm-6"><input bind:value={passwordRepeat} class="form-control form-control-user" type="password"
                                                              id="exampleRepeatPasswordInput"
                                                              placeholder="Repeat your Password" name="password_repeat"
                                                              required=""></div>
