@@ -10,10 +10,10 @@ const isLoggedIn= (req,res,next)=>{
 
     const token =getTokenFromRequest(req);
 
+    //console.log("token before if", token);
     if(token){
         const payload=verifyToken(token);
 
-        //payload is null here wtf
         if(payload){
             req.user=payload;
             return next();
@@ -29,7 +29,7 @@ const getTokenFromRequest=(req)=>{
     const authHeader=req.headers['authorization'];
 
     if(authHeader){
-        return authHeader.split(' ');
+        return authHeader.split(' ')[1];
     }
 
     return false;

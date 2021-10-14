@@ -16,8 +16,10 @@ const logIn=(email,password)=>{
         if(result){
             //user is authenticated, send a token
             return jwt.sign({
-                email:user.email,
-                role:user.role
+                id:user.id,
+                role:user.role,
+                name:user.name,
+                email:user.email
             },user.secret);
         }
     }
