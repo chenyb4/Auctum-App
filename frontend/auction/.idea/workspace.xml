@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a2676c03-8669-4547-805e-171211e0b156" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/../../backend/src/middleware/is-logged-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/middleware/is-logged-in.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/routes/credentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/routes/credentials.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/routes/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,7 +114,7 @@
       <workItem from="1633013354249" duration="1326000" />
       <workItem from="1633958871227" duration="2328000" />
       <workItem from="1634036139344" duration="3996000" />
-      <workItem from="1634058037978" duration="3106000" />
+      <workItem from="1634058037978" duration="3761000" />
     </task>
     <servers />
   </component>

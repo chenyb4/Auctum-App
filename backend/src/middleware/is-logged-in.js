@@ -10,10 +10,10 @@ const isLoggedIn= (req,res,next)=>{
 
     const token =getTokenFromRequest(req);
 
-    console.log("token before if", token);
+    //console.log("token before if", token);
     if(token){
         const payload=verifyToken(token);
-        
+
         if(payload){
             req.user=payload;
             return next();
