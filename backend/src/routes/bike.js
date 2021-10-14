@@ -77,7 +77,7 @@ router.get('/:id',(req, res) => {
 
 
 
-//create a bike
+//Does work
 router.post('',(req, res) => {
     const { brand,frameType,frameHeightInCm,endingDate } = req.body;
 
@@ -100,6 +100,7 @@ router.post('',(req, res) => {
     }
 });
 
+//Does work
 router.put('',(req,res) => {
     const { brand,frameType,frameHeightInCm } = req.body;
     //const id = parseInt(req.params.id);
