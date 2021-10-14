@@ -1,11 +1,32 @@
-<script>
-let email = '';
-let password = '';
+<script context="module">
+    let email,password = '';
+    let targetURL = 'http://localhost:3000/credentials';
+    export let user = [];
 
-//login function
-function logIn(){
+    //login function
+    async function login () {
+        const response = await fetch(targetURL, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+            }).then(async (res) => {
+            if (res.ok) {
+                console.log('Login successfully')
+                window.location = '/home'
+                return response.json();
+            } else {
+                throw new Error(await res.text());
+            }
+        }).catch((err)=>{
+            alert(err);
+        })
+    }
 
-}
 
 </script>
 
@@ -39,23 +60,31 @@ function logIn(){
                                               fill="currentColor"></path>
                                     </svg>
                                     </h4>
+                                    <!--{#if checkUserInput}
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                            </button>
+                                            <span><strong>Incorrect Email or Password</strong></span>
+                                        </div>
+                                    {/if}-->
                                 </div>
                                 <form class="user">
-                                    <div class="mb-3"><input bind:value={email} class="form-control form-control-user" type="email"
-                                                             id="exampleInputEmail" aria-describedby="emailHelp"
-                                                             placeholder="Enter Email Address" name="email"
-                                                             autocomplete="on" inputmode="email" required=""></div>
-                                    <div class="mb-3"><input bind:value={password} class="form-control form-control-user" type="password"
-                                                             id="exampleInputPassword" placeholder="Password"
-                                                             name="password" required=""></div>
                                     <div class="mb-3">
-                                        <div class="custom-control custom-checkbox small"></div>
+                                        <input bind:value={email} class="form-control form-control-user" type="email"
+                                               id="exampleInputEmail" aria-describedby="emailHelp"
+                                               placeholder="Enter Email Address" name="email"
+                                               autocomplete="on" inputmode="email" required>
                                     </div>
-                                    <button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
+                                    <div class="mb-3">
+                                        <input bind:value={password} class="form-control form-control-user" type="password"
+                                               id="exampleInputPassword" placeholder="Password"
+                                               name="password" required>
+                                    </div>
+                                    <button class="btn btn-primary d-block btn-user w-100" type="submit" on:click|preventDefault={login}>Login</button>
                                 </form>
-                                <div class="text-center"></div>
-                                <div class="text-center" style="margin-top: 5px;"><a class="small" href="/register">Create
-                                    an Account!</a></div>
+                                <div class="text-center" style="margin-top: 5px;">
+                                    <a class="small" href="/register">Create an Account!</a>
+                                </div>
                             </div>
                         </div>
                     </div>

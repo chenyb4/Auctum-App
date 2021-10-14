@@ -1,5 +1,4 @@
 <script>
-	export let name;
 	import routes from 'page'
 	import Home from './routes/Home.svelte';
 	import Login from "./routes/Login.svelte";

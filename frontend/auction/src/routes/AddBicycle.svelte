@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body id="page-top">
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
@@ -48,13 +47,20 @@
                         </div>
                     </form>
                     <ul class="navbar-nav flex-nowrap ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#">Email here</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Name here</a></li>
                     </ul>
                 </div>
             </nav>
             <div class="container-fluid">
-                <div><h3 class="text-dark">Welcome admin</h3><h4 class="text-dark" style="margin-bottom: 13px;">Here you
-                    can add, remove or modify bikes</h4></div>
+                <div><h3 class="text-dark">Welcome admin</h3><h4 class="text-dark"
+                                                                 style="margin: -1px;margin-bottom: 5px;">Here you can
+                    add, remove or modify bikes</h4>
+                    <h4 class="text-dark" style="margin-bottom: 13px;">Add bicycle here&nbsp;<button
+                            class="btn btn-primary border rounded-circle justify-content-xl-center align-items-xl-center"
+                            id="add-button" type="button" style="border-radius: 0px;" data-bs-target="#modal-3"
+                            data-bs-toggle="modal"><i class="fas fa-plus"></i></button>
+                    </h4>
+                </div>
                 <div class="row">
                     <div class="col">
                         <div class="table-responsive">
@@ -111,6 +117,26 @@
         </footer>
     </div>
     <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-3">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header"><h4 class="modal-title">Add bicycle</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form><input class="form-control oneLine" type="text" style="margin-bottom: 8px;" placeholder="Enter the brand"><input
+                        class="form-control oneLine" type="text" style="margin-bottom: 8px;" placeholder="Enter the frame type"><input
+                        class="form-control oneLine" type="number" style="margin-bottom: 8px;"
+                        placeholder="Enter the frame height"><label class="form-label" for="date">Enter the ending
+                    date</label><input class="form-control oneLine" id="date" type="date" name="date"></form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="button">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/script.min.js"></script>
 </body>
