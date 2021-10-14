@@ -1,5 +1,5 @@
 <script>
-    import { user } from './Login.svelte'
+    /*import { user } from './Login.svelte'
     let currentUser = user;
 
     function checkAdmin () {
