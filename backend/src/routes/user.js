@@ -28,6 +28,8 @@ router.get('/:id',(req, res) => {
 router.post('',(req,res) => {
     const { name,email,passwordHashValue } = req.body;
 
+
+
     let highestId = users[users.length-1].id;
     highestId++;
 
