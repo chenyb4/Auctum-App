@@ -1,8 +1,9 @@
 <script>
 
+    let targetURL = 'http://localhost:3000/users';
     let name,email,password,passwordRepeat = '';
 
-    function register(){
+    async function register(){
 
         if(password == passwordRepeat){
             let userBody=[];
@@ -10,11 +11,35 @@
             userBody.email=email;
             userBody.password=password;
 
+            const response=await fetch(targetURL,{
+                method:'POST',
+                headers:{
+                    'Content-type': 'application/json'
+                },
+                body:JSON.stringify({
+                    name:name,
+                    email:email,
+                    password:password
+                })
+            }).then(async (res)=>{
+                if(res.ok){
+                    console.log('Register successfully.');
+                    window.location='/login';
+                    return response.json();
+                }else{
+                    throw new Error(await res.text());
+                }
+            }).catch((err)=>{
+                alert(err);
+            })
+
         } else {
             alert('The passwords you entered are not the same. Please check.')
         }
 
     }
+
+
 
 
 
@@ -69,7 +94,7 @@
                                            placeholder="Repeat your Password" name="password_repeat" required>
                                 </div>
                             </div>
-                            <button class="btn btn-primary d-block btn-user w-100" type="submit">Register Account
+                            <button on:click={register} class="btn btn-primary d-block btn-user w-100" type="submit">Register Account
                             </button>
                         </form>
                         <div class="text-center" style="margin-top: 5px;">

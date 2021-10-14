@@ -16,8 +16,8 @@
             })
             }).then(async (res) => {
             if (res.ok) {
-                console.log('Login successfully')
-                window.location = '/home'
+                console.log('Login successfully');
+                window.location = '/home';
                 return response.json();
             } else {
                 throw new Error(await res.text());
