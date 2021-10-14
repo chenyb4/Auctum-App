@@ -1,7 +1,8 @@
-<script context="module">
+<script>
     let email,password = '';
     let targetURL = 'http://localhost:3000/credentials';
-    export let user = [];
+    let user = [];
+    import tokenStore from '../stores/token'
 
     //login function
     async function login () {
@@ -17,8 +18,8 @@
             }).then(async (res) => {
             if (res.ok) {
                 console.log('Login successfully');
-                window.location = '/home';
-                return response.json();
+                //window.location = '/home';
+                $tokenStore = await res.json();
             } else {
                 throw new Error(await res.text());
             }
@@ -26,8 +27,6 @@
             alert(err);
         })
     }
-
-
 </script>
 
 <head>

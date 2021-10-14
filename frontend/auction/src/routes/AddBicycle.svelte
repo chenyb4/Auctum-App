@@ -1,6 +1,25 @@
 <script>
+    let targetURL = 'http://localhost:3000/bikes';
+    let bikes = [];
+    import tokenStore from '../stores/token'
 
+    async function getBikes () {
+        try {
+            await fetch(targetURL, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'authorization': 'Bearer '+$tokenStore
+                }
+            })
+                .then(response => response.json())
+                .then(json => bikes = json);
 
+        }catch (e){
+            console.error(e);
+        }
+    }
+    getBikes();
 </script>
 
 <head>
@@ -10,6 +29,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body id="page-top">
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
@@ -53,11 +73,11 @@
             </nav>
             <div class="container-fluid">
                 <div><h3 class="text-dark">Welcome admin</h3><h4 class="text-dark"
-                                                                 style="margin: -1px;margin-bottom: 5px;">Here you can
+                                                                 style="margin: -1px -1px 5px;">Here you can
                     add, remove or modify bikes</h4>
                     <h4 class="text-dark" style="margin-bottom: 13px;">Add bicycle here&nbsp;<button
                             class="btn btn-primary border rounded-circle justify-content-xl-center align-items-xl-center"
-                            id="add-button" type="button" style="border-radius: 0px;" data-bs-target="#modal-3"
+                            id="add-button" type="button" style="border-radius: 0;" data-bs-target="#modal-3"
                             data-bs-toggle="modal"><i class="fas fa-plus"></i></button>
                     </h4>
                 </div>
@@ -70,26 +90,28 @@
                                     <th>Brand</th>
                                     <th>Frame Type</th>
                                     <th>Frame Height</th>
-                                    <th>Highest bid</th>
+                                    <th>Ending date</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                <tr>
-                                    <td>Gazelle</td>
-                                    <td>Diamond</td>
-                                    <td>53</td>
-                                    <td>300$</td>
-                                    <td>
-                                        <button class="btn btn-danger" type="button">Delete</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#form">Modify
-                                        </button>
-                                    </td>
-                                </tr>
+                                {#each bikes as bike (bike.id)}
+                                    <tr>
+                                        <td>{bike.brand}</td>
+                                        <td>{bike.frameType}</td>
+                                        <td>{bike.frameHeightInCm}</td>
+                                        <td>{bike.endingDate}</td>
+                                        <td>
+                                            <button class="btn btn-danger" type="button">Delete</button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#form">Modify
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {/each}
                                 </tbody>
                             </table>
                         </div>
