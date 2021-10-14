@@ -134,11 +134,8 @@ router.delete('/:id',((req, res) => {
             res.send(`deleted bike at id ${req.params.id}`);
         }
     }
-
     res.send('cannot find a product with this id');
 }) );
-
-
 
 module.exports=router;
 

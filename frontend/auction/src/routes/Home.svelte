@@ -1,4 +1,5 @@
 <script>
+    import tokenStore from "../stores/token";
     /*import { user } from './Login.svelte'
     let currentUser = user;
 
@@ -44,7 +45,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="/home">
                         <i class="fas fa-tachometer-alt"></i>
-                        <span>&nbsp;Auctions</span>
+                        <span>Auctions</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -54,7 +55,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">
+                    <a on:click={$tokenStore.token = ''} class="nav-link" href="/login">
                         <i class="far fa-user-circle"></i>
                         <span>Log out</span>
                     </a>
