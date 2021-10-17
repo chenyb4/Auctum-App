@@ -21,9 +21,9 @@ router.get('/:id',(req, res) => {
    });
 
    if (result == null){
-      res.status(StatusCodes.NOT_FOUND).send(`Cannot find bid with id: ${id}`);
+      return res.status(StatusCodes.NOT_FOUND).send(`Cannot find bid with id: ${id}`);
    }
-   res.send(result);
+   return res.send(result);
 
 });
 
@@ -59,7 +59,7 @@ router.delete('/:id',((req, res) => {
          // res.send('deleted user at id'+req.params.id);
       }
    }
-   res.send('cannot find a user with this id');
+   return res.send('cannot find a user with this id');
 }) );
 
 

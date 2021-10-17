@@ -12,6 +12,7 @@
         return false;
     }
     console.log(currentUser);*/
+
 </script>
 
 <head>
@@ -20,8 +21,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bad+Script&amp;display=swap">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
-
 <body id="page-top">
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
@@ -258,5 +259,4 @@
             margin-top: .5rem
         }
     }
-
 </style>

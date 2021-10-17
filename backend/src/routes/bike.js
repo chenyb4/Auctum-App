@@ -31,9 +31,9 @@ router.get('',(req,res)=>{
     }
 
     if (resultBikes == []){
-        res.status(StatusCodes.NOT_FOUND).send(`Cannot find product with ending date: ${endingDate}`)
+        return res.status(StatusCodes.NOT_FOUND).send(`Cannot find product with ending date: ${endingDate}`)
     }else{
-        res.send(resultBikes);
+        return res.send(resultBikes);
     }
 
 
@@ -67,12 +67,12 @@ router.get('/:id',(req, res) => {
     });
 
     if (result == null){
-        res
+        return res
             .send(`Cannot find client with id: ${id}`)
             .sendStatus(StatusCodes.NOT_FOUND);
     }
 
-    res.send(result);
+    return res.send(result);
 });
 
 
@@ -83,6 +83,8 @@ router.post('',(req, res) => {
 
     let highestId = bikes[bikes.length-1].id;
     highestId++;
+
+    //We need to add something here if there is no bike because the highest id then will be undefined
 
     if (brand && frameType && frameHeightInCm && endingDate){
         bikes.push({
@@ -121,7 +123,7 @@ router.put('',(req,res) => {
         }
     //}
 
-    res.status(StatusCodes.BAD_REQUEST).end('Something is wrong with your input!');
+    return res.status(StatusCodes.BAD_REQUEST).end('Something is wrong with your input!');
 
 });
 
@@ -131,10 +133,10 @@ router.delete('/:id',((req, res) => {
     for (let bike in bikes) {
         if(bike.id==req.id){
             bikes = bikes.filter(x=>x.id!=req.params.id)
-            res.send(`deleted bike at id ${req.params.id}`);
+            return res.send(`deleted bike at id ${req.params.id}`);
         }
     }
-    res.send('cannot find a product with this id');
+    return res.send('cannot find a product with this id');
 }) );
 
 module.exports=router;

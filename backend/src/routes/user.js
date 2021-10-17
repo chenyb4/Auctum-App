@@ -18,11 +18,11 @@ router.get('/:id',(req, res) => {
         return user.id == id;
     });
     if (result == null){
-        res
+        return res
             .send(`Cannot find user with id: ${id}`)
             .sendStatus(StatusCodes.NOT_FOUND);
     }
-    res.send(result);
+    return res.send(result);
 });
 
 //Does work
@@ -63,7 +63,7 @@ router.delete('/:id',((req, res) => {
            // res.send('deleted user at id'+req.params.id);
         }
     }
-    res.send('cannot find a user with this id');
+    return res.send('cannot find a user with this id');
 }) );
 
 
