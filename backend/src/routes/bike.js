@@ -2,9 +2,11 @@ const router=require('express').Router();
 const {StatusCodes} = require('http-status-codes');
 let {bikes, bids} =require('../data/data.js');
 const {parse} = require("nodemon/lib/cli");
+const isLoggedIn=require('../middleware/is-logged-in');
+const isAdmin=require('../middleware/is-admin');
 
 //get all the bikes ---it works
-router.get('',(req,res)=>{
+router.get('',isLoggedIn, (req,res)=>{
 
     const brand=req.query.brand;
     const frameType=req.query.frameType;
@@ -56,7 +58,7 @@ router.get('',(req,res)=>{
 });
 
 //get one bike by id --- it works
-router.get('/:id',(req, res) => {
+router.get('/:id',isLoggedIn,(req, res) => {
     const id = req.params.id;
 
     let result;
@@ -78,7 +80,7 @@ router.get('/:id',(req, res) => {
 
 
 //Does work
-router.post('',(req, res) => {
+router.post('',isLoggedIn,isAdmin,(req, res) => {
     const { brand,frameType,frameHeightInCm,endingDate } = req.body;
 
     let highestId = bikes[bikes.length-1].id;
@@ -103,7 +105,7 @@ router.post('',(req, res) => {
 });
 
 //Does work
-router.put('',(req,res) => {
+router.put('',isLoggedIn,isAdmin,(req,res) => {
     const { brand,frameType,frameHeightInCm } = req.body;
     //const id = parseInt(req.params.id);
     const bodyId = parseInt(req.body.id);
@@ -129,7 +131,7 @@ router.put('',(req,res) => {
 
 
 //delete a bike ---it works
-router.delete('/:id',((req, res) => {
+router.delete('/:id',isLoggedIn,isAdmin, ((req, res) => {
     for (let bike in bikes) {
         if(bike.id==req.id){
             bikes = bikes.filter(x=>x.id!=req.params.id)
