@@ -3,15 +3,17 @@ const {v4:uuidv4}=require('uuid');
 const { StatusCodes } = require('http-status-codes');
 const bcrypt = require("bcrypt");
 let {users} =require('../data/data.js');
+const isLoggedIn=require('../middleware/is-logged-in');
+const isAdmin=require('../middleware/is-admin');
 
 //get all clients ---it works
-router.get('',(req,res)=>{
+router.get('',isLoggedIn,isAdmin,(req,res)=>{
     let result = users;
     res.send(result);
 });
 
 //get one client by id---- it works
-router.get('/:id',(req, res) => {
+router.get('/:id',isLoggedIn,isAdmin,(req, res) => {
     const id = req.params.id;
     let result;
     result = users.find((user) => {
@@ -56,7 +58,7 @@ router.post('',(req,res) => {
 
 
 //delete a client on id ---it works
-router.delete('/:id',((req, res) => {
+router.delete('/:id',isLoggedIn,isAdmin,((req, res) => {
     for (let user in users) {
         if(user.id==req.id){
             users = users.filter(x=>x.id!=req.params.id)

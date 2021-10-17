@@ -5,7 +5,7 @@ const isLoggedIn=require('../middleware/is-logged-in');
 
 
 //get all bids ---it works
-router.get('',(req,res)=>{
+router.get('',isLoggedIn,(req,res)=>{
 
    let result = bids;
    res.send(result);
@@ -13,7 +13,7 @@ router.get('',(req,res)=>{
 });
 
 //get one bid by id  ---it works
-router.get('/:id',(req, res) => {
+router.get('/:id',isLoggedIn,(req, res) => {
    const id = req.params.id;
    let result;
    result = bids.find((bid) => {
@@ -51,7 +51,7 @@ router.post('',isLoggedIn,(req,res) => {
 
 
 //delete a bid by id ---it works
-router.delete('/:id',((req, res) => {
+router.delete('/:id',isLoggedIn,((req, res) => {
    for (let bid in bids) {
       if(bid.id==req.id){
          bids = bids.filter(x=>x.id!=req.params.id)

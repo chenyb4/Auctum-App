@@ -59,8 +59,30 @@
             });
     }
 
+
+    //get info into form for editing
+    async function fillBikeInfoIntoForm(){
+        //first get bikeinfo to place in the form
+        const bikeResp=await  fetch(targetURL+'/'+bikeId);
+
+        let bikeJson= await bikeResp.json();
+
+        console.log(bikeJson);
+
+        console.log(bikeJson);
+
+
+        editBrand=bikeJson.brand;
+        editFrameHeight=bikeJson.frameHeightInCm;
+        editFrameType=bikeJson.frameType;
+    }
+
+
+
     //does work
     async function editBike () {
+
+
         await fetch(targetURL, {
             method: 'PUT',
             headers: {
@@ -86,6 +108,7 @@
         });
     }
 
+
     //does work
     async function deleteBike (bikeId) {
 
@@ -99,6 +122,7 @@
             .then(async (res) => {
                 if (res.ok) {
                     console.log("Success!");
+                    window.location = '/add-bicycle';
                 } else {
                     res.json().then((body) => {
                         console.error(body.message || "Internal error");
@@ -112,6 +136,7 @@
 
     function getId(id) {
         bikeId = id;
+        fillBikeInfoIntoForm();
         return id;
     }
 
