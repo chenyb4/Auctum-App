@@ -1,7 +1,7 @@
 <script>
-    import tokenStore from "../stores/token";
-    /*import { user } from './Login.svelte'
-    let currentUser = user;
+   import tokenStore from "../stores/token";
+    //import { user } from './Login.svelte'
+    /*let currentUser = user;
 
     function checkAdmin () {
         for (let i = 0; i < currentUser.length; i++) {
@@ -11,7 +11,7 @@
         }
         return false;
     }
-    console.log(currentUser);
+    console.log(currentUser);*/
 
 
     // for displaying the auctions
@@ -21,7 +21,6 @@
         let respJson=response.json();
 
     }
-
 
 </script>
 
