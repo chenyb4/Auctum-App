@@ -33,13 +33,13 @@ router.post('',(req, res) => {
     if(email&&password){
         const token=logIn(email,password);
         if(token){
-            res.send({token});
+            return res.send({token});
         }else{
-            res.status(StatusCodes.UNAUTHORIZED).send('credentials incorrect!');
+            return res.status(StatusCodes.UNAUTHORIZED).send('credentials incorrect!');
         }
 
     }else{
-        res.status(StatusCodes.BAD_REQUEST).send('Required parameters missing!');
+        return res.status(StatusCodes.BAD_REQUEST).send('Required parameters missing!');
     }
 
 

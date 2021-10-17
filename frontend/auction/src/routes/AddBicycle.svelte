@@ -1,7 +1,9 @@
 <script>
     import tokenStore from '../stores/token';
+    import { LightPaginationNav, paginate } from 'svelte-paginate';
+    import router from 'page';
     let targetURL = 'http://localhost:3000/bikes';
-    let bikes = [];
+    let items = [];
     let postNewBrand,postNewFrameType,postNewFrameHeight,postNewDate = '';
     let bikeId,editBrand,editFrameType,editFrameHeight = '';
     let today = new Date().toISOString().split("T")[0];
@@ -9,22 +11,25 @@
     //How do I get the token form login page
     /*if ($tokenStore.token == ''){
         alert('You are not logged in, returning back to login page...');
-        window.location = '/login';
+        router.redirect('/login');
     }*/
+
+    //For pagination
+    let currentPage = 1;
+    let pageSize = 7;
+    $: paginatedItems = paginate({ items, pageSize, currentPage });
 
     //does work
     async function getBikes () {
         try {
-            await fetch(targetURL, {
+            const resp = await fetch(targetURL, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
                     'authorization': 'Bearer '+$tokenStore.token
                 }
-            })
-                .then(response => response.json())
-                .then(json => bikes = json);
-
+            });
+            items = await resp.json();
         }catch (e){
             console.error(e);
         }
@@ -47,6 +52,7 @@
         })
             .then(async (res) => {
                 if (res.ok) {
+                    location.reload();
                     console.log("Success!");
                 } else {
                     res.json().then((body) => {
@@ -97,6 +103,7 @@
             })
         }).then((res) => {
             if (res.ok) {
+                location.reload();
                 console.log("Success!");
             } else {
                 res.json().then((body) => {
@@ -121,6 +128,7 @@
         })
             .then(async (res) => {
                 if (res.ok) {
+                    location.reload();
                     console.log("Success!");
                     window.location = '/add-bicycle';
                 } else {
@@ -141,6 +149,7 @@
     }
 
     getBikes();
+
 </script>
 
 <head>
@@ -149,6 +158,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bad+Script&amp;display=swap">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -232,7 +242,7 @@
                                 </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                {#each bikes as bike (bike.id)}
+                                {#each paginatedItems as bike (bike.id)}
                                     <tr>
                                         <td>{bike.brand}</td>
                                         <td>{bike.frameType}</td>
@@ -247,8 +257,12 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    {:else}
-                                    <span class="spinner-border mt-2" role="status"></span>
+                                {:else}
+                                    {#if items.length > 0}
+                                        <span class="spinner-border mt-2" role="status"></span>
+                                    {:else }
+                                        <p>No bicycles to show!</p>
+                                    {/if}
                                 {/each}
                                 </tbody>
                             </table>
@@ -266,17 +280,31 @@
                                    style="width: 60%;margin-bottom: 10px;" required>
                             <input bind:value={editFrameHeight} class="form-control oneLine" type="number" placeholder="Enter frame height (cm)" name="frame-height"
                                 style="width: 60%;margin-bottom: 10px;" required>
-                            <button on:click={editBike} class="btn btn-primary mb-4" type="submit">Submit</button>
+                            <button on:click|preventDefault={editBike} class="btn btn-primary mb-4" type="submit">Submit</button>
                         </form>
                     </div>
                 </div>
+
+                {#if items.length > 0}
+                    <LightPaginationNav
+                            totalItems="{items.length}"
+                            pageSize="{pageSize}"
+                            currentPage="{currentPage}"
+                            limit="{1}"
+                            showStepOptions="{true}"
+                            on:setPage="{(e) => currentPage = e.detail.page}"
+                    />
+                {/if}
+
             </div>
         </div>
-        <footer class="bg-white d-xl-flex justify-content-xl-center align-items-xl-end sticky-footer">
+
+        <footer class="bg-white d-xl-flex justify-content-xl-center align-items-xl-end sticky-footer mt-3">
             <div class="container my-auto">
                 <div class="text-center my-auto copyright"><span>Copyright © Auctum 2021</span></div>
             </div>
         </footer>
+
     </div>
     <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-3">

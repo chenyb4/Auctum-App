@@ -1,10 +1,9 @@
 <script>
-
+    import router from 'page';
     let targetURL = 'http://localhost:3000/users';
     let name,email,password,passwordRepeat = '';
 
     async function register(){
-
         if(password == passwordRepeat){
             let userBody=[];
             userBody.name=name;
@@ -24,7 +23,7 @@
             }).then(async (res)=>{
                 if(res.ok){
                     console.log('Register successfully.');
-                    window.location='/login';
+                    router.redirect('/login');
                     return response.json();
                 }else{
                     throw new Error(await res.text());
@@ -39,11 +38,6 @@
 
     }
 
-
-
-
-
-
 </script>
 
 <head>
@@ -52,6 +46,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bad+Script&amp;display=swap">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 
 <body class="bg-gradient-primary register">
@@ -95,7 +90,7 @@
                                            placeholder="Repeat your Password" name="password_repeat" required>
                                 </div>
                             </div>
-                            <button on:click={register} class="btn btn-primary d-block btn-user w-100" type="submit">Register Account
+                            <button on:click|preventDefault={register} class="btn btn-primary d-block btn-user w-100" type="submit">Register Account
                             </button>
                         </form>
                         <div class="text-center" style="margin-top: 5px;">

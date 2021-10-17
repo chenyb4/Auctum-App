@@ -55,6 +55,7 @@ const bikes=[
         brand:'Gazelle',
         frameType: 'Diamond',
         frameHeightInCm: '123',
+        //This is only to show tha date instead of the date and time
         endingDate: new Date(2021,8,31).toISOString().split('T')[0]
     },
     {
@@ -94,7 +95,7 @@ const bikes=[
     },
     {
         id: 7,
-        brand:'Hammer',
+        brand:'Racing',
         frameType: 'Prone',
         frameHeightInCm: '130',
         endingDate: new Date(2022,0,10).toISOString().split('T')[0]

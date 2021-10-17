@@ -2,8 +2,8 @@
     import tokenStore from '../stores/token';
     let email,password = '';
     let targetURL = 'http://localhost:3000/credentials';
+    import router from 'page';
     let user = [];
-
 
     //login function
     async function login () {
@@ -19,13 +19,13 @@
             }).then(async (res) => {
             if (res.ok) {
                 console.log('Login successfully');
-                window.location = '/home';
+                router.redirect('/home');
                 $tokenStore = await res.json();
             } else {
                 throw new Error(await res.text());
             }
         }).catch((err)=>{
-            alert(err);
+           alert(err);
         })
     }
 </script>
@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bad+Script&amp;display=swap">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 
 <body class="bg-gradient-primary login">
@@ -60,13 +61,6 @@
                                               fill="currentColor"></path>
                                     </svg>
                                     </h4>
-                                    <!--{#if checkUserInput}
-                                        <div class="alert alert-danger alert-dismissible" role="alert">
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                            </button>
-                                            <span><strong>Incorrect Email or Password</strong></span>
-                                        </div>
-                                    {/if}-->
                                 </div>
                                 <form class="user">
                                     <div class="mb-3">
