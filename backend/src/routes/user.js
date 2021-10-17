@@ -1,5 +1,5 @@
 const router = require('express').Router();
-
+const {v4:uuidv4}=require('uuid');
 const { StatusCodes } = require('http-status-codes');
 const bcrypt = require("bcrypt");
 let {users} =require('../data/data.js');
@@ -43,7 +43,8 @@ router.post('',(req,res) => {
             name:name,
             role:['client'],
             email:email,
-            passwordHashValue:passwordHashValue
+            passwordHashValue:passwordHashValue,
+            secret: uuidv4()
         });
 
         return res.status(StatusCodes.CREATED).send('User created successfully!');
