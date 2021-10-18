@@ -6,7 +6,7 @@ const isLoggedIn=require('../middleware/is-logged-in');
 const isAdmin=require('../middleware/is-admin');
 
 //get all the bikes ---it works
-router.get('',isLoggedIn, (req,res)=>{
+router.get('', (req,res)=>{
 
     const brand=req.query.brand;
     const frameType=req.query.frameType;
@@ -33,9 +33,9 @@ router.get('',isLoggedIn, (req,res)=>{
     }
 
     if (resultBikes == []){
-        return res.status(StatusCodes.NOT_FOUND).send(`Cannot find product with ending date: ${endingDate}`)
+         res.status(StatusCodes.NOT_FOUND).send(`Cannot find product with ending date: ${endingDate}`)
     }else{
-        return res.send(resultBikes);
+         res.send(resultBikes);
     }
 
 
@@ -58,7 +58,7 @@ router.get('',isLoggedIn, (req,res)=>{
 });
 
 //get one bike by id --- it works
-router.get('/:id',isLoggedIn,(req, res) => {
+router.get('/:id',(req, res) => {
     const id = req.params.id;
 
     let result;
