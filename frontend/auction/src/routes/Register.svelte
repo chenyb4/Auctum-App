@@ -55,7 +55,6 @@
         <div class="card-body p-0">
             <div class="row">
                 <div class="col-lg-5 d-none d-lg-flex">                           <!-- Also this is correct -->
-                                                                                  <!--okie dokie ;) -->
                     <div class="flex-grow-1 bg-register-image" style="background: url('images/register.jpg') center / cover no-repeat;"></div>
                 </div>
                 <div class="col-lg-7">

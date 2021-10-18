@@ -1,12 +1,20 @@
 <script>
-   import tokenStore from "../stores/token";
+    import tokenStore from "../stores/token";
 
-    let bikes;
-    async function getAllBikes(){
-        let response= await fetch('http://localhost:3000/bikes');
-        let respJson=response.json();
 
+
+    /*import { user } from './Login.svelte'
+    let currentUser = user;
+
+    function checkAdmin () {
+        for (let i = 0; i < currentUser.length; i++) {
+            if (currentUser[i].role == 'admin'){
+                return true;
+            }
+        }
+        return false;
     }
+    console.log(currentUser);*/
 
 </script>
 

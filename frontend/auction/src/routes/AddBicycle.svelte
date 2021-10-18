@@ -8,6 +8,8 @@
     let bikeId,editBrand,editFrameType,editFrameHeight = '';
     let today = new Date().toISOString().split("T")[0];
 
+    //const temp=$tokenStore.token;
+
     //How do I get the token form login page
     /*if ($tokenStore.token == ''){
         alert('You are not logged in, returning back to login page...');
@@ -52,7 +54,8 @@
         })
             .then(async (res) => {
                 if (res.ok) {
-                    location.reload();
+                    router.redirect('/home');
+                    router.redirect('/add-bicycle');
                     console.log("Success!");
                 } else {
                     res.json().then((body) => {
@@ -65,30 +68,9 @@
             });
     }
 
-
-    //get info into form for editing
-    async function fillBikeInfoIntoForm(){
-        //first get bikeinfo to place in the form
-        const bikeResp=await  fetch(targetURL+'/'+bikeId);
-
-        let bikeJson= await bikeResp.json();
-
-        console.log(bikeJson);
-
-        console.log(bikeJson);
-
-
-        editBrand=bikeJson.brand;
-        editFrameHeight=bikeJson.frameHeightInCm;
-        editFrameType=bikeJson.frameType;
-    }
-
-
-
     //does work
     async function editBike () {
-
-
+       // console.log(temp+"lukmna");
         await fetch(targetURL, {
             method: 'PUT',
             headers: {
@@ -103,7 +85,9 @@
             })
         }).then((res) => {
             if (res.ok) {
-                location.reload();
+               // location.reload();
+                router.redirect('/home');
+                router.redirect('/add-bicycle');
                 console.log("Success!");
             } else {
                 res.json().then((body) => {
@@ -113,8 +97,9 @@
         }).catch((err) => {
             console.error(err);
         });
-    }
 
+        console.log($tokenStore.token);
+    }
 
     //does work
     async function deleteBike (bikeId) {
@@ -128,9 +113,9 @@
         })
             .then(async (res) => {
                 if (res.ok) {
-                    location.reload();
+                    router.redirect('/home');
+                    router.redirect('/add-bicycle');
                     console.log("Success!");
-                    window.location = '/add-bicycle';
                 } else {
                     res.json().then((body) => {
                         console.error(body.message || "Internal error");
@@ -140,6 +125,8 @@
             .catch((err) => {
                 console.error(err);
             });
+
+        console.log($tokenStore.token);
     }
 
     function getId(id) {
@@ -148,7 +135,29 @@
         return id;
     }
 
+    async function fillBikeInfoIntoForm(){
+        //first get bikeinfo to place in the form
+        const bikeResp=await  fetch(targetURL+'/'+bikeId,{
+            headers: {
+                'Content-type': 'application/json',
+                'authorization': 'Bearer '+$tokenStore.token
+            }
+        });
+
+        let bikeJson= await bikeResp.json();
+
+        console.log(bikeJson);
+
+        console.log(bikeJson);
+
+
+        editBrand=bikeJson.brand;
+        editFrameHeight=bikeJson.frameHeightInCm;
+        editFrameType=bikeJson.frameType;
+    }
+
     getBikes();
+    console.log($tokenStore.token);
 
 </script>
 
@@ -324,7 +333,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Close</button>
-                <button on:click={addBike} class="btn btn-primary" type="submit">Save</button>
+                <button on:click={addBike} class="btn btn-primary" data-bs-dismiss="modal" type="submit">Save</button>
             </div>
         </div>
     </div>

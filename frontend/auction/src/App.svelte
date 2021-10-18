@@ -4,6 +4,7 @@
 	import Login from "./routes/Login.svelte";
 	import Register from "./routes/Register.svelte";
 	import AddBicycle from "./routes/AddBicycle.svelte";
+    import store from './stores/token';
 
 	let page;
 	let params;
@@ -19,6 +20,12 @@
 <svelte:component this={page} params={params}/>
 
 <main>
+
+    {#if $store.token !== '' }
+        {routes.redirect("/add-bicycle")}
+    {:else}
+        {routes.redirect('/login')}
+    {/if}
 
 </main>
 
