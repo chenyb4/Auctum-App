@@ -234,7 +234,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="submit">Save</button>
+                <button class="btn btn-primary" type="submit" data-bs-dismiss="modal">Save</button>
             </div>
         </div>
     </div>
