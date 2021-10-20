@@ -71,6 +71,40 @@
 
 
 
+
+    let bids=[];
+    /**
+     * get all bids for a certain bike on bike id
+     * @param bikeId
+     * @returns {Promise<void>}
+     */
+    async function getAllBidsforOneBike(bikeId){
+        bids=[];
+        try {
+            const resp = await fetch(targetURLBids, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'authorization': 'Bearer '+$tokenStore.token
+                }
+            });
+            let bidsJson = await resp.json();
+
+
+            for (let bid of bidsJson) {
+                if(bid.forBikeId==bikeId){
+                    bids.push(bid);
+                    bids=bids;
+                }
+            }
+        }catch (e){
+            console.error(e);
+        }
+    }
+
+
+
+
 </script>
 
 <head>
@@ -218,7 +252,7 @@
                                 </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                
+
                                 {#each items as item}
                                     <tr>
                                         <td>{item.brand}</td>
@@ -226,7 +260,7 @@
                                         <td>{item.frameHeightInCm}</td>
                                         <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}</td>
                                         <td>
-                                            <button class="btn btn-primary shadow-sm" type="button"
+                                            <button on:click={getAllBidsforOneBike(item.id)} class="btn btn-primary shadow-sm" type="button"
                                                     data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
                                             </button>
                                         </td>
@@ -263,15 +297,18 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>User</th>
+                            <th>User ID</th>
                             <th>Bid Price</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>5</td>
-                            <td>10</td>
-                        </tr>
+                        {#each bids as bid}
+                            <tr>
+                                 <td>{bid.placedByUserId}</td>
+                                 <td>{bid.price}</td>
+                            </tr>
+                        {/each}
+
                         </tbody>
                     </table>
                 </div>
