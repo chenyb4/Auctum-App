@@ -1,20 +1,75 @@
 <script>
     import tokenStore from "../stores/token";
 
+    let targetURLBikes = 'http://localhost:3000/bikes';
+    let targetURLBids='http://localhost:3000/bids';
+    let targetURLUsers='http://localhost:3000/users';
 
+    let items = [];
 
-    /*import { user } from './Login.svelte'
-    let currentUser = user;
+    //now each item in the items has 6 keys. the one extra key is highestBid
+    async function getBikes () {
+        items=[];
+        try {
+            const resp = await fetch(targetURLBikes, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'authorization': 'Bearer '+$tokenStore.token
+                }
+            });
+            let tempItems = await resp.json();
 
-    function checkAdmin () {
-        for (let i = 0; i < currentUser.length; i++) {
-            if (currentUser[i].role == 'admin'){
-                return true;
+            //here find out the highest bid of a bike and add the key value pair to the object.
+            //then push this object into array items
+            for (let tempItem of tempItems) {
+                let highestBid=0;
+                highestBid=await getHighestBid(tempItem.id);
+                tempItem.highestBid=highestBid;
+                items.push(tempItem);
+                items=items;
             }
+
+            //remove duplicates
+        }catch (e){
+            console.error(e);
         }
-        return false;
     }
-    console.log(currentUser);*/
+
+
+    //find the highest bid for this bike
+    // let highestBid=0;
+    async function getHighestBid(bikeId){
+        try {
+            const resp = await fetch(targetURLBids, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'authorization': 'Bearer '+$tokenStore.token
+                }
+            });
+            let bidsJson = await resp.json();
+
+            //console.log(bidsJson);
+            let highestBid=0;
+            for (const item of bidsJson) {
+                if(item.forBikeId==bikeId){
+                    if(item.price>highestBid){
+                        highestBid=item.price;
+                    }
+                }
+            }
+
+            return highestBid;
+        }catch (e){
+            console.error(e);
+        }
+    }
+
+
+    getBikes();
+
+
 
 </script>
 
@@ -163,22 +218,26 @@
                                 </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                <tr>
-                                    <td>Gazelle</td>
-                                    <td>Diamond</td>
-                                    <td>53</td>
-                                    <td class="justify-content-xl-center align-items-xl-center">300$</td>
-                                    <td>
-                                        <button class="btn btn-primary shadow-sm" type="button"
-                                                data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary shadow-sm" type="button"
-                                                data-bs-target="#modal-2" data-bs-toggle="modal">Place bid
-                                        </button>
-                                    </td>
-                                </tr>
+                                
+                                {#each items as item}
+                                    <tr>
+                                        <td>{item.brand}</td>
+                                        <td>{item.frameType}</td>
+                                        <td>{item.frameHeightInCm}</td>
+                                        <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}</td>
+                                        <td>
+                                            <button class="btn btn-primary shadow-sm" type="button"
+                                                    data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary shadow-sm" type="button"
+                                                    data-bs-target="#modal-2" data-bs-toggle="modal">Place bid
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {/each}
+
                                 </tbody>
                             </table>
                         </div>

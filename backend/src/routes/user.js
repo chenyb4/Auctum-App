@@ -7,13 +7,13 @@ const isLoggedIn=require('../middleware/is-logged-in');
 const isAdmin=require('../middleware/is-admin');
 
 //get all clients ---it works
-router.get('',isLoggedIn,(req,res)=>{
+router.get('',(req,res)=>{
     let result = users;
     res.send(result);
 });
 
 //get one client by id---- it works
-router.get('/:id',isLoggedIn,(req, res) => {
+router.get('/:id',(req, res) => {
     const id = req.params.id;
     let result;
     result = users.find((user) => {
