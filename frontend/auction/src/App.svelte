@@ -9,7 +9,10 @@
 	let page;
 	let params;
 
-	routes('/', (ctx) => page = (Login));
+    /**
+     * Setting different routes for different pages, as the landing page will be the login page
+     */
+
 	routes('/home', (ctx) => page = (Home));
 	routes('/login', (ctx) => page = (Login));
 	routes('/register', (ctx) => page = (Register));

@@ -35,7 +35,6 @@
         } else {
             alert('The passwords you entered are not the same. Please check.')
         }
-
     }
 
 </script>
