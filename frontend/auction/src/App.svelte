@@ -16,16 +16,23 @@
 	routes('/add-bicycle', (ctx) => page = (AddBicycle));
 	routes.start();
 
+    function checkLogin() {
+        if ($store.token !== ''){
+            routes.redirect('/home')
+        }else {
+            routes.redirect('/login')
+        }
+    }
+
+    //This will check if the user is logged in
+    checkLogin();
+
 </script>
 <svelte:component this={page} params={params}/>
 
 <main>
 
-    {#if $store.token !== '' }
-        {routes.redirect("/add-bicycle")}
-    {:else}
-        {routes.redirect('/login')}
-    {/if}
+
 
 </main>
 

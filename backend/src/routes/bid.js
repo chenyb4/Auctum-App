@@ -5,7 +5,7 @@ const isLoggedIn=require('../middleware/is-logged-in');
 
 
 //get all bids ---it works
-router.get('',isLoggedIn,(req,res)=>{
+router.get('',(req,res)=>{
 
    let result = bids;
    res.send(result);
@@ -13,7 +13,7 @@ router.get('',isLoggedIn,(req,res)=>{
 });
 
 //get one bid by id  ---it works
-router.get('/:id',isLoggedIn,(req, res) => {
+router.get('/:id',(req, res) => {
    const id = req.params.id;
    let result;
    result = bids.find((bid) => {
