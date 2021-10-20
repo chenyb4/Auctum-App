@@ -1,5 +1,6 @@
 <script>
     import tokenStore from "../stores/token";
+    import router from "page";
 
     let targetURLBikes = 'http://localhost:3000/bikes';
     let targetURLBids='http://localhost:3000/bids';
@@ -100,6 +101,70 @@
         }catch (e){
             console.error(e);
         }
+    }
+
+
+
+
+
+
+
+
+    /**
+     * decode the token into payload
+     * declaration of reference: this function comes directly from: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
+     * @param token
+     * @returns {any}
+     */
+    function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    };
+
+    //pass the bike id to modal 2
+    let bikeIdForPlacingABid=0;
+    function setBikeIdForModal2(bikeId){
+        bikeIdForPlacingABid=bikeId;
+    }
+
+    let bidPriceToPlace;
+
+    async function placingBid(){
+
+        console.log("bid price"+bidPriceToPlace);
+        console.log("user id:"+parseJwt($tokenStore.token).id);
+        console.log("bike id :"+bikeIdForPlacingABid);
+        await fetch(targetURLBids, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': 'Bearer '+$tokenStore.token
+            },
+            body: JSON.stringify({
+                price:bidPriceToPlace,
+                placedByUserId:parseJwt($tokenStore.token).id,
+                forBikeId:bikeIdForPlacingABid
+            }),
+        })
+            .then(async (res) => {
+                if (res.ok) {
+                    router.redirect('/add-bicycle');
+                    router.redirect('/home');
+                    console.log("Success!");
+                } else {
+                    res.json().then((body) => {
+                        console.error(body.message || "Internal error");
+                    });
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     }
 
 
@@ -265,7 +330,7 @@
                                             </button>
                                         </td>
                                         <td>
-                                            <button class="btn btn-primary shadow-sm" type="button"
+                                            <button on:click={setBikeIdForModal2(item.id)} class="btn btn-primary shadow-sm" type="button"
                                                     data-bs-target="#modal-2" data-bs-toggle="modal">Place bid
                                             </button>
                                         </td>
@@ -326,11 +391,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form><input class="form-control" type="number" name="price" placeholder="Enter the price " required="">
+                <form><input bind:value={bidPriceToPlace} class="form-control" type="number" name="price" placeholder="Enter the price " required="true">
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="submit" data-bs-dismiss="modal">Save</button>
+                <button on:click={placingBid} class="btn btn-primary" type="submit" data-bs-dismiss="modal">Save</button>
             </div>
         </div>
     </div>
