@@ -56,6 +56,7 @@
         })
             .then(async (res) => {
                 if (res.ok) {
+                    //location.reload();
                     router.redirect('/home');
                     router.redirect('/add-bicycle');
                     console.log("Success!");
@@ -72,7 +73,6 @@
 
     //does work
     async function editBike () {
-       // console.log(temp+"lukmna");
         await fetch(targetURL, {
             method: 'PUT',
             headers: {
@@ -99,8 +99,6 @@
         }).catch((err) => {
             console.error(err);
         });
-
-        console.log($tokenStore.token);
     }
 
     //does work
@@ -127,8 +125,6 @@
             .catch((err) => {
                 console.error(err);
             });
-
-        console.log($tokenStore.token);
     }
 
     function getId(id) {
@@ -139,27 +135,19 @@
 
     async function fillBikeInfoIntoForm(){
         //first get bikeinfo to place in the form
-        const bikeResp=await  fetch(targetURL+'/'+bikeId,{
+        const bikeResp = await fetch(targetURL+'/'+bikeId,{
             headers: {
                 'Content-type': 'application/json',
                 'authorization': 'Bearer '+$tokenStore.token
             }
         });
-
         let bikeJson= await bikeResp.json();
-
-        console.log(bikeJson);
-
-        console.log(bikeJson);
-
-
         editBrand=bikeJson.brand;
         editFrameHeight=bikeJson.frameHeightInCm;
         editFrameType=bikeJson.frameType;
     }
 
     getBikes();
-    console.log($tokenStore.token);
 
 
 
@@ -336,7 +324,7 @@
 
     </div>
     <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-<div class="modal fade" role="dialog" tabindex="-1" id="modal-3">
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-3" aria-hidden="true" aria-labelledby="modal-3label">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header"><h4 class="modal-title">Add bicycle</h4>
@@ -363,6 +351,16 @@
 </body>
 
 <style>
+
+    .modal-backdrop {
+        opacity: 0.5 !important;
+    }
+
+    .modal-backdrop.in {
+        opacity: 0.5 !important;
+    }
+
+
 
     .oneLine {
         white-space: nowrap;
