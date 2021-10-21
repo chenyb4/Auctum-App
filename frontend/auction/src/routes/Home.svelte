@@ -1,18 +1,88 @@
 <script>
     import tokenStore from "../stores/token";
     import router from "page";
+    import token from "../stores/token";
+
+    //document.cookie='token='+$tokenStore.token;
+let selectedBrand="hh";
+let selectedFrameType="hh";
+let selectedFrameHeight="hh";
+
+    let brand='';
+    let frameType='';
+    let frameHeight='';
+
+    let distinctBrands=[];
+    let distinctFrameTypes=[];
+    let distinctFrameHeights=[];
+
+
+    function getDistinctForDropDownItems(){
+        for (let item of items) {
+            if(!distinctBrands.includes(item.brand)){
+                distinctBrands.push(item.brand);
+                distinctBrands=distinctBrands;
+            }
+        }
+
+        for (let item of items) {
+            if(!distinctFrameTypes.includes(item.frameType)){
+                distinctFrameTypes.push(item.frameType);
+                distinctFrameTypes=distinctFrameTypes;
+            }
+        }
+
+        for (let item of items) {
+            if(!distinctFrameHeights.includes(item.frameHeightInCm)){
+                distinctFrameHeights.push(item.frameHeightInCm);
+                distinctFrameHeights=distinctFrameHeights;
+            }
+        }
+
+        console.log("brands distin"+distinctBrands);
+        console.log('framt tyoe disc'+distinctFrameTypes);
+        console.log("frma heiht"+distinctFrameHeights);
+    }
+
+
 
     let targetURLBikes = 'http://localhost:3000/bikes';
     let targetURLBids='http://localhost:3000/bids';
     let targetURLUsers='http://localhost:3000/users';
 
     let items = [];
+    let itemsToDisplay=[];
 
     //now each item in the items has 6 keys. the one extra key is highestBid
-    async function getBikes () {
+    async function getBikes (brand,frameType,frameHeightInCm) {
         items=[];
+        let targetURLBikesUseQuery=targetURLBikes;
+        if(brand!=''){
+            targetURLBikesUseQuery+=('?brand='+brand);
+        }
+
+        if(frameType!=''){
+            if(brand!=''){
+                targetURLBikesUseQuery+=('&frameType='+frameType);
+            }else{
+                targetURLBikesUseQuery+=('?frameType='+frameType);
+            }
+
+        }
+
+        if(frameHeightInCm!=''){
+            if((brand!='')||(frameType!='')){
+                targetURLBikesUseQuery+=('&frameHeightInCm='+frameHeightInCm);
+            }else{
+                targetURLBikesUseQuery+=('?frameHeightInCm='+frameHeightInCm);
+            }
+
+        }
+
+        console.log("target url:"+targetURLBikesUseQuery);
+
         try {
-            const resp = await fetch(targetURLBikes, {
+            const resp = await fetch(targetURLBikesUseQuery, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -29,12 +99,18 @@
                 tempItem.highestBid=highestBid;
                 items.push(tempItem);
                 items=items;
+                itemsToDisplay.push(tempItem);
+                itemsToDisplay=itemsToDisplay;
             }
 
-            //remove duplicates
+
+
+
         }catch (e){
             console.error(e);
         }
+
+        getDistinctForDropDownItems();
     }
 
 
@@ -68,7 +144,18 @@
     }
 
 
-    getBikes();
+    //no filter used for now
+    getBikes('','','');
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -170,6 +257,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 </script>
 
 <head>
@@ -243,8 +340,7 @@
                     <ul class="navbar-nav flex-nowrap ms-auto">
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tooltip" data-bss-tooltip=""
-                               data-bs-placement="bottom" href="#" title="Highest bid placed: 0$">Name
-                            here</a>
+                               data-bs-placement="bottom" href="#" title="Highest bid placed: 0$">{parseJwt($tokenStore.token).name}</a>
                         </li>
                     </ul>
                 </div>
@@ -260,19 +356,81 @@
                     </div>
                 </div>
                 <div class="row">
+
+
+                    <p>
+
+                        Brand:
+
+                        <select  bind:value={selectedBrand} on:change="{() => {brand = selectedBrand; console.log(brand)}}" on:change={getBikes(brand,frameType,frameHeight)} style="width: 8% ;margin-right: 7%">
+                            <option value="">
+                                (no preference)
+                            </option>
+                            {#each distinctBrands as item}
+                                <option value={item}>
+                                    {item}
+                                </option>
+                            {/each}
+
+                        </select>
+
+
+                            Frame type:
+
+                            <select bind:value={selectedFrameType} on:change="{() => {frameType = selectedFrameType; console.log(frameType)}}" on:change={getBikes(brand,frameType,frameHeight)} style="width: 14%; margin-right: 7%">
+                                <option value="">
+                                    (no preference)
+                                </option>
+                                {#each distinctFrameTypes as item}
+                                    <option value={item}>
+                                        {item}
+                                    </option>
+                                {/each}
+
+                            </select>
+
+                        Frame height:
+
+                        <select bind:value={selectedFrameHeight} on:change="{() => {frameHeight = selectedFrameHeight; console.log(frameHeight)}}" on:change={getBikes(brand,frameType,frameHeight)} style="width: 14%; margin-right: 7%">
+                            <option value="">
+                                (no preference)
+                            </option>
+
+                            {#each distinctFrameHeights as item}
+                                <option value={item}>
+                                    {item}
+                                </option>
+                            {/each}
+
+                        </select>
+
+
+
+
+                    </p>
+
+
+
+
+
+                    <!--
                     <div class="col text-start text-sm-end">
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle text-capitalize shadow-sm"
-                                    aria-expanded="false" data-bs-toggle="dropdown" type="button">Brand
+                                    aria-expanded="false" data-bs-toggle="dropdown" type="button">{brand}
                             </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Gazelle</a><a
+                            <div  class="dropdown-menu">
+
+                                <a  class="dropdown-item" href="#">Gazelle</a><a
                                     class="dropdown-item" href="#">Batavus</a><a class="dropdown-item"
                                                                                  href="#">Sparta</a><a
                                     class="dropdown-item" href="#">Giant</a><a class="dropdown-item"
                                                                                href="#">Other...</a></div>
                         </div>
                     </div>
+                    -->
+
+                    <!--
                     <div class="col text-start text-sm-center type">
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle text-capitalize shadow-sm"
@@ -295,12 +453,22 @@
                                                                               href="#">Other...</a></div>
                         </div>
                     </div>
+
+                    -->
+
+
+
+
+                    <!--
+
                     <div class="col text-start text-sm-center text-md-start refresh1">
                         <button class="btn btn-primary shadow-sm" data-bs-toggle="tooltip" data-bss-tooltip=""
                                 data-bs-placement="right" type="button"
                                 title="After your finished filtering press this button"><i class="fa fa-refresh"></i>
                         </button>
                     </div>
+
+                    -->
                 </div>
                 <div class="row">
                     <div class="col">
@@ -405,7 +573,7 @@
 </body>
 
 <style>
-
+    @import url("https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css");
     @media (max-width: 543px) {
         .refresh {
             margin-top: .5rem
@@ -423,4 +591,6 @@
             margin-top: .5rem
         }
     }
+
+
 </style>

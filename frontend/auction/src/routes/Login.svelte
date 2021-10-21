@@ -21,6 +21,7 @@
                 console.log('Login successfully');
                 router.redirect('/home');
                 $tokenStore = await res.json();
+               // document.cookie='token='+$tokenStore.token;
             } else {
                 throw new Error(await res.text());
             }

@@ -8,6 +8,16 @@
     let bikeId,editBrand,editFrameType,editFrameHeight = '';
     let today = new Date().toISOString().split("T")[0];
 
+
+
+    //const temp=$tokenStore.token;
+
+    //How do I get the token form login page
+    /*if ($tokenStore.token == ''){
+        alert('You are not logged in, returning back to login page...');
+        router.redirect('/login');
+    }*/
+
     //For pagination
     let currentPage = 1;
     let pageSize = 7;
@@ -139,6 +149,24 @@
 
     getBikes();
 
+
+
+    /**
+     * decode the token into payload
+     * declaration of reference: this function comes directly from: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
+     * @param token
+     * @returns {any}
+     */
+    function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    };
+
 </script>
 
 <head>
@@ -199,7 +227,7 @@
                         </div>
                     </form>
                     <ul class="navbar-nav flex-nowrap ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#">Name here</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">{parseJwt($tokenStore.token).name}</a></li>
                     </ul>
                 </div>
             </nav>

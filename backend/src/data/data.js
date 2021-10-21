@@ -60,50 +60,57 @@ const bikes=[
         id: 1,
         brand:'Gazelle',
         frameType: 'Diamond',
-        frameHeightInCm: '123',
+        frameHeightInCm: '53',
         //This is only to show tha date instead of the date and time
         endingDate: new Date(2021,8,31).toISOString().split('T')[0]
     },
     {
         id: 2,
         brand:'Hammer',
-        frameType: 'Male',
-        frameHeightInCm: '100',
+        frameType: 'Diamond',
+        frameHeightInCm: '49',
         endingDate: new Date(2022,0,10).toISOString().split('T')[0]
     },
     {
         id: 3,
         brand:'Urban Arrow',
-        frameType: 'Truss',
-        frameHeightInCm: '95',
+        frameType: 'Diamond',
+        frameHeightInCm: '50',
         endingDate: new Date(2022,9,20).toISOString().split('T')[0]
     },
     {
         id: 4,
         brand:'Koga',
-        frameType: 'Cantilever',
-        frameHeightInCm: '115',
+        frameType: 'Step-through',
+        frameHeightInCm: '53',
         endingDate: new Date(2022,7,9).toISOString().split('T')[0]
     },
     {
         id: 5,
         brand:'Cortina',
-        frameType: 'Folding',
-        frameHeightInCm: '133',
+        frameType: 'Step-through',
+        frameHeightInCm: '57',
         endingDate: new Date(2022,11,30).toISOString().split('T')[0]
     },
     {
         id: 6,
         brand:'Hammer',
-        frameType: 'Prone',
-        frameHeightInCm: '100',
+        frameType: 'Step-through',
+        frameHeightInCm: '53',
         endingDate: new Date(2022,0,10).toISOString().split('T')[0]
     },
     {
         id: 7,
         brand:'Racing',
-        frameType: 'Prone',
-        frameHeightInCm: '130',
+        frameType: 'Step-through',
+        frameHeightInCm: '57',
+        endingDate: new Date(2022,0,10).toISOString().split('T')[0]
+    },
+    {
+        id: 8,
+        brand:'Gazelle',
+        frameType: 'Step-through',
+        frameHeightInCm: '57',
         endingDate: new Date(2022,0,10).toISOString().split('T')[0]
     }
 ];
