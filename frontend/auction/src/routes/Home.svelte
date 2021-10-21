@@ -358,6 +358,8 @@ let selectedFrameHeight="hh";
                 <div class="row">
 
 
+
+
                     <p>
 
                         Brand:
@@ -403,72 +405,12 @@ let selectedFrameHeight="hh";
                             {/each}
 
                         </select>
-
-
-
-
                     </p>
 
 
 
 
 
-                    <!--
-                    <div class="col text-start text-sm-end">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle text-capitalize shadow-sm"
-                                    aria-expanded="false" data-bs-toggle="dropdown" type="button">{brand}
-                            </button>
-                            <div  class="dropdown-menu">
-
-                                <a  class="dropdown-item" href="#">Gazelle</a><a
-                                    class="dropdown-item" href="#">Batavus</a><a class="dropdown-item"
-                                                                                 href="#">Sparta</a><a
-                                    class="dropdown-item" href="#">Giant</a><a class="dropdown-item"
-                                                                               href="#">Other...</a></div>
-                        </div>
-                    </div>
-                    -->
-
-                    <!--
-                    <div class="col text-start text-sm-center type">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle text-capitalize shadow-sm"
-                                    aria-expanded="false" data-bs-toggle="dropdown" type="button">Frame type
-                            </button>
-                            <div class="dropdown-menu"><a class="dropdown-item" href="#">Diamond</a><a
-                                    class="dropdown-item" href="#">Step-through</a><a class="dropdown-item" href="#">Other...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col text-start refresh">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle text-capitalize shadow-sm"
-                                    aria-expanded="false" data-bs-toggle="dropdown" type="button">Frame height
-                            </button>
-                            <div class="dropdown-menu"><a class="dropdown-item" href="#">53cm</a><a
-                                    class="dropdown-item" href="#">50cm</a><a class="dropdown-item" href="#">57cm</a><a
-                                    class="dropdown-item" href="#">49cm</a><a class="dropdown-item" href="#">48cm</a><a
-                                    class="dropdown-item" href="#">54cm</a><a class="dropdown-item"
-                                                                              href="#">Other...</a></div>
-                        </div>
-                    </div>
-
-                    -->
-
-
-
-
-                    <!--
-
-                    <div class="col text-start text-sm-center text-md-start refresh1">
-                        <button class="btn btn-primary shadow-sm" data-bs-toggle="tooltip" data-bss-tooltip=""
-                                data-bs-placement="right" type="button"
-                                title="After your finished filtering press this button"><i class="fa fa-refresh"></i>
-                        </button>
-                    </div>
-
-                    -->
                 </div>
                 <div class="row">
                     <div class="col">
