@@ -1,12 +1,11 @@
 <script>
     import tokenStore from "../stores/token";
     import router from "page";
-    import token from "../stores/token";
 
     //document.cookie='token='+$tokenStore.token;
-let selectedBrand="hh";
-let selectedFrameType="hh";
-let selectedFrameHeight="hh";
+    let selectedBrand="hh";
+    let selectedFrameType="hh";
+    let selectedFrameHeight="hh";
 
     let brand='';
     let frameType='';
@@ -24,27 +23,19 @@ let selectedFrameHeight="hh";
                 distinctBrands=distinctBrands;
             }
         }
-
         for (let item of items) {
             if(!distinctFrameTypes.includes(item.frameType)){
                 distinctFrameTypes.push(item.frameType);
                 distinctFrameTypes=distinctFrameTypes;
             }
         }
-
         for (let item of items) {
             if(!distinctFrameHeights.includes(item.frameHeightInCm)){
                 distinctFrameHeights.push(item.frameHeightInCm);
                 distinctFrameHeights=distinctFrameHeights;
             }
         }
-
-        console.log("brands distin"+distinctBrands);
-        console.log('framt tyoe disc'+distinctFrameTypes);
-        console.log("frma heiht"+distinctFrameHeights);
     }
-
-
 
     let targetURLBikes = 'http://localhost:3000/bikes';
     let targetURLBids='http://localhost:3000/bids';
@@ -52,6 +43,7 @@ let selectedFrameHeight="hh";
 
     let items = [];
     let itemsToDisplay=[];
+    let today = new Date().toISOString().split("T")[0];
 
     //now each item in the items has 6 keys. the one extra key is highestBid
     async function getBikes (brand,frameType,frameHeightInCm) {
@@ -60,7 +52,6 @@ let selectedFrameHeight="hh";
         if(brand!=''){
             targetURLBikesUseQuery+=('?brand='+brand);
         }
-
         if(frameType!=''){
             if(brand!=''){
                 targetURLBikesUseQuery+=('&frameType='+frameType);
@@ -69,7 +60,6 @@ let selectedFrameHeight="hh";
             }
 
         }
-
         if(frameHeightInCm!=''){
             if((brand!='')||(frameType!='')){
                 targetURLBikesUseQuery+=('&frameHeightInCm='+frameHeightInCm);
@@ -78,9 +68,6 @@ let selectedFrameHeight="hh";
             }
 
         }
-
-        console.log("target url:"+targetURLBikesUseQuery);
-
         try {
             const resp = await fetch(targetURLBikesUseQuery, {
                 method: 'GET',
@@ -102,14 +89,9 @@ let selectedFrameHeight="hh";
                 itemsToDisplay.push(tempItem);
                 itemsToDisplay=itemsToDisplay;
             }
-
-
-
-
         }catch (e){
             console.error(e);
         }
-
         getDistinctForDropDownItems();
     }
 
@@ -136,7 +118,6 @@ let selectedFrameHeight="hh";
                     }
                 }
             }
-
             return highestBid;
         }catch (e){
             console.error(e);
@@ -147,25 +128,13 @@ let selectedFrameHeight="hh";
     //no filter used for now
     getBikes('','','');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     let bids=[];
     /**
      * get all bids for a certain bike on bike id
      * @param bikeId
      * @returns {Promise<void>}
      */
+
     async function getAllBidsforOneBike(bikeId){
         bids=[];
         try {
@@ -178,7 +147,6 @@ let selectedFrameHeight="hh";
             });
             let bidsJson = await resp.json();
 
-
             for (let bid of bidsJson) {
                 if(bid.forBikeId==bikeId){
                     bids.push(bid);
@@ -190,28 +158,23 @@ let selectedFrameHeight="hh";
         }
     }
 
-
-
-
-
-
-
-
     /**
      * decode the token into payload
      * declaration of reference: this function comes directly from: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
      * @param token
      * @returns {any}
      */
-    function parseJwt (token) {
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
 
-        return JSON.parse(jsonPayload);
-    };
+    function parseJwt (token) {
+        if (token != ''){
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+    }
 
     //pass the bike id to modal 2
     let bikeIdForPlacingABid=0;
@@ -222,10 +185,6 @@ let selectedFrameHeight="hh";
     let bidPriceToPlace;
 
     async function placingBid(){
-
-        console.log("bid price"+bidPriceToPlace);
-        console.log("user id:"+parseJwt($tokenStore.token).id);
-        console.log("bike id :"+bikeIdForPlacingABid);
         await fetch(targetURLBids, {
             method: "POST",
             headers: {
@@ -254,48 +213,27 @@ let selectedFrameHeight="hh";
             });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 
-<head>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bad+Script&amp;display=swap">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-</head>
 <body id="page-top">
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-        <div class="container-fluid d-flex flex-column p-0"><a
-                class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/home"
+        <div class="container-fluid d-flex flex-column p-0">
+            <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/home"
                 style="padding-top: 36px;">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">
-                <span style="font-size: 25px;">Auctum
-                    <br>
-                </span>
-                <span
-                    class="text-capitalize" style="font-size: 12px;font-family: 'Bad Script', serif;">Get your dream
-                    <br>&nbsp;Bike today!
-                </span>
-            </div>
-        </a>
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">
+                    <span style="font-size: 25px;">Auctum
+                        <br>
+                    </span>
+                    <span
+                        class="text-capitalize" style="font-size: 12px;font-family: 'Bad Script', serif;">Get your dream
+                        <br>&nbsp;Bike today!
+                    </span>
+                </div>
+            </a>
             <ul class="navbar-nav text-light" id="accordionSidebar" style="margin-top: 16px;">
                 <li class="nav-item">
                     <a class="nav-link active" href="/home">
@@ -303,12 +241,23 @@ let selectedFrameHeight="hh";
                         <span>Auctions</span>
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/add-bicycle">
-                        <i class="far fa-user-circle"></i>
-                        <span>Add bicycle</span>
+                    <a class="nav-link" href="/my-bids">
+                        <i class="fa fa-money"></i>
+                        <span>My bids</span>
                     </a>
                 </li>
+                {#if ($tokenStore.token != '')}
+                    {#if (parseJwt($tokenStore.token).role.includes('admin'))}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/add-bicycle">
+                                <i class="fa fa-bicycle"></i>
+                                <span>Add bicycle</span>
+                            </a>
+                        </li>
+                    {/if}
+                {/if}
                 <li class="nav-item">
                     <a on:click={$tokenStore.token = ''} class="nav-link" href="/login">
                         <i class="far fa-user-circle"></i>
@@ -339,8 +288,12 @@ let selectedFrameHeight="hh";
                     </form>
                     <ul class="navbar-nav flex-nowrap ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tooltip" data-bss-tooltip=""
-                               data-bs-placement="bottom" href="#" title="Highest bid placed: 0$">{parseJwt($tokenStore.token).name}</a>
+                            <a class="nav-link oneLine" data-bs-toggle="tooltip" data-bss-tooltip=""
+                               data-bs-placement="bottom" href="#" title="Highest bid placed: 0$">
+                                {#if ($tokenStore.token != '')}
+                                    {parseJwt($tokenStore.token).email}
+                                {/if}
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -348,7 +301,11 @@ let selectedFrameHeight="hh";
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <h3 class="text-dark d-table mb-0">Welcome user</h3>
+                        <h3 class="text-dark d-table mb-0">Welcome
+                            {#if ($tokenStore.token != '')}
+                                {parseJwt($tokenStore.token).name}
+                            {/if}
+                        </h3>
                     </div>
                     <div class="col-12" style="margin-bottom: 5px;">
                         <h4>Here is a list of bikes that are up for
@@ -356,30 +313,24 @@ let selectedFrameHeight="hh";
                     </div>
                 </div>
                 <div class="row">
-
-
-
-
-                    <p>
-
-                        Brand:
-
-                        <select  bind:value={selectedBrand} on:change="{() => {brand = selectedBrand; console.log(brand)}}" on:change={getBikes(brand,frameType,frameHeight)} style="width: 8% ;margin-right: 7%">
-                            <option value="">
-                                (no preference)
-                            </option>
-                            {#each distinctBrands as item}
-                                <option value={item}>
-                                    {item}
+                        <div class="col text-center mt-2">
+                            Brand:
+                            <select class="btn btn-primary text-capitalize shadow-sm "  bind:value={selectedBrand} on:change="{() => {brand = selectedBrand}}" on:change={getBikes(brand,frameType,frameHeight)}>
+                                <option value="">
+                                    (no preference)
                                 </option>
-                            {/each}
-
-                        </select>
-
-
+                                {#each distinctBrands as item}
+                                    <option value={item}>
+                                        {item}
+                                    </option>
+                                {/each}
+                            </select>
+                        </div>
+                        <div class="col text-center type mt-2">
                             Frame type:
-
-                            <select bind:value={selectedFrameType} on:change="{() => {frameType = selectedFrameType; console.log(frameType)}}" on:change={getBikes(brand,frameType,frameHeight)} style="width: 14%; margin-right: 7%">
+                            <select class="btn btn-primary text-capitalize shadow-sm" bind:value={selectedFrameType}
+                                    on:change="{() => {frameType = selectedFrameType}}" on:change={getBikes(brand,frameType,frameHeight)}
+                                    >
                                 <option value="">
                                     (no preference)
                                 </option>
@@ -388,29 +339,23 @@ let selectedFrameHeight="hh";
                                         {item}
                                     </option>
                                 {/each}
-
                             </select>
-
-                        Frame height:
-
-                        <select bind:value={selectedFrameHeight} on:change="{() => {frameHeight = selectedFrameHeight; console.log(frameHeight)}}" on:change={getBikes(brand,frameType,frameHeight)} style="width: 14%; margin-right: 7%">
-                            <option value="">
-                                (no preference)
-                            </option>
-
-                            {#each distinctFrameHeights as item}
-                                <option value={item}>
-                                    {item}
+                        </div>
+                        <div class="col text-center refresh mt-2">
+                            Frame height:
+                            <select class="btn btn-primary text-capitalize shadow-sm" bind:value={selectedFrameHeight}
+                                    on:change="{() => {frameHeight = selectedFrameHeight; console.log(frameHeight)}}"
+                                    on:change={getBikes(brand,frameType,frameHeight)}>
+                                <option value="">
+                                    (no preference)
                                 </option>
-                            {/each}
-
-                        </select>
-                    </p>
-
-
-
-
-
+                                {#each distinctFrameHeights as item}
+                                    <option value={item}>
+                                        {item}
+                                    </option>
+                                {/each}
+                            </select>
+                        </div>
                 </div>
                 <div class="row">
                     <div class="col">
@@ -422,6 +367,7 @@ let selectedFrameHeight="hh";
                                     <th>Frame Type</th>
                                     <th>Frame Height</th>
                                     <th>Highest bid</th>
+                                    <th>Ending date</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -429,22 +375,43 @@ let selectedFrameHeight="hh";
                                 <tbody class="text-center">
 
                                 {#each items as item}
-                                    <tr>
-                                        <td>{item.brand}</td>
-                                        <td>{item.frameType}</td>
-                                        <td>{item.frameHeightInCm}</td>
-                                        <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}</td>
-                                        <td>
-                                            <button on:click={getAllBidsforOneBike(item.id)} class="btn btn-primary shadow-sm" type="button"
-                                                    data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button on:click={setBikeIdForModal2(item.id)} class="btn btn-primary shadow-sm" type="button"
-                                                    data-bs-target="#modal-2" data-bs-toggle="modal">Place bid
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    {#if item.endingDate > today}
+                                        <tr>
+                                            <td>{item.brand}</td>
+                                            <td>{item.frameType}</td>
+                                            <td>{item.frameHeightInCm}</td>
+                                            <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}€</td>
+                                            <td>{item.endingDate}</td>
+                                            <td>
+                                                <button on:click={getAllBidsforOneBike(item.id)} class="btn btn-primary shadow-sm" type="button"
+                                                        data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button on:click={setBikeIdForModal2(item.id)} class="btn btn-primary shadow-sm" type="button"
+                                                        data-bs-target="#modal-2" data-bs-toggle="modal">Place bid
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {:else }
+                                        <tr class="notAvailable">
+                                            <td>{item.brand}</td>
+                                            <td>{item.frameType}</td>
+                                            <td>{item.frameHeightInCm}</td>
+                                            <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}€</td>
+                                            <td style="color: orangered">{item.endingDate}</td>
+                                            <td>
+                                                <button on:click={getAllBidsforOneBike(item.id)} class="btn btn-primary shadow-sm" type="button"
+                                                        data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button on:click={setBikeIdForModal2(item.id)} class="btn btn-primary shadow-sm disabled" type="button"
+                                                        data-bs-target="#modal-2" data-bs-toggle="modal">Place bid
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {/if}
                                 {/each}
 
                                 </tbody>
@@ -510,29 +477,12 @@ let selectedFrameHeight="hh";
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/script.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script defer src="assets/js/script.min.js"></script>
 </body>
 
 <style>
-    @import url("https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css");
-    @media (max-width: 543px) {
-        .refresh {
-            margin-top: .5rem
-        }
+    .notAvailable {
+        cursor: not-allowed;
     }
-
-    @media (max-width: 607px) {
-        .refresh1 {
-            margin-top: .5rem
-        }
-    }
-
-    @media (max-width: 382px) {
-        .type {
-            margin-top: .5rem
-        }
-    }
-
-
 </style>

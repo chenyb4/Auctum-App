@@ -33,20 +33,11 @@
             })
 
         } else {
-            alert('The passwords you entered are not the same. Please check.')
+            alert('The passwords you entered are not the same. Please check...')
         }
     }
 
 </script>
-
-<head>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bad+Script&amp;display=swap">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-</head>
 
 <body class="bg-gradient-primary register">
 <div class="container">
@@ -100,8 +91,8 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/script.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script defer src="assets/js/script.min.js"></script>
 </body>
 
 <style>
