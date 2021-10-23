@@ -5,7 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2676c03-8669-4547-805e-171211e0b156" name="Changes" comment="Changes">
+      <change afterPath="$PROJECT_DIR$/src/routes/MyBids.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/script.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/script.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/styles.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/styles.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/Home.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Home.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/Login.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Login.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/Register.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Register.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +31,7 @@
         <option value="AddBicycle" />
         <option value="Home" />
         <option value="JavaScript File" />
+        <option value="MyBids" />
       </list>
     </option>
   </component>
@@ -35,9 +47,12 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/public/assets/js/script.min.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/public/styles.min.css" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/public/bootstrap.min.css" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/public/assets/js/script.min.js" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProjectId" id="1yrXZaTNeFPWeje0vLWGEgcq1jh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -139,6 +154,10 @@
       <workItem from="1634654138506" duration="17304000" />
       <workItem from="1634742361501" duration="598000" />
       <workItem from="1634777966346" duration="5087000" />
+      <workItem from="1634842493209" duration="190000" />
+      <workItem from="1634842708605" duration="5071000" />
+      <workItem from="1634896124391" duration="756000" />
+      <workItem from="1634921067119" duration="13533000" />
     </task>
     <servers />
   </component>

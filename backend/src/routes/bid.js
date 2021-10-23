@@ -48,8 +48,6 @@ router.post('',isLoggedIn,(req,res) => {
    }
 });
 
-
-
 //delete a bid by id ---it works
 router.delete('/:id',isLoggedIn,((req, res) => {
    for (let bid in bids) {

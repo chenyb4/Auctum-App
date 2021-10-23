@@ -5,9 +5,20 @@
     import router from 'page';
     let user = [];
 
+    function parseJwt (token) {
+        if (token != ''){
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+    }
+
     //login function
     async function login () {
-        const response = await fetch(targetURL, {
+        await fetch(targetURL, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -18,9 +29,13 @@
             })
             }).then(async (res) => {
             if (res.ok) {
-                console.log('Login successfully');
-                router.redirect('/home');
                 $tokenStore = await res.json();
+                console.log('Login successfully');
+                if ((parseJwt($tokenStore.token).role.includes('admin'))){
+                    router.redirect('/add-bicycle');
+                } else {
+                    router.redirect('/home');
+                }
                // document.cookie='token='+$tokenStore.token;
             } else {
                 throw new Error(await res.text());
@@ -30,15 +45,6 @@
         })
     }
 </script>
-
-<head>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bad+Script&amp;display=swap">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-</head>
 
 <body class="bg-gradient-primary login">
 <div class="container">
@@ -68,7 +74,7 @@
                                         <input bind:value={email} class="form-control form-control-user" type="email"
                                                id="exampleInputEmail" aria-describedby="emailHelp"
                                                placeholder="Enter Email Address" name="email"
-                                               autocomplete="on" inputmode="email" required>
+                                               autocomplete="on" inputmode="email" required >
                                     </div>
                                     <div class="mb-3">
                                         <input bind:value={password} class="form-control form-control-user" type="password"
@@ -88,8 +94,8 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/script.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script defer src="assets/js/script.min.js"></script>
 </body>
 
 <style>

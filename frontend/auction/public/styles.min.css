@@ -11,6 +11,8 @@ input[type=number] {
     -moz-appearance: textfield
 }
 
-.modal-backdrop {
-    opacity: 0.5 !important;
+.oneLine {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
