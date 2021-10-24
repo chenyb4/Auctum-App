@@ -57,7 +57,7 @@
                                 <div class="col mb-3 mb-sm-0">
                                     <input bind:value={name} class="form-control form-control-user" type="text"
                                            id="exampleFirstName" placeholder="Enter your name"
-                                           name="name" required="" minlength="3">
+                                           name="name" required minlength="3">
                                 </div>
                             </div>
                             <div class="mb-3">

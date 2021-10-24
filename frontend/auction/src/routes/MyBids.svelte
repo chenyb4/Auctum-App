@@ -1,6 +1,9 @@
 <script>
     import tokenStore from "../stores/token";
     import router from "page";
+    import { LightPaginationNav,paginate } from "svelte-paginate";
+    import { fade } from 'svelte/transition';
+    import { flip } from 'svelte/animate';
 
     let targetURLBids='http://localhost:3000/bids';
 
@@ -17,8 +20,13 @@
 
     let bids=[];
 
+    //For pagination
+    let currentPage = 1;
+    let pageSize = 5;
+    $: paginatedItems = paginate({ items:bids, pageSize, currentPage });
+
     /**
-     * get all bids for a certain bike on bike id
+     * GET request
      * @returns {Promise<void>}
      * @param userId
      */
@@ -38,18 +46,28 @@
             for (let bid of bidsJson) {
                 if(bid.placedByUserId==userId){
                     bids.push(bid);
-                    bids=bids;
+                    bids = bids;
                 }
             }
 
         }catch (e){
-            console.error(e);
+            alert(e);
         }
     }
+
+    /**
+     * First it will check if the token is empty and then execute the method getAllBidsForOneUser
+     */
 
     if ($tokenStore.token != ''){
         getAllBidsForOneUser(parseJwt($tokenStore.token).id);
     }
+
+    /**
+     * DELETE request
+     * @param bidId to be deleted
+     * @returns {Promise<void>} that deletes the bid from the back-end
+     */
 
     async function deleteBid (bidId) {
 
@@ -66,11 +84,11 @@
                 router.redirect('/add-bicycle');
             } else {
                 res.json().then((body) => {
-                    console.error(body.message || "Internal error");
+                    alert(body.message || "Internal error");
                 });
             }
-            }).catch((err) => {
-                console.error(err);
+            }).catch(async (err) => {
+                alert(err);
             });
     }
 
@@ -80,7 +98,7 @@
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
         <div class="container-fluid d-flex flex-column p-0">
-            <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#"
+            <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href=""
                 style="padding-top: 36px;">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-chart-line"></i>
@@ -94,24 +112,30 @@
                 </div>
             </a>
             <ul class="navbar-nav text-light" id="accordionSidebar" style="margin-top: 16px;">
-                <li class="nav-item">
-                    <a class="nav-link" href="/home">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>Auctions</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/my-bids">
-                        <i class="fa fa-money"></i>
-                        <span>My bids</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/add-bicycle">
-                        <i class="fa fa-bicycle"></i>
-                        <span>Add bicycle</span>
-                    </a>
-                </li>
+                {#if ($tokenStore.token != '')}
+                    {#if (parseJwt($tokenStore.token).role.includes('client'))}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Auctions</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/my-bids">
+                                <i class="fa fa-money"></i>
+                                <span>My bids</span>
+                            </a>
+                        </li>
+                    {/if}
+                    {#if (parseJwt($tokenStore.token).role.includes('admin'))}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/add-bicycle">
+                                <i class="fa fa-bicycle"></i>
+                                <span>Add bicycle</span>
+                            </a>
+                        </li>
+                    {/if}
+                {/if}
                 <li class="nav-item">
                     <a on:click={$tokenStore.token = ''} class="nav-link" href="/login">
                         <i class="far fa-user-circle"></i>
@@ -133,7 +157,7 @@
                     <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
                                                         placeholder="Search for ...">
-                            <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
+                            <button class="btn btn-info py-0" type="button"><i class="fas fa-search" style="color: white"></i></button>
                         </div>
                     </form>
                     <ul class="navbar-nav flex-nowrap ms-auto">
@@ -169,8 +193,8 @@
                                 </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                    {#each bids as bid (bid.id)}
-                                        <tr>
+                                    {#each paginatedItems as bid (bid.id)}
+                                        <tr animate:flip in:fade>
                                             <td>{bid.price}€</td>
                                             <td>{bid.forBikeId}</td>
                                             <td>
@@ -181,15 +205,25 @@
                                         {#if bids.length > 0}
                                             <span class="spinner-border mt-2" role="status"></span>
                                         {:else }
-                                            <p>No bids to show!</p>
+                                            <p in:fade={{delay:600}}>No bids to show!</p>
                                         {/if}
                                     {/each}
                                 </tbody>
                             </table>
                         </div>
+                        {#if bids.length > 0}
+                            <LightPaginationNav
+                                    totalItems="{bids.length}"
+                                    pageSize="{pageSize}"
+                                    currentPage="{currentPage}"
+                                    limit="{1}"
+                                    showStepOptions="{true}"
+                                    on:setPage="{(e) => currentPage = e.detail.page}"
+                            />
+                        {/if}
                     </div>
                 </div>
-                <h5>Won bids:&nbsp;
+                <h5 class="mt-3">Won bids:&nbsp;
                     <a href="#" data-bs-target="#modal-4" data-bs-toggle="modal">
                         0
                     </a>
