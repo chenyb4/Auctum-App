@@ -1,18 +1,18 @@
-const router=require('express').Router();
-const {StatusCodes} = require('http-status-codes');
-let {bikes, bids} =require('../data/data.js');
-const {parse} = require("nodemon/lib/cli");
-const isLoggedIn=require('../middleware/is-logged-in');
-const isAdmin=require('../middleware/is-admin');
+const router = require('express').Router();
+const { StatusCodes } = require('http-status-codes');
+let { bikes, bids } = require('../data/data.js');
+const { parse } = require("nodemon/lib/cli");
+const isLoggedIn = require('../middleware/is-logged-in');
+const isAdmin = require('../middleware/is-admin');
 
-//get all the bikes ---it works
+/**
+ * To get bikes or specific bike, u dont need to be logged in.
+ */
+
 router.get('', (req,res)=>{
+    const { brand,frameType,frameHeightInCm } = req.query;
 
-    const brand=req.query.brand;
-    const frameType=req.query.frameType;
-    const frameHeightInCm=req.query.frameHeightInCm;
-
-    let resultBikes=bikes;
+    let resultBikes = bikes;
 
     if(brand){
         resultBikes=resultBikes.filter((bike)=>{
@@ -35,7 +35,7 @@ router.get('', (req,res)=>{
     if (resultBikes == []){
          res.status(StatusCodes.NOT_FOUND).send(`Cannot find product with ending date: ${endingDate}`)
     }else{
-         res.send(resultBikes);
+         res.status(StatusCodes.OK).send(resultBikes);
     }
 
 
@@ -57,15 +57,13 @@ router.get('', (req,res)=>{
 
 });
 
-//get one bike by id --- it works
 router.get('/:id',(req, res) => {
     const id = req.params.id;
 
     let result;
     result = bikes.find((bike) => {
-
+        //Find one bike with specific id
         return bike.id == id;
-
     });
 
     if (result == null){
@@ -74,12 +72,9 @@ router.get('/:id',(req, res) => {
             .sendStatus(StatusCodes.NOT_FOUND);
     }
 
-    return res.send(result);
+    return res.status(StatusCodes.ACCEPTED).send(result);
 });
 
-
-
-//Does work
 router.post('',isLoggedIn,isAdmin,(req, res) => {
     const { brand,frameType,frameHeightInCm,endingDate } = req.body;
 
@@ -104,7 +99,7 @@ router.post('',isLoggedIn,isAdmin,(req, res) => {
     }
 });
 
-//Does work
+
 router.put('',isLoggedIn,isAdmin,(req,res) => {
     const { brand,frameType,frameHeightInCm } = req.body;
     //const id = parseInt(req.params.id);
@@ -119,27 +114,23 @@ router.put('',isLoggedIn,isAdmin,(req,res) => {
                     bikes[i].frameType = frameType;
                     bikes[i].brand = brand;
                     bikes[i].frameHeightInCm = frameHeightInCm;
-                    return res.status(StatusCodes.OK).end('The bike has been modified successfully!');
+                    return res.status(StatusCodes.ACCEPTED).end('The bike has been modified successfully!');
                 }
             }
         }
     //}
-
     return res.status(StatusCodes.BAD_REQUEST).end('Something is wrong with your input!');
-
 });
 
-
-//delete a bike ---it works
 router.delete('/:id',isLoggedIn,isAdmin, ((req, res) => {
     for (let bike in bikes) {
         if(bike.id==req.id){
             bikes = bikes.filter(x=>x.id!=req.params.id)
-            return res.send(`deleted bike at id ${req.params.id}`);
+            return res.status(StatusCodes.NO_CONTENT).send(`deleted bike at id ${req.params.id}`);
         }
     }
-    return res.send('cannot find a product with this id');
-}) );
+    return res.status(StatusCodes.NOT_FOUND).send('cannot find the bike with this id');
+}));
 
 module.exports=router;
 

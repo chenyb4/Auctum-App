@@ -1,6 +1,8 @@
 <script>
     import tokenStore from "../stores/token";
     import router from "page";
+    import { fade, fly } from 'svelte/transition';
+    import { flip } from 'svelte/animate';
 
     //document.cookie='token='+$tokenStore.token;
     let selectedBrand="hh";
@@ -15,6 +17,14 @@
     let distinctFrameTypes=[];
     let distinctFrameHeights=[];
 
+
+    let targetURLBikes = 'http://localhost:3000/bikes';
+    let targetURLBids='http://localhost:3000/bids';
+    let targetURLUsers='http://localhost:3000/users';
+
+    let items = [];
+    let itemsToDisplay=[];
+    let today = new Date().toISOString().split("T")[0];
 
     function getDistinctForDropDownItems(){
         for (let item of items) {
@@ -36,14 +46,6 @@
             }
         }
     }
-
-    let targetURLBikes = 'http://localhost:3000/bikes';
-    let targetURLBids='http://localhost:3000/bids';
-    let targetURLUsers='http://localhost:3000/users';
-
-    let items = [];
-    let itemsToDisplay=[];
-    let today = new Date().toISOString().split("T")[0];
 
     //now each item in the items has 6 keys. the one extra key is highestBid
     async function getBikes (brand,frameType,frameHeightInCm) {
@@ -219,7 +221,7 @@
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
         <div class="container-fluid d-flex flex-column p-0">
-            <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/home"
+            <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href=""
                 style="padding-top: 36px;">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-chart-line"></i>
@@ -235,20 +237,21 @@
                 </div>
             </a>
             <ul class="navbar-nav text-light" id="accordionSidebar" style="margin-top: 16px;">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/home">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>Auctions</span>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/my-bids">
-                        <i class="fa fa-money"></i>
-                        <span>My bids</span>
-                    </a>
-                </li>
                 {#if ($tokenStore.token != '')}
+                    {#if (parseJwt($tokenStore.token).role.includes('client'))}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Auctions</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/my-bids">
+                                <i class="fa fa-money"></i>
+                                <span>My bids</span>
+                            </a>
+                        </li>
+                    {/if}
                     {#if (parseJwt($tokenStore.token).role.includes('admin'))}
                         <li class="nav-item">
                             <a class="nav-link" href="/add-bicycle">
@@ -281,8 +284,8 @@
                         <div class="input-group">
                             <input class="bg-light form-control border-0 small" type="text"
                                    placeholder="Search for ..." name="searchbar" autocomplete="on">
-                            <button class="btn btn-primary py-0" type="button">
-                                <i class="fas fa-search"></i>
+                            <button class="btn btn-info py-0" type="button">
+                                <i class="fas fa-search" style="color: white"></i>
                             </button>
                         </div>
                     </form>

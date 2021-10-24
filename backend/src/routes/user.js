@@ -1,18 +1,19 @@
 const router = require('express').Router();
-const {v4:uuidv4}=require('uuid');
+const { v4:uuidv4 } = require('uuid');
 const { StatusCodes } = require('http-status-codes');
 const bcrypt = require("bcrypt");
-let {users} =require('../data/data.js');
-const isLoggedIn=require('../middleware/is-logged-in');
-const isAdmin=require('../middleware/is-admin');
+let { users } = require('../data/data.js');
+const isLoggedIn = require('../middleware/is-logged-in');
+const isAdmin = require('../middleware/is-admin');
 
-//get all clients ---it works
+/**
+ * To get all users or specific or add new users, u dont need to be logged in or to be an admin
+ */
+
 router.get('',(req,res)=>{
-    let result = users;
-    res.send(result);
+    res.status(StatusCodes.OK).send(users);
 });
 
-//get one client by id---- it works
 router.get('/:id',(req, res) => {
     const id = req.params.id;
     let result;
@@ -24,51 +25,54 @@ router.get('/:id',(req, res) => {
             .send(`Cannot find user with id: ${id}`)
             .sendStatus(StatusCodes.NOT_FOUND);
     }
-    return res.send(result);
+    return res.status(StatusCodes.ACCEPTED).send(result);
 });
 
-//Does work
 router.post('',(req,res) => {
-    const { name,email,password } = req.body;
+    const { name,email,passwordHashValue } = req.body;
 
-    let passwordHashValue;
-
-    const salt = bcrypt.genSaltSync(10);
-    passwordHashValue = bcrypt.hashSync(password, salt);
+    let password;
 
     let highestId = users[users.length-1].id;
     highestId++;
 
+    //what if there were no user in the data?
+    //the highest user id will be undefined
+
     if (name && email && passwordHashValue){
+
+        //This was moved due to some errors
+        const salt = bcrypt.genSaltSync(10);
+        password = bcrypt.hashSync(passwordHashValue, salt);
+
         users.push({
             id:highestId,
             name:name,
+            //User can only be a client, admins are pre registered in the system
             role:['client'],
             email:email,
-            passwordHashValue:passwordHashValue,
+            passwordHashValue:password,
             secret: uuidv4()
         });
 
         return res.status(StatusCodes.CREATED).send('User created successfully!');
 
     } else {
-        return res.status(StatusCodes.NOT_FOUND).send('Something is wrong with your inputs!')
+        return res.status(StatusCodes.BAD_REQUEST).send('Something is wrong with your inputs!')
     }
 });
 
 
-//delete a client on id ---it works
 router.delete('/:id',isLoggedIn,isAdmin,((req, res) => {
     for (let user in users) {
-        if(user.id==req.id){
-            users = users.filter(x=>x.id!=req.params.id)
-            return res.send(`deleted user at id ${req.params.id}`);
+        if(user.id == req.id){
+            users = users.filter(x => x.id != req.params.id);
+            return res.status(StatusCodes.NO_CONTENT).send(`deleted user at id ${req.params.id}`);
            // res.send('deleted user at id'+req.params.id);
         }
     }
-    return res.send('cannot find a user with this id');
-}) );
-
+    return res.status(StatusCodes.NOT_FOUND).send('cannot find a user with this id');
+}));
 
 module.exports=router;
 

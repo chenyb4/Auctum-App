@@ -16,7 +16,12 @@
         }
     }
 
-    //login function
+    /**
+     * To login into the web app using POST request,
+     * if successfully it will redirect to either home or add-bicycle page
+     * @returns {Promise<void>} token
+     */
+
     async function login () {
         await fetch(targetURL, {
             method: 'POST',
