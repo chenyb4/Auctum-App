@@ -8,15 +8,10 @@ const bids=[
         placedByUserId:1,
         forBikeId:1
     },
+
     {
         id: 2,
         price: 10,
-        placedByUserId:2,
-        forBikeId:2
-    },
-    {
-        id: 5,
-        price: 150,
         placedByUserId:2,
         forBikeId:2
     },
@@ -25,7 +20,32 @@ const bids=[
         price: 3,
         placedByUserId:3,
         forBikeId:3
+    },
+    {
+        id: 4,
+        price: 888,
+        placedByUserId:2,
+        forBikeId:1
+    },
+    {
+        id: 5,
+        price: 150,
+        placedByUserId:2,
+        forBikeId:2
+    },
+    {
+        id: 6,
+        price: 999,
+        placedByUserId:2,
+        forBikeId:9
+    },
+    {
+        id: 7,
+        price: 500,
+        placedByUserId:3,
+        forBikeId:10
     }
+
 ];
 
 const users=[
@@ -112,6 +132,22 @@ const bikes=[
         frameType: 'Step-through',
         frameHeightInCm: '57',
         endingDate: new Date(2022,0,10).toISOString().split('T')[0]
+    },
+    {
+        id:9,
+        brand:'Giant',
+        frameType: 'Diamond',
+        frameHeightInCm: '53',
+        //This is only to show tha date instead of the date and time
+        endingDate: new Date(2021,8,31).toISOString().split('T')[0]
+    },
+    {
+        id:10,
+        brand:'Monster',
+        frameType: 'Diamond',
+        frameHeightInCm: '55',
+        //This is only to show tha date instead of the date and time
+        endingDate: new Date(2021,8,31).toISOString().split('T')[0]
     }
 ];
 
