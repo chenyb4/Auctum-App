@@ -316,7 +316,7 @@
                                 </thead>
                                 <tbody class="text-center">
                                 {#each paginatedItems as bike (bike.id)}
-                                    <tr animate:flip in:fade out:fly={{x:100}}>
+                                    <tr in:fade out:fly={{x:100}}>
                                         <td>{bike.brand}</td>
                                         <td>{bike.frameType}</td>
                                         <td>{bike.frameHeightInCm}</td>

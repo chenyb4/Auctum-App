@@ -1,8 +1,14 @@
 <script>
     import tokenStore from "../stores/token";
     import router from "page";
+    import { LightPaginationNav, paginate } from 'svelte-paginate';
     import { fade, fly } from 'svelte/transition';
     import { flip } from 'svelte/animate';
+
+    //For pagination
+    let currentPage = 1;
+    let pageSize = 7;
+    $: paginatedItems = paginate({ items, pageSize, currentPage });
 
     //document.cookie='token='+$tokenStore.token;
     let selectedBrand="hh";
@@ -301,7 +307,7 @@
                     </ul>
                 </div>
             </nav>
-            <div class="container-fluid">
+            <div class="container-fluid mb-3">
                 <div class="row">
                     <div class="col-12">
                         <h3 class="text-dark d-table mb-0">Welcome
@@ -366,6 +372,7 @@
                             <table class="table">
                                 <thead>
                                 <tr class="text-center">
+                                    <th>ID</th>
                                     <th>Brand</th>
                                     <th>Frame Type</th>
                                     <th>Frame Height</th>
@@ -377,9 +384,10 @@
                                 </thead>
                                 <tbody class="text-center">
 
-                                {#each items as item}
+                                {#each paginatedItems as item}
                                     {#if item.endingDate > today}
                                         <tr>
+                                            <td>{item.id}</td>
                                             <td>{item.brand}</td>
                                             <td>{item.frameType}</td>
                                             <td>{item.frameHeightInCm}</td>
@@ -398,11 +406,12 @@
                                         </tr>
                                     {:else }
                                         <tr class="notAvailable">
+                                            <td>{item.id}</td>
                                             <td>{item.brand}</td>
                                             <td>{item.frameType}</td>
                                             <td>{item.frameHeightInCm}</td>
                                             <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}€</td>
-                                            <td style="color: orangered">{item.endingDate}(ended)</td>
+                                            <td style="color: orangered">{item.endingDate}&nbsp;(ended)</td>
                                             <td>
                                                 <button on:click={getAllBidsforOneBike(item.id)} class="btn btn-primary shadow-sm" type="button"
                                                         data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
@@ -422,6 +431,16 @@
                         </div>
                     </div>
                 </div>
+                {#if items.length > 0}
+                    <LightPaginationNav
+                            totalItems="{items.length}"
+                            pageSize="{pageSize}"
+                            currentPage="{currentPage}"
+                            limit="{1}"
+                            showStepOptions="{true}"
+                            on:setPage="{(e) => currentPage = e.detail.page}"
+                    />
+                {/if}
             </div>
         </div>
         <footer class="bg-white d-xl-flex justify-content-xl-center align-items-xl-end sticky-footer">
@@ -486,6 +505,6 @@
 
 <style>
     .notAvailable {
-        cursor: not-allowed;
+        color: orangered;
     }
 </style>

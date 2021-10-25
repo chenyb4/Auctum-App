@@ -3,38 +3,46 @@
     let targetURL = 'http://localhost:3000/users';
     let name,email,password,passwordRepeat = '';
 
+    let emailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //validation pattern to check email
+    let passw1 = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; //validation pattern to check password
+
     async function register(){
-        if(password == passwordRepeat){
-            let userBody=[];
-            userBody.name=name;
-            userBody.email=email;
-            userBody.password=password;
+        if (password && passwordRepeat && email && name){
+            if(password == passwordRepeat){
+                let userBody=[];
+                userBody.name=name;
+                userBody.email=email;
+                userBody.password=password;
 
-            const response=await fetch(targetURL,{
-                method:'POST',
-                headers:{
-                    'Content-type': 'application/json'
-                },
-                body:JSON.stringify({
-                    name:name,
-                    email:email,
-                    password:password
+                const response=await fetch(targetURL,{
+                    method:'POST',
+                    headers:{
+                        'Content-type': 'application/json'
+                    },
+                    body:JSON.stringify({
+                        name:name,
+                        email:email,
+                        password:password
+                    })
+                }).then(async (res)=>{
+                    if(res.ok){
+                        console.log('Register successfully.');
+                        router.redirect('/login');
+                        return response.json();
+                    }else{
+                        throw new Error(await res.text());
+                    }
+                }).catch((err)=>{
+                    alert(err);
                 })
-            }).then(async (res)=>{
-                if(res.ok){
-                    console.log('Register successfully.');
-                    router.redirect('/login');
-                    return response.json();
-                }else{
-                    throw new Error(await res.text());
-                }
-            }).catch((err)=>{
-                alert(err);
-            })
 
+            } else {
+                alert('The passwords you entered are not the same. Please check...')
+            }
         } else {
-            alert('The passwords you entered are not the same. Please check...')
+            alert('Some inputs are missing!')
         }
+
     }
 
 </script>
@@ -65,6 +73,11 @@
                                        id="exampleInputEmail" aria-describedby="emailHelp"
                                        placeholder="Enter your Email Address" name="email" required
                                        inputmode="email">
+                                {#if (email)}
+                                    {#if !email.match(emailValid) && email != 0}
+                                        <p class="mt-2" style="color:#FF0000;font-size:medium">You have entered an invalid email address!</p>
+                                    {/if}
+                                {/if}
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -72,11 +85,23 @@
                                            type="password" id="examplePasswordInput"
                                            placeholder="Enter your Password"
                                            name="password" required>
+                                    {#if (password)}
+                                        {#if !password.match(passw1) && password != 0}
+                                            <p style="color:#FF0000;font-size:medium">Password must contain at least 6 characters,
+                                                one number , one uppercase and lowercase
+                                                letter!</p>
+                                        {/if}
+                                    {/if}
                                 </div>
                                 <div class="col-sm-6">
                                     <input bind:value={passwordRepeat} class="form-control form-control-user" type="password"
                                            id="exampleRepeatPasswordInput"
                                            placeholder="Repeat your Password" name="password_repeat" required>
+                                    {#if (passwordRepeat)}
+                                        {#if !password.match(passwordRepeat) && passwordRepeat != 0}
+                                            <p style="color:#FF0000;font-size:medium">Passwords don't match!</p>
+                                        {/if}
+                                    {/if}
                                 </div>
                             </div>
                             <button on:click|preventDefault={register} class="btn btn-primary d-block btn-user w-100" type="submit">Register Account

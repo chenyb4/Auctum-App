@@ -81,7 +81,7 @@
             if (res.ok) {
                 console.log("Success!");
                 router.redirect('/home');
-                router.redirect('/add-bicycle');
+                router.redirect('/my-bids');
             } else {
                 res.json().then((body) => {
                     alert(body.message || "Internal error");
@@ -91,8 +91,6 @@
                 alert(err);
             });
     }
-
-
 
     //get bids I won
     let bidsIWon=[];
@@ -114,11 +112,6 @@
     }
 
     getBidsIWon();
-    console.log(bidsIWon);
-
-
-
-
 
 </script>
 
@@ -272,29 +265,37 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>The content of your modal.</p>
-                <table class="table">
-                    <thead>
-                    <tr class="text-center">
-                        <th>Brand</th>
-                        <th>Frame Type</th>
-                        <th>Frame Height</th>
-                        <th>Ending Date</th>
-                        <th>My Bid</th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-center">
-                    {#each bidsIWon as bike}
-                        <tr >
-                            <td>{bike.brand}</td>
-                            <td>{bike.frameType}</td>
-                            <td>{bike.frameHeightInCm}</td>
-                            <td>{bike.endingDate}</td>
-                            <td>{bike.highestBid}</td>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Brand</th>
+                            <th>Frame Type</th>
+                            <th>Frame Height</th>
+                            <th>Ending Date</th>
+                            <th>My Bid</th>
                         </tr>
-                    {/each}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="text-center">
+                        {#each bidsIWon as bike}
+                            <tr in:fade>
+                                <td>{bike.brand}</td>
+                                <td>{bike.frameType}</td>
+                                <td>{bike.frameHeightInCm}</td>
+                                <td>{bike.endingDate}</td>
+                                <td>{bike.highestBid}€</td>
+                            </tr>
+                            {:else }
+                                {#if bidsIWon.length > 0}
+                                    <span class="spinner-border mt-2" role="status"></span>
+                                {:else }
+                                    <p in:fade={{delay:600}}>No bikes to show!</p>
+                                {/if}
+                        {/each}
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Close</button>

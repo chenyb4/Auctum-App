@@ -5,6 +5,8 @@
     import router from 'page';
     let user = [];
 
+    let emailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //validation pattern to check email
+
     function parseJwt (token) {
         if (token != ''){
             var base64Url = token.split('.')[1];
@@ -80,6 +82,11 @@
                                                id="exampleInputEmail" aria-describedby="emailHelp"
                                                placeholder="Enter Email Address" name="email"
                                                autocomplete="on" inputmode="email" required >
+                                        {#if (email)}
+                                            {#if !email.match(emailValid) && email != 0}
+                                                <p class="mt-2" style="color:#FF0000;font-size:medium">You have entered an invalid email address!</p>
+                                            {/if}
+                                        {/if}
                                     </div>
                                     <div class="mb-3">
                                         <input bind:value={password} class="form-control form-control-user" type="password"
