@@ -366,8 +366,8 @@
                                     <th>Brand</th>
                                     <th>Frame Type</th>
                                     <th>Frame Height</th>
-                                    <th>Highest bid</th>
-                                    <th>Ending date</th>
+                                    <th>Current Highest Bid</th>
+                                    <th>Ending Date</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -399,7 +399,7 @@
                                             <td>{item.frameType}</td>
                                             <td>{item.frameHeightInCm}</td>
                                             <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}€</td>
-                                            <td style="color: orangered">{item.endingDate}</td>
+                                            <td style="color: orangered">{item.endingDate}(ended)</td>
                                             <td>
                                                 <button on:click={getAllBidsforOneBike(item.id)} class="btn btn-primary shadow-sm" type="button"
                                                         data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
@@ -431,7 +431,7 @@
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
-            <div class="modal-header"><h4 class="modal-title">All the bids</h4>
+            <div class="modal-header"><h4 class="modal-title">All the bids placed</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -439,7 +439,7 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>User ID</th>
+                            <th>Placed By User ID</th>
                             <th>Bid Price</th>
                         </tr>
                         </thead>
