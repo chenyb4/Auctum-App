@@ -92,6 +92,34 @@
             });
     }
 
+
+
+    //get bids I won
+    let bidsIWon=[];
+    async function getBidsIWon() {
+        try {
+            const resp = await fetch('http://localhost:3000/users/' + parseJwt($tokenStore.token).id + '/bikes-i-won', {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'authorization': 'Bearer ' + $tokenStore.token
+                }
+            });
+
+            bidsIWon = await resp.json();
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    getBidsIWon();
+    console.log(bidsIWon);
+
+
+
+
+
 </script>
 
 <body id="page-top">
@@ -225,7 +253,7 @@
                 </div>
                 <h5 class="mt-3">Won bids:&nbsp;
                     <a href="#" data-bs-target="#modal-4" data-bs-toggle="modal">
-                        0
+                        {bidsIWon.length}
                     </a>
                 </h5>
             </div>
@@ -243,7 +271,31 @@
             <div class="modal-header"><h4 class="modal-title">Won bids</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body"><p>The content of your modal.</p></div>
+            <div class="modal-body">
+                <p>The content of your modal.</p>
+                <table class="table">
+                    <thead>
+                    <tr class="text-center">
+                        <th>Brand</th>
+                        <th>Frame Type</th>
+                        <th>Frame Height</th>
+                        <th>Ending Date</th>
+                        <th>My Bid</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    {#each bidsIWon as bike}
+                        <tr >
+                            <td>{bike.brand}</td>
+                            <td>{bike.frameType}</td>
+                            <td>{bike.frameHeightInCm}</td>
+                            <td>{bike.endingDate}</td>
+                            <td>{bike.highestBid}</td>
+                        </tr>
+                    {/each}
+                    </tbody>
+                </table>
+            </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Close</button>
             </div>
