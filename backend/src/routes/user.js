@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { v4:uuidv4 } = require('uuid');
 const { StatusCodes } = require('http-status-codes');
 const bcrypt = require("bcrypt");
-let { users } = require('../data/data.js');
+let { users, bikes , bids} = require('../data/data.js');
 const isLoggedIn = require('../middleware/is-logged-in');
 const isAdmin = require('../middleware/is-admin');
 
@@ -20,6 +20,8 @@ router.get('/:id',(req, res) => {
     result = users.find((user) => {
         return user.id == id;
     });
+
+
     if (result == null){
         return res
             .send(`Cannot find user with id: ${id}`)
@@ -27,6 +29,72 @@ router.get('/:id',(req, res) => {
     }
     return res.status(StatusCodes.ACCEPTED).send(result);
 });
+
+
+//get bikes I won
+router.get('/:id/bikes-i-won',(req, res) => {
+    const id = req.params.id;
+    let result;
+    //result is the user
+    result = users.find((user) => {
+        return user.id == id;
+    });
+
+    //if we dont have this user
+    if (result == null){
+        return res
+            .send(`Cannot find user with id: ${id}`)
+            .sendStatus(StatusCodes.NOT_FOUND);
+    }
+
+    //get a list of bike auctions that ended
+    let bikesEnded=[];
+    let today = new Date().toISOString().split("T")[0];
+    for (const bike of bikes) {
+        if(bike.endingDate<=today){
+            bikesEnded.push(bike);
+            bikesEnded=bikesEnded;
+        }
+    }
+
+    //now we have an array of bikes auctions ended.
+    // find the user id who placed the highest bid for every bike and place this key into the bike objects
+    let bikesEndedWithWinnerId=[];
+    for (const bike of bikesEnded) {
+        let winnerId=-1;
+        let highestBid=0;
+        for (let bid of bids) {
+            //if the bid is indeed for this bike, then do stuff to find the winner
+            if(bid.forBikeId==bike.id){
+                if(bid.price>highestBid){
+                    //update the current winner id
+                    winnerId=bid.placedByUserId;
+                    //update the current highest bid price for comparison in the next loop
+                    highestBid=bid.price;
+                }
+            }
+        }
+
+        bike.winnerId=winnerId;
+        bike.highestBid=highestBid;
+        bikesEndedWithWinnerId.push(bike);
+        bikesEndedWithWinnerId=bikesEndedWithWinnerId;
+    }
+//after this loop, all bikes now has a winner id key, good good good
+
+    let bikesIWon=[];
+    for (let bike of bikesEndedWithWinnerId) {
+       // console.log("current winner id of the bike: "+bike.winnerId);
+        if(bike.winnerId==id){
+            bikesIWon.push(bike);
+            bikesIWon=bikesIWon;
+        }
+    }
+
+    return res.status(StatusCodes.ACCEPTED).send(bikesIWon);
+});
+
+
 
 router.post('',(req,res) => {
     const { name,email,passwordHashValue } = req.body;
