@@ -143,6 +143,11 @@ GET http://{{host}}:{{port}}/bikes?frameType=Diamond&frameHeightInCm=53
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
 
+###search bikes on keyword "Ga"
+GET http://{{host}}:{{port}}/bikes/search?keyword=Ga
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+
 ###get all bikes filtered on brand
 GET http://{{host}}:{{port}}/bikes?brand=Gazelle
 Accept: application/json
