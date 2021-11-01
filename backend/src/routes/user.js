@@ -6,15 +6,12 @@ let { users, bikes , bids} = require('../data/data.js');
 const isLoggedIn = require('../middleware/is-logged-in');
 const isAdmin = require('../middleware/is-admin');
 
-/**
- * To get all users or specific or add new users, u dont need to be logged in or to be an admin
- */
 
-router.get('',(req,res)=>{
+router.get('',isLoggedIn,(req,res)=>{
     res.status(StatusCodes.OK).send(users);
 });
 
-router.get('/:id',(req, res) => {
+router.get('/:id',isLoggedIn,(req, res) => {
     const id = req.params.id;
     let result;
     result = users.find((user) => {
@@ -32,7 +29,7 @@ router.get('/:id',(req, res) => {
 
 
 //get bikes I won
-router.get('/:id/bikes-i-won',(req, res) => {
+router.get('/:id/bikes-i-won',isLoggedIn,(req, res) => {
     const id = req.params.id;
     let result;
     //result is the user
@@ -100,12 +97,18 @@ router.post('',(req,res) => {
     const { name,email,passwordHashValue } = req.body;
 
     let password;
+    let highestId;
 
-    let highestId = users[users.length-1].id;
+    if (users.length == 0){
+        highestId = 0;
+    } else {
+        highestId = users[users.length-1].id;
+    }
     highestId++;
 
     //what if there were no user in the data?
     //the highest user id will be undefined
+
 
     if (name && email && passwordHashValue){
 

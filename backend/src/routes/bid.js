@@ -3,15 +3,11 @@ let { bids,users,bikes } = require('../data/data.js');
 const { StatusCodes } = require('http-status-codes');
 const isLoggedIn = require('../middleware/is-logged-in');
 
-/**
- * To get one bid or specific bid, u dont need to be logged in.
- */
-
-router.get('',(req,res)=>{
+router.get('',isLoggedIn,(req,res)=>{
    res.status(StatusCodes.OK).send(bids);
 });
 
-router.get('/:id',(req, res) => {
+router.get('/:id',isLoggedIn,(req, res) => {
    const id = req.params.id;
    let result;
 

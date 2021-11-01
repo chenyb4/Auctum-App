@@ -35,11 +35,11 @@ router.post('',(req, res) => {
         if(token) {
             return res.status(StatusCodes.ACCEPTED).send({token});
         } else {
-            return res.status(StatusCodes.UNAUTHORIZED).send('credentials incorrect!');
+            return res.status(StatusCodes.UNAUTHORIZED).send('Credentials incorrect!');
         }
 
     } else {
-        return res.status(StatusCodes.BAD_REQUEST).send('Required parameters missing!');
+        return res.status(StatusCodes.BAD_REQUEST).send('Error in email or password!');
     }
 });
 

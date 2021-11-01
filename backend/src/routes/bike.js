@@ -9,7 +9,7 @@ const isAdmin = require('../middleware/is-admin');
  * To get bikes or specific bike, u dont need to be logged in.
  */
 
-router.get('', (req,res)=>{
+router.get('',isLoggedIn, (req,res)=>{
     const { brand,frameType,frameHeightInCm } = req.query;
 
     let resultBikes = bikes;
@@ -57,7 +57,7 @@ router.get('', (req,res)=>{
 
 });
 
-router.get('/:id',(req, res) => {
+router.get('/:id',isLoggedIn,(req, res) => {
     const id = req.params.id;
 
     let result;
