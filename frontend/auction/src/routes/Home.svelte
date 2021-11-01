@@ -52,7 +52,7 @@
             }
         }
     }
-
+    let highBid2 = 0;
     //now each item in the items has 6 keys. the one extra key is highestBid
     async function getBikes (brand,frameType,frameHeightInCm) {
         items=[];
@@ -89,9 +89,10 @@
             //here find out the highest bid of a bike and add the key value pair to the object.
             //then push this object into array items
             for (let tempItem of tempItems) {
-                let highestBid=0;
-                highestBid=await getHighestBid(tempItem.id);
-                tempItem.highestBid=highestBid;
+                highBid2=0;
+                console.log(highBid2);
+                highBid2=await getHighestBid(tempItem.id);
+                tempItem.highestBid=highBid2;
                 items.push(tempItem);
                 items=items;
                 itemsToDisplay.push(tempItem);
@@ -105,8 +106,9 @@
 
 
     //find the highest bid for this bike
-    // let highestBid=0;
+    let highBid=0;
     async function getHighestBid(bikeId){
+        highBid = 0;
         try {
             const resp = await fetch(targetURLBids, {
                 method: 'GET',
@@ -123,6 +125,9 @@
                 if(item.forBikeId==bikeId){
                     if(item.price>highestBid){
                         highestBid=item.price;
+                        highBid = item.price;
+                        console.log(highestBid);
+                        console.log(highBid)
                     }
                 }
             }
@@ -143,8 +148,9 @@
      * @returns {Promise<void>}
      */
 
-    async function getAllBidsforOneBike(bikeId){
+    export async function getAllBidsForOneBike(bikeId){
         bids=[];
+        console.log(bikeId + " hello")
         try {
             const resp = await fetch(targetURLBids, {
                 method: 'GET',
@@ -166,6 +172,8 @@
         }
     }
 
+
+
     /**
      * decode the token into payload
      * declaration of reference: this function comes directly from: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
@@ -183,11 +191,20 @@
             return JSON.parse(jsonPayload);
         }
     }
+    let tempObject = {};
+    function temp (bikeId, highestBid) {
+        tempObject.bikeId = bikeId;
+        tempObject.highestBid = highestBid;
+    }
 
     //pass the bike id to modal 2
     let bikeIdForPlacingABid=0;
-    function setBikeIdForModal2(bikeId){
+    export function setBikeIdForModal2(bikeId,highestBid){
+        console.log('Hello 2')
+        getAllBidsForOneBike(bikeId);
+        temp(bikeId,highestBid);
         bikeIdForPlacingABid=bikeId;
+        return bikeId;
     }
 
     let bidPriceToPlace;
@@ -385,45 +402,27 @@
                                 <tbody class="text-center">
 
                                 {#each paginatedItems as item}
-                                    {#if item.endingDate > today}
-                                        <tr>
-                                            <td>{item.id}</td>
-                                            <td>{item.brand}</td>
-                                            <td>{item.frameType}</td>
-                                            <td>{item.frameHeightInCm}</td>
-                                            <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}€</td>
-                                            <td>{item.endingDate}</td>
-                                            <td>
-                                                <button on:click={getAllBidsforOneBike(item.id)} class="btn btn-primary shadow-sm" type="button"
-                                                        data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button on:click={setBikeIdForModal2(item.id)} class="btn btn-primary shadow-sm" type="button"
-                                                        data-bs-target="#modal-2" data-bs-toggle="modal">Place bid
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    {:else }
-                                        <tr class="notAvailable">
-                                            <td>{item.id}</td>
-                                            <td>{item.brand}</td>
-                                            <td>{item.frameType}</td>
-                                            <td>{item.frameHeightInCm}</td>
-                                            <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}€</td>
-                                            <td style="color: orangered">{item.endingDate}&nbsp;(ended)</td>
-                                            <td>
-                                                <button on:click={getAllBidsforOneBike(item.id)} class="btn btn-primary shadow-sm" type="button"
-                                                        data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button on:click={setBikeIdForModal2(item.id)} class="btn btn-primary shadow-sm disabled" type="button"
-                                                        data-bs-target="#modal-2" data-bs-toggle="modal">Place bid
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    {/if}
+                                    <tr class:notAvailable={item.endingDate <= today}>
+                                        <td>{item.id}</td>
+                                        <td>{item.brand}</td>
+                                        <td>{item.frameType}</td>
+                                        <td>{item.frameHeightInCm}</td>
+                                        <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}€</td>
+                                        <td>{item.endingDate}</td>
+                                        <td>
+                                            <button on:click={getAllBidsForOneBike(item.id)}
+                                                    class="btn btn-primary shadow-sm" type="button"
+                                                    data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button on:click={setBikeIdForModal2(item.id,item.highestBid)}
+                                                    class="btn btn-primary shadow-sm" type="button"
+                                                    data-bs-target="#modal-2" data-bs-toggle="modal"
+                                                    disabled="{item.endingDate <= today}">Place bid
+                                            </button>
+                                        </td>
+                                    </tr>
                                 {/each}
 
                                 </tbody>
@@ -490,11 +489,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form><input bind:value={bidPriceToPlace} class="form-control" type="number" name="price" placeholder="Enter the price " required="true">
+                <form>
+                    {#if bidPriceToPlace}
+                        {#if tempObject}
+                            {#if bidPriceToPlace <= tempObject.highestBid}
+                                <p class="notAvailable">Number should be higher than {tempObject.highestBid}</p>
+                            {/if}
+                        {/if}
+                    {/if}
+                    <input bind:value={bidPriceToPlace} class="form-control" type="number" name="price" placeholder="Enter the price " required="true">
                 </form>
             </div>
             <div class="modal-footer">
-                <button on:click={placingBid} class="btn btn-primary" type="submit" data-bs-dismiss="modal">Save</button>
+                <button on:click={placingBid} class="btn btn-primary" type="submit" data-bs-dismiss="modal" disabled="{bidPriceToPlace <= tempObject.highestBid}">Save</button>
             </div>
         </div>
     </div>
