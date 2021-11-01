@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2676c03-8669-4547-805e-171211e0b156" name="Changes" comment="Changes">
+      <change beforePath="$PROJECT_DIR$/../../backend/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/rest/bid.rest" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/rest/bid.rest" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/Home.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Home.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/Login.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Login.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/MyBids.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/MyBids.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/Register.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Register.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,6 +155,7 @@
       <workItem from="1635170080127" duration="385000" />
       <workItem from="1635171316729" duration="2621000" />
       <workItem from="1635174067827" duration="497000" />
+      <workItem from="1635727310195" duration="1431000" />
     </task>
     <servers />
   </component>
