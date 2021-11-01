@@ -14,6 +14,9 @@
                 userBody.email=email;
                 userBody.password=password;
 
+                console.log("name:"+name);
+                console.log("email:"+email);
+                console.log("pwd:"+passwordRepeat);
                 const response=await fetch(targetURL,{
                     method:'POST',
                     headers:{
@@ -22,18 +25,16 @@
                     body:JSON.stringify({
                         name:name,
                         email:email,
-                        password:password
+                        passwordHashValue:password
                     })
                 }).then(async (res)=>{
                     if(res.ok){
-                        console.log('Register successfully.');
+                        alert('Register successfully.');
                         router.redirect('/login');
                         return response.json();
                     }else{
                         throw new Error(await res.text());
                     }
-                }).catch((err)=>{
-                    alert(err);
                 })
 
             } else {
