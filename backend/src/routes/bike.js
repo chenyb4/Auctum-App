@@ -38,24 +38,30 @@ router.get('',isLoggedIn, (req,res)=>{
          res.status(StatusCodes.OK).send(resultBikes);
     }
 
+});
 
-    /*const endingDate = req.query.endingDate;
 
-    let result = bikes;
+//for searching the brand a bike on auction
+router.get('/search',isLoggedIn, (req,res)=>{
+    const { keyword } = req.query;
 
-    if (endingDate){
-        result = bikes.filter((bike) => {
-            return bike.endingDate == endingDate;
-        });
-        res.send(result);
-    }else {
-        res.send(bikes);
+    let resultBikes = [];
+
+    for (let bike of bikes) {
+        if(bike.brand.includes(keyword)||bike.frameType.includes(keyword)||bike.frameHeightInCm.includes(keyword)){
+            resultBikes.push(bike);
+
+        }
     }
-    if (result == []){
+
+    if (resultBikes == []){
         res.status(StatusCodes.NOT_FOUND).send(`Cannot find product with ending date: ${endingDate}`)
-    }*/
+    }else{
+        res.status(StatusCodes.OK).send(resultBikes);
+    }
 
 });
+
 
 router.get('/:id',isLoggedIn,(req, res) => {
     const id = req.params.id;
