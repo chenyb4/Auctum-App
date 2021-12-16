@@ -32,6 +32,16 @@
     let itemsToDisplay=[];
     let today = new Date().toISOString().split("T")[0];
 
+    let highBid=0;
+    let highBid2 = 0;
+
+    let bids=[];
+    let bikeIdForPlacingABid=0;
+
+    let tempObject = {};
+    let bidPriceToPlace;
+
+
     function getDistinctForDropDownItems(){
         for (let item of items) {
             if(!distinctBrands.includes(item.brand)){
@@ -52,7 +62,7 @@
             }
         }
     }
-    let highBid2 = 0;
+
     //now each item in the items has 6 keys. the one extra key is highestBid
     async function getBikes (brand,frameType,frameHeightInCm) {
         items=[];
@@ -106,7 +116,6 @@
 
 
     //find the highest bid for this bike
-    let highBid=0;
     async function getHighestBid(bikeId){
         highBid = 0;
         try {
@@ -138,16 +147,11 @@
     }
 
 
-    //no filter used for now
-    getBikes('','','');
-
-    let bids=[];
     /**
      * get all bids for a certain bike on bike id
      * @param bikeId
      * @returns {Promise<void>}
      */
-
     export async function getAllBidsForOneBike(bikeId){
         bids=[];
         console.log(bikeId + " hello")
@@ -173,14 +177,12 @@
     }
 
 
-
     /**
      * decode the token into payload
      * declaration of reference: this function comes directly from: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
      * @param token
      * @returns {any}
      */
-
     function parseJwt (token) {
         if (token != ''){
             var base64Url = token.split('.')[1];
@@ -191,14 +193,13 @@
             return JSON.parse(jsonPayload);
         }
     }
-    let tempObject = {};
+
     function temp (bikeId, highestBid) {
         tempObject.bikeId = bikeId;
         tempObject.highestBid = highestBid;
     }
 
     //pass the bike id to modal 2
-    let bikeIdForPlacingABid=0;
     export function setBikeIdForModal2(bikeId,highestBid){
         console.log('Hello 2')
         getAllBidsForOneBike(bikeId);
@@ -207,7 +208,6 @@
         return bikeId;
     }
 
-    let bidPriceToPlace;
 
     async function placingBid(){
         await fetch(targetURLBids, {
@@ -237,6 +237,9 @@
                 console.error(err);
             });
     }
+
+    //no filter used for now
+    getBikes('','','');
 
 </script>
 
