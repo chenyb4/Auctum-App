@@ -5,8 +5,8 @@
     import { fade, fly } from 'svelte/transition';
     import { flip } from 'svelte/animate';
 
-    let targetURL = 'http://localhost:3000/bikes';
 
+    let targetURL = 'http://localhost:3000/bikes';
     let items = [];
     let postNewBrand,postNewFrameType,postNewFrameHeight,postNewDate = '';
     let bikeId,editBrand,editFrameType,editFrameHeight = '';
@@ -18,11 +18,21 @@
     let pageSize = 7;
     $: paginatedItems = paginate({ items, pageSize, currentPage });
 
+
+
+
+
+
+
+
+
+
+
+
     /**
      * GET request for getting all the bikes
      * @returns {Promise<void>} that contains all the bikes
      */
-
     async function getBikes () {
         try {
             const resp = await fetch(targetURL, {
@@ -38,11 +48,11 @@
         }
     }
 
+
     /**
      * POST request
      * @returns {Promise<void>} that add a new bicycle to the back-end
      */
-
     async function addBike() {
         await fetch(targetURL, {
             method: "POST",
@@ -74,11 +84,11 @@
             });
     }
 
+
     /**
      * PUT request
      * @returns {Promise<void>} that modify a bike from the available bikes
      */
-
     async function editBike () {
         await fetch(targetURL, {
             method: 'PUT',
@@ -113,7 +123,6 @@
      * @param bikeId to be deleted
      * @returns {Promise<void>} that deletes the bike from the back-end with a given id
      */
-
     async function deleteBike (bikeId) {
 
         await fetch(targetURL+'/'+bikeId, {
@@ -143,7 +152,6 @@
      * @param id of the bike
      * @returns {id}
      */
-
     async function getId(id) {
         bikeId = id;
         await fillBikeInfoIntoForm();
@@ -153,7 +161,6 @@
     /**
      * This will fill the from in the front-end to easily modify the bike
      */
-
     async function fillBikeInfoIntoForm(){
         //first get bikeinfo to place in the form
         const bikeResp = await fetch(targetURL+'/'+bikeId,{
@@ -168,7 +175,7 @@
         editFrameType = bikeJson.frameType;
     }
 
-    getBikes();
+
 
     /**
      * decode the token into payload
@@ -176,7 +183,6 @@
      * @param token
      * @returns {any}
      */
-
     function parseJwt (token) {
         if (token != ''){
             var base64Url = token.split('.')[1];
@@ -188,24 +194,16 @@
         }
     }
 
-   /* //check if the user is admin
-    function checkUser() {
-        if ($tokenStore.token != ''){
-            if (!(parseJwt($tokenStore.token).role.includes('admin'))){
-                alert(`${parseJwt($tokenStore.token).name} is not an admin!`);
-                router.redirect('/home');
-            }
-        }
-    }
-    checkUser();*/
 
     /**
      * This will collapse the from
      */
-
     function closeCollapse() {
         this.parentElement.parentElement.parentElement.parentElement.classList.remove('show');
     }
+
+
+    getBikes();
 
 </script>
 

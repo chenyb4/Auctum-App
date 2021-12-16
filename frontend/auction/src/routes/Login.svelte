@@ -7,6 +7,13 @@
 
     let emailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //validation pattern to check email
 
+
+    /**
+     * decode the token into payload
+     * declaration of reference: this function comes directly from: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
+     * @param token
+     * @returns {any}
+     */
     function parseJwt (token) {
         if (token != ''){
             var base64Url = token.split('.')[1];
@@ -23,7 +30,6 @@
      * if successfully it will redirect to either home or add-bicycle page
      * @returns {Promise<void>} token
      */
-
     async function login () {
         await fetch(targetURL, {
             method: 'POST',
@@ -51,6 +57,8 @@
            alert(err);
         })
     }
+
+
 </script>
 
 <body class="bg-gradient-primary login">

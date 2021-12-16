@@ -6,7 +6,21 @@
     import { flip } from 'svelte/animate';
 
     let targetURLBids='http://localhost:3000/bids';
+    let bidsIWon=[];
+    let bids=[];
 
+    //For pagination
+    let currentPage = 1;
+    let pageSize = 5;
+    $: paginatedItems = paginate({ items:bids, pageSize, currentPage });
+
+
+    /**
+     * decode the token into payload
+     * declaration of reference: this function comes directly from: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
+     * @param token
+     * @returns {any}
+     */
     function parseJwt (token) {
         if (token != ''){
             var base64Url = token.split('.')[1];
@@ -18,19 +32,13 @@
         }
     }
 
-    let bids=[];
 
-    //For pagination
-    let currentPage = 1;
-    let pageSize = 5;
-    $: paginatedItems = paginate({ items:bids, pageSize, currentPage });
 
     /**
      * GET request
      * @returns {Promise<void>}
      * @param userId
      */
-
     async function getAllBidsForOneUser(userId){
         try {
             const resp = await fetch(targetURLBids, {
@@ -58,7 +66,6 @@
     /**
      * First it will check if the token is empty and then execute the method getAllBidsForOneUser
      */
-
     if ($tokenStore.token != ''){
         getAllBidsForOneUser(parseJwt($tokenStore.token).id);
     }
@@ -68,7 +75,6 @@
      * @param bidId to be deleted
      * @returns {Promise<void>} that deletes the bid from the back-end
      */
-
     async function deleteBid (bidId) {
 
         await fetch(targetURLBids+'/'+bidId, {
@@ -93,7 +99,6 @@
     }
 
     //get bids I won
-    let bidsIWon=[];
     async function getBidsIWon() {
         try {
             const resp = await fetch('http://localhost:3000/users/' + parseJwt($tokenStore.token).id + '/bikes-i-won', {

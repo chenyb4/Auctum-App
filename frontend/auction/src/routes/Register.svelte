@@ -6,6 +6,8 @@
     let emailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //validation pattern to check email
     let passw1 = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; //validation pattern to check password
 
+
+
     async function register(){
         if (password && passwordRepeat && email && name){
             if(password == passwordRepeat){

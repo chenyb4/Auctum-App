@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a2676c03-8669-4547-805e-171211e0b156" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/Home.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Home.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/Login.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Login.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/MyBids.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/MyBids.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/Register.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Register.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,9 +42,9 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/public/styles.min.css" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/public/assets/js/script.min.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/public/bootstrap.min.css" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/public/styles.min.css" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
@@ -160,6 +164,7 @@
       <workItem from="1635633339590" duration="2399000" />
       <workItem from="1635702502618" duration="887000" />
       <workItem from="1635727286788" duration="4887000" />
+      <workItem from="1639688175106" duration="389000" />
     </task>
     <servers />
   </component>
