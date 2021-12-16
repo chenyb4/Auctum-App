@@ -100,8 +100,10 @@
 
     //get bids I won
     async function getBidsIWon() {
+
         try {
-            const resp = await fetch('http://localhost:3000/users/' + parseJwt($tokenStore.token).id + '/bikes-i-won', {
+
+            const resp = await fetch('http://localhost:3000/bikes', {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -109,7 +111,50 @@
                 }
             });
 
-            bidsIWon = await resp.json();
+            let allBikes=await resp.json();
+
+            let bikesEnded=[];
+            let today = new Date().toISOString().split("T")[0];
+            for (const bike of allBikes) {
+                if(bike.endingDate<=today){
+                    bikesEnded.push(bike);
+                    bikesEnded=bikesEnded;
+                }
+            }
+
+            //now we have an array of bikes auctions ended.
+            // find the user id who placed the highest bid for every bike and place this key into the bike objects
+            let bikesEndedWithWinnerId=[];
+            for (const bike of bikesEnded) {
+                let winnerId=-1;
+                let highestBid=0;
+                for (let bid of bids) {
+                    //if the bid is indeed for this bike, then do stuff to find the winner
+                    if(bid.forBikeId==bike.id){
+                        if(bid.price>highestBid){
+                            //update the current winner id
+                            winnerId=bid.placedByUserId;
+                            //update the current highest bid price for comparison in the next loop
+                            highestBid=bid.price;
+                        }
+                    }
+                }
+
+                bike.winnerId=winnerId;
+                bike.highestBid=highestBid;
+                bikesEndedWithWinnerId.push(bike);
+                bikesEndedWithWinnerId=bikesEndedWithWinnerId;
+            }
+
+
+
+            //all bikes now has a winner id key
+            for (let bike of bikesEndedWithWinnerId) {
+                if(bike.winnerId==parseJwt($tokenStore.token).id){
+                    bidsIWon.push(bike);
+                    bidsIWon=bidsIWon;
+                }
+            }
 
         } catch (e) {
             alert(e);
