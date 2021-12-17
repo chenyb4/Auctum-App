@@ -41,9 +41,6 @@ router.post('',(req,res) => {
     }
     highestId++;
 
-    //what if there were no user in the data?
-    //the highest user id will be undefined
-
 
     if (name && email && passwordHashValue){
 

@@ -1,3 +1,5 @@
+###please run with "dev" environment
+
 ###credentials
 
 ###good weather with correct credentials
@@ -8,6 +10,9 @@ Content-Type: application/json
   "email": "yibingdoe@hotmail.com",
   "password": "haha12"
 }
+> {% client.global.set("auth_token", response.body.token) %}
+
+
 
 ###bad weather with wrong credentials
 POST http://{{host}}:{{port}}/credentials
@@ -17,6 +22,7 @@ Content-Type: application/json
   "email": "yibingdoe@hotmail.com",
   "password": "haha123"
 }
+> {% client.global.set("auth_token", response.body.token) %}
 
 
 
@@ -28,16 +34,17 @@ Content-Type: application/json
 ###get all bids
 GET http://{{host}}:{{port}}/bids
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
+
 
 ###get one bid by id 2
 GET http://{{host}}:{{port}}/bids/2
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ### Post a new bid
 POST http://{{host}}:{{port}}/bids
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 Content-Type: application/json
 
 {
@@ -49,20 +56,18 @@ Content-Type: application/json
 
 ###delete bid at id 2
 DELETE http://{{host}}:{{port}}/bids/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
-
+Authorization: Bearer {{auth_token}}
 
 ###bad weather tests
 ###get all bids but authorization token is in correct
 GET http://{{host}}:{{port}}/bids
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###get one bid by id 333 which does not exist
 GET http://{{host}}:{{port}}/bids/333
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
-
+Authorization: Bearer {{auth_token}}
 
 
 
@@ -74,16 +79,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6W
 ###get all users
 http://{{host}}:{{port}}/users
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###get one user by id 2
 GET http://{{host}}:{{port}}/users/2
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###create a user
 POST http://{{host}}:{{port}}/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 Content-Type:application/json
 
 {
@@ -95,23 +100,22 @@ Content-Type:application/json
 ###delete a user on id 1
 DELETE http://{{host}}:{{port}}/users/1
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
-
+Authorization: Bearer {{auth_token}}
 
 ###bad weather test
 ###get all users but the token is incorrect
 http://{{host}}:{{port}}/users
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5ckpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###get one user by id 555 which does not exist
 GET http://{{host}}:{{port}}/users/555
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###create a user but the password is empty
 POST http://{{host}}:{{port}}/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 Content-Type:application/json
 
 {
@@ -123,8 +127,7 @@ Content-Type:application/json
 ###delete a user on an id that doesnt exist e.g. 89
 DELETE http://{{host}}:{{port}}/clients/89
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
-
+Authorization: Bearer {{auth_token}}
 
 
 
@@ -136,31 +139,31 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6W
 ###get all bikes
 GET http://{{host}}:{{port}}/bikes
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###get all bikes filtered on frame type and frame height
 GET http://{{host}}:{{port}}/bikes?frameType=Diamond&frameHeightInCm=53
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###search bikes on keyword "Ga"
 GET http://{{host}}:{{port}}/bikes/search?keyword=Ga
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###get all bikes filtered on brand
 GET http://{{host}}:{{port}}/bikes?brand=Gazelle
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###get one bike by id 1
 GET http://{{host}}:{{port}}/bikes/1
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###create a bike
 POST http://{{host}}:{{port}}/bikes
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 Content-Type: application/json
 
 {
@@ -173,7 +176,7 @@ Content-Type: application/json
 
 ###modify a bike
 PUT http://{{host}}:{{port}}/bikes
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 Content-Type: application/json
 
 {
@@ -186,33 +189,32 @@ Content-Type: application/json
 ###delete a bike on id 2
 DELETE http://{{host}}:{{port}}/bikes/2
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
-
+Authorization: Bearer {{auth_token}}
 
 ###bad weather
 ###get all bikes but the token is incorrect
 GET http://{{host}}:{{port}}/bikes
 Accept: application/json
-Authorization: Bearer eyJhbGciOUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###get all bikes filtered on frame type and frame height but the frame type does not exist
 GET http://{{host}}:{{port}}/bikes?frameType=Diand&frameHeightInCm=53
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###get all bikes filtered on brand but the brand does not exist
 GET http://{{host}}:{{port}}/bikes?brand=Gazelleah
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###get one bike by id that does not exist such as 88
 GET http://{{host}}:{{port}}/bikes/88
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 
 ###create a bike but the some key in the body is empty
 POST http://{{host}}:{{port}}/bikes
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 Content-Type: application/json
 
 {
@@ -225,7 +227,7 @@ Content-Type: application/json
 
 ###modify a bike but the id does not exist
 PUT http://{{host}}:{{port}}/bikes
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
+Authorization: Bearer {{auth_token}}
 Content-Type: application/json
 
 {
@@ -238,8 +240,7 @@ Content-Type: application/json
 ###delete a bike on id that does not exist such as 444
 DELETE http://{{host}}:{{port}}/bikes/444
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6WyJjbGllbnQiLCJhZG1pbiJdLCJuYW1lIjoiWWliaW5nIERvZSIsImVtYWlsIjoieWliaW5nZG9lQGhvdG1haWwuY29tIiwiaWF0IjoxNjM1NzI2MTM1fQ.SvIA5rK8ldin-Rn2Tb18F00Fxa805xMTgRhM6SyVt70
-
+Authorization: Bearer {{auth_token}}
 
 
 
