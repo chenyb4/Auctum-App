@@ -5,77 +5,16 @@ const bcrypt = require("bcrypt");
 let { users, bikes , bids} = require('../data/data.js');
 const isLoggedIn = require('../middleware/is-logged-in');
 const isAdmin = require('../middleware/is-admin');
+const {getAllUsers, getUserById, createUser, deleteUser} = require("../controllers/user");
 
 
-router.get('',isLoggedIn,(req,res)=>{
-    res.status(StatusCodes.OK).send(users);
-});
+router.get('',isLoggedIn,getAllUsers);
 
-router.get('/:id',isLoggedIn,(req, res) => {
-    const id = req.params.id;
-    let result;
-    result = users.find((user) => {
-        return user.id == id;
-    });
+router.get('/:id',isLoggedIn,getUserById);
 
+router.post('',createUser);
 
-    if (result == null){
-        return res
-            .send(`Cannot find user with id: ${id}`)
-            .sendStatus(StatusCodes.NOT_FOUND);
-    }
-    return res.status(StatusCodes.ACCEPTED).send(result);
-});
-
-
-router.post('',(req,res) => {
-    const { name,email,passwordHashValue } = req.body;
-
-    let password;
-    let highestId;
-
-    if (users.length == 0){
-        highestId = 0;
-    } else {
-        highestId = users[users.length-1].id;
-    }
-    highestId++;
-
-
-    if (name && email && passwordHashValue){
-
-        //This was moved due to some errors
-        const salt = bcrypt.genSaltSync(10);
-        password = bcrypt.hashSync(passwordHashValue, salt);
-
-        users.push({
-            id:highestId,
-            name:name,
-            //User can only be a client, admins are pre registered in the system
-            role:['client'],
-            email:email,
-            passwordHashValue:password,
-            secret: uuidv4()
-        });
-
-        return res.status(StatusCodes.CREATED).send('User created successfully!');
-
-    } else {
-        return res.status(StatusCodes.BAD_REQUEST).send('Something is wrong with your inputs!')
-    }
-});
-
-
-router.delete('/:id',isLoggedIn,isAdmin,((req, res) => {
-    for (let user in users) {
-        if(user.id == req.id){
-            users = users.filter(x => x.id != req.params.id);
-            return res.status(StatusCodes.NO_CONTENT).send(`deleted user at id ${req.params.id}`);
-           // res.send('deleted user at id'+req.params.id);
-        }
-    }
-    return res.status(StatusCodes.NOT_FOUND).send('cannot find a user with this id');
-}));
+router.delete('/:id',isLoggedIn,isAdmin,deleteUser);
 
 module.exports=router;
 
