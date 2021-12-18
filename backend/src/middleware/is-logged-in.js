@@ -7,19 +7,34 @@ const jwt = require('jsonwebtoken');
 
 const isLoggedIn = (req,res,next) => {
     console.log('Authenticating...');
-    const token = getTokenFromRequest(req);
+    if(checkHeaderFormat(req)){
+        const token = getTokenFromRequest(req);
 
-    //console.log("token before if", token);
-    if(token){
-        const payload = verifyToken(token);
-        if(payload){
-            req.user = payload;
-            return next();
+        //console.log("token before if", token);
+        if(token){
+            const payload = verifyToken(token);
+            if(payload){
+                req.user = payload;
+                return next();
+            }
         }
+        res.status(StatusCodes.UNAUTHORIZED).send('Something wrong with your credentials.');
+    }else{
+        res.status(StatusCodes.BAD_REQUEST).send('The format of the authorization header is incorrect. Correct format should be "Bearer⌴token".')
     }
-    res.status(StatusCodes.UNAUTHORIZED).send('Something wrong with your credentials.');
+
 };
 
+
+const checkHeaderFormat=(req)=>{
+    const authHeader = req.headers['authorization'];
+    if(authHeader){
+        if(authHeader.split(' ')[0]=="Bearer"){
+            return true
+        }
+    }
+    return false;
+};
 
 const getTokenFromRequest = (req) => {
     const authHeader = req.headers['authorization'];
