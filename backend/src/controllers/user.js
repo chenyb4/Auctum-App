@@ -18,9 +18,7 @@ exports.getUserById=(req, res) => {
 
 
     if (result == null){
-        return res
-            .send(`Cannot find user with id: ${id}`)
-            .sendStatus(StatusCodes.NOT_FOUND);
+        return res.status(StatusCodes.NOT_FOUND).send(`Cannot find user with id: ${id}`);
     }
     return res.status(StatusCodes.ACCEPTED).send(result);
 }
