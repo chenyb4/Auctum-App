@@ -35,7 +35,7 @@ exports.searchBike=(req,res)=>{
     }
 
     if (resultBikes == []){
-        res.status(StatusCodes.NOT_FOUND).send(`Cannot find product with ending date: ${endingDate}`)
+        res.status(StatusCodes.NOT_FOUND).send(`No bikes found.`)
     }else{
         res.status(StatusCodes.OK).send(resultBikes);
     }
@@ -53,9 +53,7 @@ exports.getBikeById=(req, res) => {
     });
 
     if (result == null){
-        return res
-            .send(`Cannot find client with id: ${id}`)
-            .sendStatus(StatusCodes.NOT_FOUND);
+        return res.status(StatusCodes.NOT_FOUND).send(`Cannot find bike with id: ${id}`);
     }
 
     return res.status(StatusCodes.ACCEPTED).send(result);
@@ -111,12 +109,29 @@ exports.editBike=(req,res) => {
 
 
 exports.deleteBike=(req, res) => {
-    for (let bike in bikes) {
-        if(bike.id==req.id){
-            bikes = bikes.filter(x=>x.id!=req.params.id)
-            return res.status(StatusCodes.NO_CONTENT).send(`deleted bike at id ${req.params.id}`);
+
+    const id = req.params.id;
+
+    let result;
+    result = bikes.find((bike) => {
+        //Find one bike with specific id
+        return bike.id == id;
+    });
+
+
+    if(result==null){
+        return res.status(StatusCodes.NOT_FOUND).send('cannot find the bike with this id');
+    }else {
+        for (let bike in bikes) {
+            if(bike.id==req.id){
+                bikes = bikes.filter(x=>x.id!=req.params.id)
+                return res.status(StatusCodes.NO_CONTENT).send(`deleted bike at id ${req.params.id}`);
+            }
         }
     }
-    return res.status(StatusCodes.NOT_FOUND).send('cannot find the bike with this id');
+
+
+
+
 }
 

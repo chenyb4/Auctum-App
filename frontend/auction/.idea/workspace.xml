@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2676c03-8669-4547-805e-171211e0b156" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/../../backend/src/middleware/is-logged-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/middleware/is-logged-in.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/rest/bid.rest" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/rest/bid.rest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/controllers/bike.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/controllers/bike.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/controllers/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
