@@ -22,7 +22,7 @@ Content-Type: application/json
   "email": "yibingdoe@hotmail.com",
   "password": "haha123"
 }
-> {% client.global.set("auth_token", response.body.token) %}
+
 
 
 
