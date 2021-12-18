@@ -4,21 +4,28 @@ let { bikes, bids } = require('../data/data.js');
 const { parse } = require("nodemon/lib/cli");
 const isLoggedIn = require('../middleware/is-logged-in');
 const isAdmin = require('../middleware/is-admin');
-const {getAllBikes, searchBike, getBikeById, addBike, editBike, deleteBike} = require("../controllers/bike");
+const bikeController=require("../controllers/bike")
 
 
-router.get('',isLoggedIn,getAllBikes );
+/**
+ * To get bikes or specific bike, u dont need to be logged in.
+ */
+
+router.get('',isLoggedIn, bikeController.getAllBikes);
+
 
 //for searching the brand a bike on auction
-router.get('/search',isLoggedIn, searchBike);
+router.get('/search',isLoggedIn, bikeController.searchBike);
 
-router.get('/:id',isLoggedIn,getBikeById);
 
-router.post('',isLoggedIn,isAdmin,addBike);
+router.get('/:id',isLoggedIn,bikeController.getBikeById);
 
-router.put('',isLoggedIn,isAdmin,editBike);
+router.post('',isLoggedIn,isAdmin,bikeController.addBike);
 
-router.delete('/:id',isLoggedIn,isAdmin, deleteBike);
+
+router.put('',isLoggedIn,isAdmin,bikeController.editBike);
+
+router.delete('/:id',isLoggedIn,isAdmin, bikeController.deleteBike);
 
 module.exports=router;
 

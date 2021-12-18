@@ -1,14 +1,15 @@
-import {StatusCodes} from "http-status-codes";
-import {users} from "../data/data.js";
-import bcrypt from "bcrypt";
-import {v4 as uuidv4} from "uuid";
+const {StatusCodes} = require("http-status-codes");
+let {users} = require("../data/data.js");
+const bcrypt = require("bcrypt");
+const {v4: uuidv4} = require("uuid");
 
-export const getAllUsers=(req,res)=>{
+
+exports.getAllUsers=(req,res)=>{
     res.status(StatusCodes.OK).send(users);
 }
 
 
-export const getUserById=(req, res) => {
+exports.getUserById=(req, res) => {
     const id = req.params.id;
     let result;
     result = users.find((user) => {
@@ -25,7 +26,7 @@ export const getUserById=(req, res) => {
 }
 
 
-export const createUser=(req,res) => {
+exports.createUser=(req,res) => {
     const { name,email,passwordHashValue } = req.body;
 
     let password;
@@ -63,7 +64,7 @@ export const createUser=(req,res) => {
 }
 
 
-export const deleteUser=(req, res) => {
+exports.deleteUser=(req, res) => {
     for (let user in users) {
         if(user.id == req.id){
             users = users.filter(x => x.id != req.params.id);

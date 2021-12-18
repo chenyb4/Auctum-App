@@ -2,18 +2,20 @@ const router = require('express').Router();
 let { bids,users,bikes } = require('../data/data.js');
 const { StatusCodes } = require('http-status-codes');
 const isLoggedIn = require('../middleware/is-logged-in');
-const {getAllBids, getBidById, placeBid, deleteBid} = require("../controllers/bid");
+const bidController=require("../controllers/bid")
 
-router.get('',isLoggedIn,getAllBids);
+router.get('',isLoggedIn,bidController.getAllBids);
 
-router.get('/:id',isLoggedIn,getBidById);
+router.get('/:id',isLoggedIn,bidController.getBidById);
 
 /**
  * To post or delete a bid u need to be logged in
  */
-router.post('',isLoggedIn,placeBid);
 
-router.delete('/:id',isLoggedIn,deleteBid);
+router.post('',isLoggedIn,bidController.placeBid);
+
+
+router.delete('/:id',isLoggedIn,bidController.deleteBid);
 
 module.exports=router;
 

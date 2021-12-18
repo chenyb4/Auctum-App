@@ -1,7 +1,8 @@
-import {bikes} from "../data/data.js";
-import {StatusCodes} from "http-status-codes";
+let {bikes} = require("../data/data.js");
+const {StatusCodes} = require("http-status-codes");
 
-export const getAllBikes=(req,res)=>{
+
+exports.getAllBikes=(req,res)=>{
     const { brand,frameType,frameHeightInCm } = req.query;
 
     let resultBikes = bikes;
@@ -34,7 +35,7 @@ export const getAllBikes=(req,res)=>{
 
 
 
-export const searchBike=(req,res)=>{
+exports.searchBike=(req,res)=>{
     const { keyword } = req.query;
 
     let resultBikes = [];
@@ -51,10 +52,11 @@ export const searchBike=(req,res)=>{
     }else{
         res.status(StatusCodes.OK).send(resultBikes);
     }
+
 }
 
 
-export const getBikeById=(req, res) => {
+exports.getBikeById=(req, res) => {
     const id = req.params.id;
 
     let result;
@@ -73,8 +75,7 @@ export const getBikeById=(req, res) => {
 }
 
 
-
-export const addBike=(req, res) => {
+exports.addBike=(req, res) => {
     const { brand,frameType,frameHeightInCm,endingDate } = req.body;
 
     let highestId = bikes[bikes.length-1].id;
@@ -99,7 +100,7 @@ export const addBike=(req, res) => {
 }
 
 
-export const editBike=(req,res) => {
+exports.editBike=(req,res) => {
     const { brand,frameType,frameHeightInCm } = req.body;
     //const id = parseInt(req.params.id);
     const bodyId = parseInt(req.body.id);
@@ -122,7 +123,7 @@ export const editBike=(req,res) => {
 }
 
 
-export const deleteBike=(req, res) => {
+exports.deleteBike=(req, res) => {
     for (let bike in bikes) {
         if(bike.id==req.id){
             bikes = bikes.filter(x=>x.id!=req.params.id)
@@ -131,3 +132,4 @@ export const deleteBike=(req, res) => {
     }
     return res.status(StatusCodes.NOT_FOUND).send('cannot find the bike with this id');
 }
+

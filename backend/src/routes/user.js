@@ -5,16 +5,17 @@ const bcrypt = require("bcrypt");
 let { users, bikes , bids} = require('../data/data.js');
 const isLoggedIn = require('../middleware/is-logged-in');
 const isAdmin = require('../middleware/is-admin');
-const {getAllUsers, getUserById, createUser, deleteUser} = require("../controllers/user");
+const userController=require("../controllers/user")
 
 
-router.get('',isLoggedIn,getAllUsers);
+router.get('',isLoggedIn,userController.getAllUsers);
 
-router.get('/:id',isLoggedIn,getUserById);
+router.get('/:id',isLoggedIn,userController.getUserById);
 
-router.post('',createUser);
+router.post('',userController.createUser);
 
-router.delete('/:id',isLoggedIn,isAdmin,deleteUser);
+
+router.delete('/:id',isLoggedIn,isAdmin,userController.deleteUser);
 
 module.exports=router;
 

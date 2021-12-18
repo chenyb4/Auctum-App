@@ -1,11 +1,11 @@
-import {StatusCodes} from "http-status-codes";
-import {bids} from "../data/data.js";
+const {StatusCodes} = require("http-status-codes");
+let {bids} = require("../data/data.js");
 
-export const getAllBids=(req,res)=>{
+exports.getAllBids=(req,res)=>{
     res.status(StatusCodes.OK).send(bids);
 }
 
-export const getBidById=(req, res) => {
+exports.getBidById=(req, res) => {
     const id = req.params.id;
     let result;
 
@@ -21,7 +21,7 @@ export const getBidById=(req, res) => {
 
 }
 
-export const placeBid=(req,res) => {
+exports.placeBid=(req,res) => {
     const { price,placedByUserId,forBikeId } = req.body;
 
     let highestId = bids[bids.length-1].id;
@@ -45,7 +45,8 @@ export const placeBid=(req,res) => {
     }
 }
 
-export const deleteBid=(req, res) => {
+
+exports.deleteBid=(req, res) => {
 
     for (let bid in bids) {
         if(bid.id==req.id){

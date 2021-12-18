@@ -4,11 +4,11 @@ const { StatusCodes } = require('http-status-codes');
 const isLoggedIn = require('../middleware/is-logged-in');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
-const {auth} = require("../controllers/credentials");
+const credentialsController=require("../controllers/credentials");
 
 
 
-router.post('',auth);
+router.post('',credentialsController.auth);
 
 module.exports=router;
 

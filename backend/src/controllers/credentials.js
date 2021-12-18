@@ -1,8 +1,8 @@
-import {StatusCodes} from "http-status-codes";
-
 const {users} = require("../data/data.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const {StatusCodes} = require("http-status-codes");
+
 
 const logIn = (email,password) => {
     const user = users.find((user) => {
@@ -25,7 +25,8 @@ const logIn = (email,password) => {
     return false;
 };
 
-export const auth=(req, res) => {
+
+exports.auth=(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
