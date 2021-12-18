@@ -3,34 +3,21 @@ const {StatusCodes} = require("http-status-codes");
 
 
 exports.getAllBikes=(req,res)=>{
-    const { brand,frameType,frameHeightInCm } = req.query;
+    const filters=req.query;
+    const filteredBikes=bikes.filter(bike=>{
+        let isValid=true;
+        for (const key in filters) {
+            isValid = isValid && bike[key] == filters[key];
+        }
+        return isValid;
+    });
 
-    let resultBikes = bikes;
 
-    if(brand){
-        resultBikes=resultBikes.filter((bike)=>{
-            return bike.brand==brand;
-        });
-    }
-
-    if(frameType){
-        resultBikes=resultBikes.filter((bike)=>{
-            return bike.frameType==frameType;
-        });
-    }
-
-    if(frameHeightInCm){
-        resultBikes=resultBikes.filter((bike)=>{
-            return bike.frameHeightInCm==frameHeightInCm;
-        });
-    }
-
-    if (resultBikes == []){
-        res.status(StatusCodes.NOT_FOUND).send(`Cannot find product with ending date: ${endingDate}`)
+    if (filteredBikes == []){
+        res.status(StatusCodes.NOT_FOUND).send(`No bikes found.`)
     }else{
-        res.status(StatusCodes.OK).send(resultBikes);
+        res.status(StatusCodes.OK).send(filteredBikes);
     }
-
 }
 
 
