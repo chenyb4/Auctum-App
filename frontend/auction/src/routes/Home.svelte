@@ -407,7 +407,7 @@
                     <input bind:value={bidPriceToPlace} class="form-control" type="number" name="price" placeholder="Enter the price " required="true">
                 </form>
             </div>
-            <ModalFooter footerFunction="{placingBid}"/>
+            <ModalFooter highestBid={bidPriceToPlace <= tempObject.highestBid} footerFunction="{placingBid}"/>
         </div>
     </div>
 </div>
