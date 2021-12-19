@@ -1,6 +1,12 @@
 <script>
     import tokenStore from '../stores/token';
     import { parseJwt } from "../js/parseJwt";
+    import { toast } from "@zerodevx/svelte-toast";
+
+    function logout () {
+        $tokenStore.token = '';
+        toast.push("Logged out")
+    }
 
 </script>
 
@@ -30,7 +36,7 @@
         {/if}
     {/if}
     <li class="nav-item">
-        <a on:click={$tokenStore.token = ''} class="nav-link" href="/login">
+        <a on:click={logout} class="nav-link" href="/login">
             <i class="far fa-user-circle"></i>
             <span>Log out</span>
         </a>

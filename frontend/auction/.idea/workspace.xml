@@ -5,44 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2676c03-8669-4547-805e-171211e0b156" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/AccordionSideBar.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Footer.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Image.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Logo.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ModalFooter.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ModalHeading.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/NavBar.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ScrollToTopButton.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/SearchBar.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/TableHeader.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/TopBar.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/WelcomeMessage.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/js/parseJwt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/repo.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../backend/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../backend/src/controllers/credentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/controllers/credentials.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../backend/src/routes/credentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/routes/credentials.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../backend/src/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/routes/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/frontend.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/Home.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Home.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/Login.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Login.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AccordionSideBar.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AccordionSideBar.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/MyBids.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/MyBids.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/Register.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Register.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +60,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/public/bootstrap.min.css" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/public/styles.min.css" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/node_modules/svelte-notifications/index.d.ts" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/public/assets/js/script.min.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -228,6 +194,8 @@
       <workItem from="1639792817583" duration="612000" />
       <workItem from="1639841306466" duration="18322000" />
       <workItem from="1639880183728" duration="13000" />
+      <workItem from="1639916443846" duration="133000" />
+      <workItem from="1639919688822" duration="1633000" />
     </task>
     <servers />
   </component>

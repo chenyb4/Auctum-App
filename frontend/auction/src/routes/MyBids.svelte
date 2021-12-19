@@ -237,7 +237,7 @@
                     <table class="table">
                         <TableHeader bidOnBike={true}/>
                         <tbody class="text-center">
-                        {#each bidsIWon as bike}
+                        {#each bidsIWon as bike (bike.id)}
                             <tr in:fade>
                                 <td>{bike.brand}</td>
                                 <td>{bike.frameType}</td>
