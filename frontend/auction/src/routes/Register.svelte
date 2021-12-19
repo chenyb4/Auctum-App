@@ -42,7 +42,6 @@
                             return response.json();
                         }else{
                             toast.push(await res.text());
-                            throw new Error(await res.text());
                         }
                     })
                 } else {

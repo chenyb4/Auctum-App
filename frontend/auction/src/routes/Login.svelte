@@ -48,7 +48,6 @@
                         '--toastBarBackground': '#C53030'
                     }
                 })
-                throw new Error(await res.text());
             }
         }).catch(async (err) => {
             toast.push(await err.message, {
