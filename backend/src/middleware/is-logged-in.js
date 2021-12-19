@@ -29,11 +29,16 @@ const isLoggedIn = (req,res,next) => {
 const checkHeaderFormat=(req)=>{
     const authHeader = req.headers['authorization'];
     if(authHeader){
-        if(authHeader.split(' ')[0]=="Bearer"){
-            return true
+        if (!authHeader.includes(' ')){
+            return false;
+        }else if(!authHeader.split(' ')[0]=="Bearer"){
+            return false;
         }
+    }else{
+        return false;
     }
-    return false;
+
+    return true;
 };
 
 const getTokenFromRequest = (req) => {
