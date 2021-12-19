@@ -63,8 +63,23 @@ exports.getBikeById=(req, res) => {
 exports.addBike=(req, res) => {
     const { brand,frameType,frameHeightInCm,endingDate } = req.body;
 
-    let highestId = bikes[bikes.length-1].id;
+
+    let highestId;
+    
+    if(bikes.length==0){
+        highestId=0;
+    }else{
+        highestId=0;
+        for (const bike of bikes) {
+            if (bike.id>highestId){
+                highestId=bike.id;
+            }
+        }
+    }
+    
     highestId++;
+    
+    
 
     //We need to add something here if there is no bike because the highest id then will be undefined
 
