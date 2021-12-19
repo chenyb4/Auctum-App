@@ -8,7 +8,7 @@
     let email,password = '';
     let targetURL = 'http://localhost:3000/credentials';
     let user = [];
-    let emailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //validation pattern to check email
+    let validEmailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //validation pattern to check email
 
     /**
      * To login into the web app using POST request,
@@ -75,7 +75,7 @@
                                                placeholder="Enter Email Address" name="email"
                                                autocomplete="on" inputmode="email" required >
                                         {#if (email)}
-                                            {#if !email.match(emailValid) && email != 0}
+                                            {#if !email.match(validEmailFormat) && email != 0}
                                                 <p class="mt-2" style="color:#FF0000;font-size:medium">You have entered an invalid email address!</p>
                                             {/if}
                                         {/if}
@@ -85,7 +85,7 @@
                                                id="exampleInputPassword" placeholder="Password"
                                                name="password" required>
                                     </div>
-                                    <button class="btn btn-primary d-block btn-user w-100" type="submit" on:click|preventDefault={login}>Login</button>
+                                    <button disabled={!email || !password || (!email.match(validEmailFormat))} class="btn btn-primary d-block btn-user w-100" type="submit" on:click|preventDefault={login}>Login</button>
                                 </form>
                                 <div class="text-center" style="margin-top: 5px;">
                                     <a class="small" href="/register">Create an Account!</a>
