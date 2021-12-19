@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a2676c03-8669-4547-805e-171211e0b156" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AccordionSideBar.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AccordionSideBar.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/MyBids.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/MyBids.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/Login.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Login.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/Register.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Register.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +195,8 @@
       <workItem from="1639841306466" duration="18322000" />
       <workItem from="1639880183728" duration="13000" />
       <workItem from="1639916443846" duration="133000" />
-      <workItem from="1639919688822" duration="1633000" />
+      <workItem from="1639919688822" duration="2253000" />
+      <workItem from="1639925989360" duration="1937000" />
     </task>
     <servers />
   </component>

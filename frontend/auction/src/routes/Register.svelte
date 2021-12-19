@@ -128,7 +128,7 @@
                                     {/if}
                                 </div>
                             </div>
-                            <button disabled={!name && !email && password && !repeatedPassword} on:click|preventDefault={register} class="btn btn-primary d-block btn-user w-100" type="submit">Register Account
+                            <button disabled={!email || !password || !repeatedPassword || !name || (!email.match(validEmailFormat) || !password.match(validPasswordFormat))} on:click|preventDefault={register} class="btn btn-primary d-block btn-user w-100" type="submit">Register Account
                             </button>
                         </form>
                         <div class="text-center" style="margin-top: 5px;">
