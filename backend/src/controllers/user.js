@@ -33,7 +33,12 @@ exports.createUser=(req,res) => {
     if (users.length == 0){
         highestId = 0;
     } else {
-        highestId = users[users.length-1].id;
+        highestId =0;
+        for (const user of users) {
+            if(user.id>highestId){
+                highestId=user.id;
+            }
+        }
     }
     highestId++;
 

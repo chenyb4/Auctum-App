@@ -24,11 +24,23 @@ exports.getBidById=(req, res) => {
 exports.placeBid=(req,res) => {
     const { price,placedByUserId,forBikeId } = req.body;
 
-    let highestId = bids[bids.length-1].id;
+
+    let highestId;
+
+    if(bids.length==0){
+        highestId=0;
+    }else{
+        highestId=0;
+        for (const bid of bids) {
+            if(bid.id>highestId){
+                highestId=bid.id;
+            }
+        }
+    }
+
     highestId++;
 
-    //what if there were no bids in the data?
-    //the highest bid id will be undefined
+
 
     if (price && placedByUserId && forBikeId){
         //Add the data to the array
