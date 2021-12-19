@@ -3,14 +3,22 @@
     import { LightPaginationNav, paginate } from 'svelte-paginate';
     import router from 'page';
     import { fade, fly } from 'svelte/transition';
-    import { flip } from 'svelte/animate';
-
+    import NavBar from "../components/NavBar.svelte";
+    import TopBar from "../components/TopBar.svelte";
+    import Footer from "../components/Footer.svelte";
+    import ScrollToTopButton from "../components/ScrollToTopButton.svelte";
+    import ModalHeading from "../components/ModalHeading.svelte";
+    import ModalFooter from "../components/ModalFooter.svelte";
+    import TableHeader from "../components/TableHeader.svelte";
+    import WelcomeMessage from "../components/WelcomeMessage.svelte";
+    import { toast } from "@zerodevx/svelte-toast";
 
     let targetURL = 'http://localhost:3000/bikes';
     let items = [];
     let postNewBrand,postNewFrameType,postNewFrameHeight,postNewDate = '';
     let bikeId,editBrand,editFrameType,editFrameHeight = '';
-    //To convert the date to dd-mm-yyyy form
+
+    //To convert the date to dd-mm-yyyy form and set date to today's date
     let today = new Date().toISOString().split("T")[0];
 
     //For pagination
@@ -18,21 +26,11 @@
     let pageSize = 7;
     $: paginatedItems = paginate({ items, pageSize, currentPage });
 
-
-
-
-
-
-
-
-
-
-
-
     /**
      * GET request for getting all the bikes
      * @returns {Promise<void>} that contains all the bikes
      */
+
     async function getBikes () {
         try {
             const resp = await fetch(targetURL, {
@@ -44,7 +42,12 @@
             });
             items = await resp.json();
         }catch (e){
-            alert(e);
+            toast.push(e.message, {
+                theme: {
+                    '--toastBackground': '#F56565',
+                    '--toastBarBackground': '#C53030'
+                }
+            })
         }
     }
 
@@ -53,6 +56,7 @@
      * POST request
      * @returns {Promise<void>} that add a new bicycle to the back-end
      */
+
     async function addBike() {
         await fetch(targetURL, {
             method: "POST",
@@ -69,18 +73,32 @@
         })
             .then(async (res) => {
                 if (res.ok) {
-                    //location.reload();
                     router.redirect('/home');
                     router.redirect('/add-bicycle');
-                    console.log("Success!");
+                    toast.push('Success!', {
+                        theme: {
+                            '--toastBackground': '#48BB78',
+                            '--toastBarBackground': '#2F855A'
+                        }
+                    })
                 } else {
                     res.json().then((body) => {
-                        alert(body.message || "Internal error");
+                        toast.push(body.message, {
+                            theme: {
+                                '--toastBackground': '#F56565',
+                                '--toastBarBackground': '#C53030'
+                            }
+                        })
                     });
                 }
             })
             .catch(async (err) => {
-                alert(err)
+                toast.push(err.message, {
+                    theme: {
+                        '--toastBackground': '#F56565',
+                        '--toastBarBackground': '#C53030'
+                    }
+                })
             });
     }
 
@@ -107,14 +125,29 @@
                // location.reload();
                 router.redirect('/home');
                 router.redirect('/add-bicycle');
-                console.log("Success!");
+                toast.push('Success!', {
+                    theme: {
+                        '--toastBackground': '#48BB78',
+                        '--toastBarBackground': '#2F855A'
+                    }
+                })
             } else {
                 res.json().then((body) => {
-                    alert(body.message || "Internal error");
+                    toast.push(body.message, {
+                        theme: {
+                            '--toastBackground': '#F56565',
+                            '--toastBarBackground': '#C53030'
+                        }
+                    })
                 });
             }
         }).catch(async (err) => {
-            alert(err);
+            toast.push(err.message, {
+                theme: {
+                    '--toastBackground': '#F56565',
+                    '--toastBarBackground': '#C53030'
+                }
+            })
         });
     }
 
@@ -123,6 +156,7 @@
      * @param bikeId to be deleted
      * @returns {Promise<void>} that deletes the bike from the back-end with a given id
      */
+
     async function deleteBike (bikeId) {
 
         await fetch(targetURL+'/'+bikeId, {
@@ -136,7 +170,12 @@
                 if (res.ok) {
                     router.redirect('/home');
                     router.redirect('/add-bicycle');
-                    console.log("Success!");
+                    toast.push('Success!', {
+                        theme: {
+                            '--toastBackground': '#48BB78',
+                            '--toastBarBackground': '#2F855A'
+                        }
+                    })
                 } else {
                     res.json().then((body) => {
                         alert(body.message || "Internal error");
@@ -144,7 +183,12 @@
                 }
             })
             .catch(async (err) => {
-                alert(err);
+                toast.push(err.message, {
+                    theme: {
+                        '--toastBackground': '#F56565',
+                        '--toastBarBackground': '#C53030'
+                    }
+                })
             });
     }
 
@@ -152,6 +196,7 @@
      * @param id of the bike
      * @returns {id}
      */
+
     async function getId(id) {
         bikeId = id;
         await fillBikeInfoIntoForm();
@@ -161,6 +206,7 @@
     /**
      * This will fill the from in the front-end to easily modify the bike
      */
+
     async function fillBikeInfoIntoForm(){
         //first get bikeinfo to place in the form
         const bikeResp = await fetch(targetURL+'/'+bikeId,{
@@ -175,33 +221,13 @@
         editFrameType = bikeJson.frameType;
     }
 
-
-
     /**
-     * decode the token into payload
-     * declaration of reference: this function comes directly from: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
-     * @param token
-     * @returns {any}
+     * This will collapse the from modify button
      */
-    function parseJwt (token) {
-        if (token != ''){
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            return JSON.parse(jsonPayload);
-        }
-    }
 
-
-    /**
-     * This will collapse the from
-     */
     function closeCollapse() {
         this.parentElement.parentElement.parentElement.parentElement.classList.remove('show');
     }
-
 
     getBikes();
 
@@ -209,109 +235,17 @@
 
 <body id="page-top">
 <div id="wrapper">
-    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-        <div class="container-fluid d-flex flex-column p-0"><a
-                class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href=""
-                style="padding-top: 36px;">
-            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-chart-line"></i></div>
-            <div class="sidebar-brand-text mx-3"><span style="font-size: 25px;">Auctum<br></span><span
-                    class="text-capitalize" style="font-size: 12px;font-family: 'Bad Script', serif;">Get your dream<br>&nbsp;Bike today!</span>
-            </div>
-        </a>
-            <ul class="navbar-nav text-light" id="accordionSidebar" style="margin-top: 16px;">
-                {#if ($tokenStore.token != '')}
-                    {#if (parseJwt($tokenStore.token).role.includes('client'))}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/home">
-                                <i class="fas fa-tachometer-alt"></i>
-                                <span>Auctions</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/my-bids">
-                                <i class="fa fa-money"></i>
-                                <span>My bids</span>
-                            </a>
-                        </li>
-                    {/if}
-                    {#if (parseJwt($tokenStore.token).role.includes('admin'))}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/add-bicycle">
-                                <i class="fa fa-bicycle"></i>
-                                <span>Add bicycle</span>
-                            </a>
-                        </li>
-                    {/if}
-                {/if}
-                <li class="nav-item">
-                    <a on:click={$tokenStore.token = ''} class="nav-link" href="/login">
-                        <i class="far fa-user-circle"></i>
-                        <span>Log out</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="text-center d-none d-md-inline">
-                <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
-            </div>
-        </div>
-    </nav>
+    <NavBar/>
     <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
-            <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                <div class="container-fluid">
-                    <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i
-                            class="fas fa-bars"></i></button>
-                    <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
-                                                        placeholder="Search for ...">
-                            <button class="btn btn-info py-0" type="button"><i class="fas fa-search" style="color: white"></i></button>
-                        </div>
-                    </form>
-                    <ul class="navbar-nav flex-nowrap ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link oneLine" href="#">
-                                {#if $tokenStore.token != ''}
-                                    {parseJwt($tokenStore.token).email}
-                                {/if}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <TopBar/>
             <div class="container-fluid">
-                <div>
-                    <h3 class="text-dark">Welcome
-                        {#if $tokenStore.token != ''}
-                            {parseJwt($tokenStore.token).name}
-                        {/if}
-                    </h3>
-                    <h4 class="text-dark" style="margin: -1px -1px 5px;">
-                        Here you can
-                        add, remove or modify bikes
-                    </h4>
-                    <h4 class="text-dark" style="margin-bottom: 13px;">Add bicycle here&nbsp;
-                        <button
-                            class="btn btn-primary border rounded-circle justify-content-xl-center align-items-xl-center"
-                            id="add-button" type="button" style="border-radius: 0;" data-bs-target="#modal-3"
-                            data-bs-toggle="modal">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </h4>
-                </div>
+                <WelcomeMessage addBicycleMessage={true}/>
                 <div class="row">
                     <div class="col">
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
-                                <tr class="text-center">
-                                    <th>Brand</th>
-                                    <th>Frame Type</th>
-                                    <th>Frame Height in cm</th>
-                                    <th>Ending date</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                </thead>
+                                <TableHeader/>
                                 <tbody class="text-center">
                                 {#each paginatedItems as bike (bike.id)}
                                     <tr in:fade out:fly={{x:100}}>
@@ -358,7 +292,6 @@
                         </form>
                     </div>
                 </div>
-
                 {#if items.length > 0}
                     <LightPaginationNav
                             totalItems="{items.length}"
@@ -369,24 +302,16 @@
                             on:setPage="{(e) => currentPage = e.detail.page}"
                     />
                 {/if}
-
             </div>
         </div>
-
-        <footer class="bg-white d-xl-flex justify-content-xl-center align-items-xl-end sticky-footer mt-3">
-            <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © Auctum 2021</span></div>
-            </div>
-        </footer>
-
+        <Footer/>
     </div>
-    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    <ScrollToTopButton/>
+</div>
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-3" aria-hidden="true" aria-labelledby="modal-3label">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
-            <div class="modal-header"><h4 class="modal-title">Add bicycle</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+            <ModalHeading modalHeading={"Add Bicycle"}/>
             <div class="modal-body">
                 <form>
                     <input bind:value={postNewBrand} class="form-control oneLine" type="text" style="margin-bottom: 8px;" placeholder="Enter the brand" required>
@@ -396,10 +321,7 @@
                     <input min={today} bind:value={postNewDate} class="form-control oneLine" id="date" type="date" name="date" required>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Close</button>
-                <button on:click={addBike} class="btn btn-primary" data-bs-dismiss="modal" type="submit">Save</button>
-            </div>
+            <ModalFooter footerFunction={addBike}/>
         </div>
     </div>
 </div>

@@ -1,9 +1,19 @@
 <script>
     import tokenStore from "../stores/token";
     import router from "page";
+    import { parseJwt } from "../js/parseJwt";
     import { LightPaginationNav, paginate } from 'svelte-paginate';
     import { fade, fly } from 'svelte/transition';
     import { flip } from 'svelte/animate';
+    import NavBar from "../components/NavBar.svelte";
+    import TopBar from "../components/TopBar.svelte";
+    import Footer from "../components/Footer.svelte";
+    import ScrollToTopButton from "../components/ScrollToTopButton.svelte";
+    import ModalFooter from "../components/ModalFooter.svelte";
+    import ModalHeading from "../components/ModalHeading.svelte";
+    import TableHeader from "../components/TableHeader.svelte";
+    import WelcomeMessage from "../components/WelcomeMessage.svelte";
+    import { toast } from "@zerodevx/svelte-toast";
 
     //For pagination
     let currentPage = 1;
@@ -109,7 +119,12 @@
                 itemsToDisplay=itemsToDisplay;
             }
         }catch (e){
-            console.error(e);
+            toast.push(e.message, {
+                theme: {
+                    '--toastBackground': '#F56565',
+                    '--toastBarBackground': '#C53030'
+                }
+            })
         }
         getDistinctForDropDownItems();
     }
@@ -142,7 +157,12 @@
             }
             return highestBid;
         }catch (e){
-            console.error(e);
+            toast.push(e.message, {
+                theme: {
+                    '--toastBackground': '#F56565',
+                    '--toastBarBackground': '#C53030'
+                }
+            })
         }
     }
 
@@ -172,25 +192,12 @@
                 }
             }
         }catch (e){
-            console.error(e);
-        }
-    }
-
-
-    /**
-     * decode the token into payload
-     * declaration of reference: this function comes directly from: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
-     * @param token
-     * @returns {any}
-     */
-    function parseJwt (token) {
-        if (token != ''){
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            return JSON.parse(jsonPayload);
+            toast.push(e.message, {
+                theme: {
+                    '--toastBackground': '#F56565',
+                    '--toastBarBackground': '#C53030'
+                }
+            })
         }
     }
 
@@ -226,15 +233,25 @@
                 if (res.ok) {
                     router.redirect('/add-bicycle');
                     router.redirect('/home');
-                    console.log("Success!");
+                    toast.push('Success!', {
+                        theme: {
+                            '--toastBackground': '#48BB78',
+                            '--toastBarBackground': '#2F855A'
+                        }
+                    })
                 } else {
-                    res.json().then((body) => {
-                        console.error(body.message || "Internal error");
+                    res.json().then( async (body) => {
+                        toast.push(body.message)
                     });
                 }
             })
             .catch((err) => {
-                console.error(err);
+                toast.push(err.message, {
+                    theme: {
+                        '--toastBackground': '#F56565',
+                        '--toastBarBackground': '#C53030'
+                    }
+                })
             });
     }
 
@@ -245,189 +262,86 @@
 
 <body id="page-top">
 <div id="wrapper">
-    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-        <div class="container-fluid d-flex flex-column p-0">
-            <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href=""
-                style="padding-top: 36px;">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">
-                    <span style="font-size: 25px;">Auctum
-                        <br>
-                    </span>
-                    <span
-                        class="text-capitalize" style="font-size: 12px;font-family: 'Bad Script', serif;">Get your dream
-                        <br>&nbsp;Bike today!
-                    </span>
-                </div>
-            </a>
-            <ul class="navbar-nav text-light" id="accordionSidebar" style="margin-top: 16px;">
-                {#if ($tokenStore.token != '')}
-                    {#if (parseJwt($tokenStore.token).role.includes('client'))}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/home">
-                                <i class="fas fa-tachometer-alt"></i>
-                                <span>Auctions</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/my-bids">
-                                <i class="fa fa-money"></i>
-                                <span>My bids</span>
-                            </a>
-                        </li>
-                    {/if}
-                    {#if (parseJwt($tokenStore.token).role.includes('admin'))}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/add-bicycle">
-                                <i class="fa fa-bicycle"></i>
-                                <span>Add bicycle</span>
-                            </a>
-                        </li>
-                    {/if}
-                {/if}
-                <li class="nav-item">
-                    <a on:click={$tokenStore.token = ''} class="nav-link" href="/login">
-                        <i class="far fa-user-circle"></i>
-                        <span>Log out</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="text-center d-none d-md-inline">
-                <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
-            </div>
-        </div>
-    </nav>
+    <NavBar/>
     <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
-            <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                <div class="container-fluid">
-                    <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input class="bg-light form-control border-0 small" type="text"
-                                   placeholder="Search for ..." name="searchbar" autocomplete="on">
-                            <button class="btn btn-info py-0" type="button">
-                                <i class="fas fa-search" style="color: white"></i>
-                            </button>
-                        </div>
-                    </form>
-                    <ul class="navbar-nav flex-nowrap ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link oneLine" data-bs-toggle="tooltip" data-bss-tooltip=""
-                               data-bs-placement="bottom" href="#" title="Highest bid placed: 0$">
-                                {#if ($tokenStore.token != '')}
-                                    {parseJwt($tokenStore.token).email}
-                                {/if}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <TopBar/>
             <div class="container-fluid mb-3">
+               <WelcomeMessage homeMessage={true}/>
                 <div class="row">
-                    <div class="col-12">
-                        <h3 class="text-dark d-table mb-0">Welcome
-                            {#if ($tokenStore.token != '')}
-                                {parseJwt($tokenStore.token).name}
-                            {/if}
-                        </h3>
+                    <div class="col text-center mt-2">
+                        Brand:
+                        <select class="btn btn-primary text-capitalize shadow-sm "  bind:value={selectedBrand} on:change="{() => {brand = selectedBrand}}" on:change={getBikes(brand,frameType,frameHeight)}>
+                            <option value="">
+                                (no preference)
+                            </option>
+                            {#each distinctBrands as item}
+                                <option value={item}>
+                                    {item}
+                                </option>
+                            {/each}
+                        </select>
                     </div>
-                    <div class="col-12" style="margin-bottom: 5px;">
-                        <h4>Here is a list of bikes that are up for
-                        auction</h4>
+                    <div class="col text-center type mt-2">
+                        Frame type:
+                        <select class="btn btn-primary text-capitalize shadow-sm" bind:value={selectedFrameType}
+                                on:change="{() => {frameType = selectedFrameType}}" on:change={getBikes(brand,frameType,frameHeight)}
+                        >
+                            <option value="">
+                                (no preference)
+                            </option>
+                            {#each distinctFrameTypes as item}
+                                <option value={item}>
+                                    {item}
+                                </option>
+                            {/each}
+                        </select>
                     </div>
-                </div>
-                <div class="row">
-                        <div class="col text-center mt-2">
-                            Brand:
-                            <select class="btn btn-primary text-capitalize shadow-sm "  bind:value={selectedBrand} on:change="{() => {brand = selectedBrand}}" on:change={getBikes(brand,frameType,frameHeight)}>
-                                <option value="">
-                                    (no preference)
+                    <div class="col text-center refresh mt-2">
+                        Frame height:
+                        <select class="btn btn-primary text-capitalize shadow-sm" bind:value={selectedFrameHeight}
+                                on:change="{() => {frameHeight = selectedFrameHeight; console.log(frameHeight)}}"
+                                on:change={getBikes(brand,frameType,frameHeight)}>
+                            <option value="">
+                                (no preference)
+                            </option>
+                            {#each distinctFrameHeights as item}
+                                <option value={item}>
+                                    {item}
                                 </option>
-                                {#each distinctBrands as item}
-                                    <option value={item}>
-                                        {item}
-                                    </option>
-                                {/each}
-                            </select>
-                        </div>
-                        <div class="col text-center type mt-2">
-                            Frame type:
-                            <select class="btn btn-primary text-capitalize shadow-sm" bind:value={selectedFrameType}
-                                    on:change="{() => {frameType = selectedFrameType}}" on:change={getBikes(brand,frameType,frameHeight)}
-                                    >
-                                <option value="">
-                                    (no preference)
-                                </option>
-                                {#each distinctFrameTypes as item}
-                                    <option value={item}>
-                                        {item}
-                                    </option>
-                                {/each}
-                            </select>
-                        </div>
-                        <div class="col text-center refresh mt-2">
-                            Frame height:
-                            <select class="btn btn-primary text-capitalize shadow-sm" bind:value={selectedFrameHeight}
-                                    on:change="{() => {frameHeight = selectedFrameHeight; console.log(frameHeight)}}"
-                                    on:change={getBikes(brand,frameType,frameHeight)}>
-                                <option value="">
-                                    (no preference)
-                                </option>
-                                {#each distinctFrameHeights as item}
-                                    <option value={item}>
-                                        {item}
-                                    </option>
-                                {/each}
-                            </select>
-                        </div>
+                            {/each}
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
-                                <tr class="text-center">
-                                    <th>ID</th>
-                                    <th>Brand</th>
-                                    <th>Frame Type</th>
-                                    <th>Frame Height</th>
-                                    <th>Current Highest Bid</th>
-                                    <th>Ending Date</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                </thead>
+                                <TableHeader showIdAndHighestBid={true}/>
                                 <tbody class="text-center">
-
-                                {#each paginatedItems as item}
-                                    <tr class:notAvailable={item.endingDate <= today}>
-                                        <td>{item.id}</td>
-                                        <td>{item.brand}</td>
-                                        <td>{item.frameType}</td>
-                                        <td>{item.frameHeightInCm}</td>
-                                        <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}€</td>
-                                        <td>{item.endingDate}</td>
-                                        <td>
-                                            <button on:click={getAllBidsForOneBike(item.id)}
-                                                    class="btn btn-primary shadow-sm" type="button"
-                                                    data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button on:click={setBikeIdForModal2(item.id,item.highestBid)}
-                                                    class="btn btn-primary shadow-sm" type="button"
-                                                    data-bs-target="#modal-2" data-bs-toggle="modal"
-                                                    disabled="{item.endingDate <= today}">Place bid
-                                            </button>
-                                        </td>
-                                    </tr>
-                                {/each}
-
+                                    {#each paginatedItems as item}
+                                        <tr class:notAvailable={item.endingDate <= today}>
+                                            <td>{item.id}</td>
+                                            <td>{item.brand}</td>
+                                            <td>{item.frameType}</td>
+                                            <td>{item.frameHeightInCm}</td>
+                                            <td class="justify-content-xl-center align-items-xl-center">{item.highestBid}€</td>
+                                            <td>{item.endingDate}</td>
+                                            <td>
+                                                <button on:click={getAllBidsForOneBike(item.id)}
+                                                        class="btn btn-primary shadow-sm" type="button"
+                                                        data-bs-target="#modal-1" data-bs-toggle="modal">Display bids
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button on:click={setBikeIdForModal2(item.id,item.highestBid)}
+                                                        class="btn btn-primary shadow-sm" type="button"
+                                                        data-bs-target="#modal-2" data-bs-toggle="modal"
+                                                        disabled="{item.endingDate <= today}">Place bid
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {/each}
                                 </tbody>
                             </table>
                         </div>
@@ -445,19 +359,14 @@
                 {/if}
             </div>
         </div>
-        <footer class="bg-white d-xl-flex justify-content-xl-center align-items-xl-end sticky-footer">
-            <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © Auctum 2021</span></div>
-            </div>
-        </footer>
+        <Footer/>
     </div>
-    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    <ScrollToTopButton/>
+</div>
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
-            <div class="modal-header"><h4 class="modal-title">All the bids placed</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+            <ModalHeading modalHeading={"All the placed bids"}/>
             <div class="modal-body">
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -471,41 +380,34 @@
                         {#each bids as bid}
                             <tr>
                                  <td>{bid.placedByUserId}</td>
-                                 <td>{bid.price}</td>
+                                 <td>{bid.price}€</td>
                             </tr>
                         {/each}
-
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Close</button>
-            </div>
+            <ModalFooter/>
         </div>
     </div>
 </div>
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-2">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header"><h4 class="modal-title">Place a bid</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+            <ModalHeading modalHeading={"Place a bid"}/>
             <div class="modal-body">
                 <form>
                     {#if bidPriceToPlace}
                         {#if tempObject}
                             {#if bidPriceToPlace <= tempObject.highestBid}
-                                <p class="notAvailable">Number should be higher than {tempObject.highestBid}</p>
+                                <p class="notAvailable">Number should be higher than {tempObject.highestBid}€</p>
                             {/if}
                         {/if}
                     {/if}
                     <input bind:value={bidPriceToPlace} class="form-control" type="number" name="price" placeholder="Enter the price " required="true">
                 </form>
             </div>
-            <div class="modal-footer">
-                <button on:click={placingBid} class="btn btn-primary" type="submit" data-bs-dismiss="modal" disabled="{bidPriceToPlace <= tempObject.highestBid}">Save</button>
-            </div>
+            <ModalFooter footerFunction="{placingBid}"/>
         </div>
     </div>
 </div>

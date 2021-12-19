@@ -7,6 +7,7 @@
     import store from './stores/token';
     import router from "page";
     import MyBids from "./routes/MyBids.svelte";
+    import { SvelteToast } from '@zerodevx/svelte-toast'
 
 	let page;
 	let params;
@@ -33,6 +34,8 @@
 
 </script>
 <svelte:component this={page} params={params}/>
+
+<SvelteToast/>
 
 <main>
 
