@@ -121,13 +121,13 @@
                                            id="exampleRepeatPasswordInput"
                                            placeholder="Repeat your Password" name="password_repeat" required>
                                     {#if (repeatedPassword)}
-                                        {#if !password.match(repeatedPassword) && repeatedPassword != 0}
+                                        {#if (password!=repeatedPassword) && repeatedPassword != 0}
                                             <p style="color:#FF0000;font-size:medium">Passwords don't match!</p>
                                         {/if}
                                     {/if}
                                 </div>
                             </div>
-                            <button disabled={!email || !password || !repeatedPassword || !name || (!email.match(validEmailFormat) || !password.match(validPasswordFormat))} on:click|preventDefault={register} class="btn btn-primary d-block btn-user w-100" type="submit">Register Account
+                            <button disabled={!email || !password || !repeatedPassword || !name || !email.match(validEmailFormat) || !password.match(validPasswordFormat)} on:click|preventDefault={register} class="btn btn-primary d-block btn-user w-100" type="submit">Register Account
                             </button>
                         </form>
                         <div class="text-center" style="margin-top: 5px;">
