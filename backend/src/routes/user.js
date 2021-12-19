@@ -14,7 +14,6 @@ router.get('/:id',isLoggedIn,userController.getUserById);
 
 router.post('',userController.createUser);
 
-
 router.delete('/:id',isLoggedIn,isAdmin,userController.deleteUser);
 
 module.exports=router;

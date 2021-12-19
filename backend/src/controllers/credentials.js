@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {StatusCodes} = require("http-status-codes");
 
-
 const logIn = (email,password) => {
     const user = users.find((user) => {
         return user.email===email;

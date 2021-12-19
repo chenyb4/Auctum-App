@@ -6,8 +6,6 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const credentialsController=require("../controllers/credentials");
 
-
-
 router.post('',credentialsController.auth);
 
 module.exports=router;

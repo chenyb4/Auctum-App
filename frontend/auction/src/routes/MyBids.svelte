@@ -1,9 +1,19 @@
 <script>
     import tokenStore from "../stores/token";
+    import { parseJwt } from "../js/parseJwt";
     import router from "page";
     import { LightPaginationNav,paginate } from "svelte-paginate";
     import { fade } from 'svelte/transition';
     import { flip } from 'svelte/animate';
+    import NavBar from "../components/NavBar.svelte";
+    import TopBar from "../components/TopBar.svelte";
+    import Footer from "../components/Footer.svelte";
+    import ScrollToTopButton from "../components/ScrollToTopButton.svelte";
+    import ModalFooter from "../components/ModalFooter.svelte";
+    import ModalHeading from "../components/ModalHeading.svelte";
+    import WelcomeMessage from "../components/WelcomeMessage.svelte";
+    import TableHeader from "../components/TableHeader.svelte";
+    import { toast } from "@zerodevx/svelte-toast";
 
     let targetURLBids='http://localhost:3000/bids';
     let bidsIWon=[];
@@ -13,26 +23,6 @@
     let currentPage = 1;
     let pageSize = 5;
     $: paginatedItems = paginate({ items:bids, pageSize, currentPage });
-
-
-    /**
-     * decode the token into payload
-     * declaration of reference: this function comes directly from: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
-     * @param token
-     * @returns {any}
-     */
-    function parseJwt (token) {
-        if (token != ''){
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            return JSON.parse(jsonPayload);
-        }
-    }
-
-
 
     /**
      * GET request
@@ -48,24 +38,27 @@
                     'authorization': 'Bearer '+$tokenStore.token
                 }
             });
-
             let bidsJson = await resp.json();
-
             for (let bid of bidsJson) {
                 if(bid.placedByUserId==userId){
                     bids.push(bid);
                     bids = bids;
                 }
             }
-
         }catch (e){
-            alert(e);
+            toast.push(e.message, {
+                theme: {
+                    '--toastBackground': '#F56565',
+                    '--toastBarBackground': '#C53030'
+                }
+            });
         }
     }
 
     /**
      * First it will check if the token is empty and then execute the method getAllBidsForOneUser
      */
+
     if ($tokenStore.token != ''){
         getAllBidsForOneUser(parseJwt($tokenStore.token).id);
     }
@@ -85,24 +78,37 @@
             }
         }).then(async (res) => {
             if (res.ok) {
-                console.log("Success!");
+                toast.push('Success!', {
+                    theme: {
+                        '--toastBackground': '#48BB78',
+                        '--toastBarBackground': '#2F855A'
+                    }
+                })
                 router.redirect('/home');
                 router.redirect('/my-bids');
             } else {
                 res.json().then((body) => {
-                    alert(body.message || "Internal error");
+                    toast.push(body.message, {
+                        theme: {
+                            '--toastBackground': '#F56565',
+                            '--toastBarBackground': '#C53030'
+                        }
+                    });
                 });
             }
             }).catch(async (err) => {
-                alert(err);
+            toast.push(err.message, {
+                theme: {
+                    '--toastBackground': '#F56565',
+                    '--toastBarBackground': '#C53030'
+                }
+            });
             });
     }
 
     //get bids I won
     async function getBidsIWon() {
-
         try {
-
             const resp = await fetch('http://localhost:3000/bikes', {
                 method: 'GET',
                 headers: {
@@ -110,9 +116,7 @@
                     'authorization': 'Bearer ' + $tokenStore.token
                 }
             });
-
-            let allBikes=await resp.json();
-
+            let allBikes = await resp.json();
             let bikesEnded=[];
             let today = new Date().toISOString().split("T")[0];
             for (const bike of allBikes) {
@@ -121,7 +125,6 @@
                     bikesEnded=bikesEnded;
                 }
             }
-
             //now we have an array of bikes auctions ended.
             // find the user id who placed the highest bid for every bike and place this key into the bike objects
             let bikesEndedWithWinnerId=[];
@@ -157,7 +160,12 @@
             }
 
         } catch (e) {
-            alert(e);
+            toast.push(e.message, {
+                theme: {
+                    '--toastBackground': '#F56565',
+                    '--toastBarBackground': '#C53030'
+                }
+            });
         }
     }
 
@@ -167,102 +175,17 @@
 
 <body id="page-top">
 <div id="wrapper">
-    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-        <div class="container-fluid d-flex flex-column p-0">
-            <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href=""
-                style="padding-top: 36px;">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">
-                    <span style="font-size: 25px;">Auctum<br>
-                    </span>
-                    <span
-                        class="text-capitalize" style="font-size: 12px;font-family: 'Bad Script', serif;">Get your dream<br>&nbsp;Bike today!
-                    </span>
-                </div>
-            </a>
-            <ul class="navbar-nav text-light" id="accordionSidebar" style="margin-top: 16px;">
-                {#if ($tokenStore.token != '')}
-                    {#if (parseJwt($tokenStore.token).role.includes('client'))}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/home">
-                                <i class="fas fa-tachometer-alt"></i>
-                                <span>Auctions</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/my-bids">
-                                <i class="fa fa-money"></i>
-                                <span>My bids</span>
-                            </a>
-                        </li>
-                    {/if}
-                    {#if (parseJwt($tokenStore.token).role.includes('admin'))}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/add-bicycle">
-                                <i class="fa fa-bicycle"></i>
-                                <span>Add bicycle</span>
-                            </a>
-                        </li>
-                    {/if}
-                {/if}
-                <li class="nav-item">
-                    <a on:click={$tokenStore.token = ''} class="nav-link" href="/login">
-                        <i class="far fa-user-circle"></i>
-                        <span>Log out</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="text-center d-none d-md-inline">
-                <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
-            </div>
-        </div>
-    </nav>
+    <NavBar/>
     <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
-            <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                <div class="container-fluid">
-                    <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i
-                            class="fas fa-bars"></i></button>
-                    <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
-                                                        placeholder="Search for ...">
-                            <button class="btn btn-info py-0" type="button"><i class="fas fa-search" style="color: white"></i></button>
-                        </div>
-                    </form>
-                    <ul class="navbar-nav flex-nowrap ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link oneLine" href="#">
-                                {#if ($tokenStore.token != '')}
-                                    {parseJwt($tokenStore.token).email}
-                                {/if}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <TopBar/>
             <div class="container-fluid">
-                <div>
-                    <h4 class="text-dark" style="margin: -1px -1px 5px;">Here you can view all the
-                        bids that were placed by you!
-                        {#if ($tokenStore.token != '')}
-                            ({parseJwt($tokenStore.token).name})
-                        {/if}
-                        <br>
-                    </h4>
-                </div>
+                <WelcomeMessage myBidsMessage={true}/>
                 <div class="row">
                     <div class="col">
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
-                                <tr class="text-center">
-                                    <th>Price</th>
-                                    <th>For Bike</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
+                                <TableHeader myBids={true}/>
                                 <tbody class="text-center">
                                     {#each paginatedItems as bid (bid.id)}
                                         <tr animate:flip in:fade>
@@ -301,31 +224,18 @@
                 </h5>
             </div>
         </div>
-        <footer class="bg-white d-xl-flex justify-content-xl-center align-items-xl-end sticky-footer">
-            <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © Auctum 2021</span></div>
-            </div>
-        </footer>
+        <Footer/>
     </div>
-    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    <ScrollToTopButton/>
+</div>
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-4">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
-            <div class="modal-header"><h4 class="modal-title">Won bids</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+            <ModalHeading modalHeading={"Won Bids"}/>
             <div class="modal-body">
                 <div class="table-responsive">
                     <table class="table">
-                        <thead>
-                        <tr class="text-center">
-                            <th>Brand</th>
-                            <th>Frame Type</th>
-                            <th>Frame Height</th>
-                            <th>Ending Date</th>
-                            <th>My Bid</th>
-                        </tr>
-                        </thead>
+                        <TableHeader bidOnBike={true}/>
                         <tbody class="text-center">
                         {#each bidsIWon as bike}
                             <tr in:fade>
@@ -345,11 +255,8 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Close</button>
-            </div>
+            <ModalFooter/>
         </div>
     </div>
 </div>

@@ -5,15 +5,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2676c03-8669-4547-805e-171211e0b156" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/../../backend/rest/bid.rest" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/rest/bid.rest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../backend/src/controllers/bike.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/controllers/bike.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../backend/src/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/controllers/user.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AccordionSideBar.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Footer.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Image.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Logo.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ModalFooter.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ModalHeading.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/NavBar.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ScrollToTopButton.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/SearchBar.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/TableHeader.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/TopBar.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/WelcomeMessage.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/js/parseJwt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/repo.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/controllers/credentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/controllers/credentials.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/routes/credentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/routes/credentials.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/frontend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/AddBicycle.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/Home.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Home.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/Login.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Login.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/MyBids.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/MyBids.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/Register.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Register.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -25,6 +62,22 @@
         <option value="JavaScript File" />
         <option value="MyBids" />
         <option value="TableRow" />
+        <option value="NavBar" />
+        <option value="TopBar" />
+        <option value="WelcomeMessage" />
+        <option value="HomeMessage" />
+        <option value="Footer" />
+        <option value="BicycleTableHeader" />
+        <option value="ScrollToTopButton" />
+        <option value="ModalHeader" />
+        <option value="Modal" />
+        <option value="MyBidsMessage" />
+        <option value="SearchBar" />
+        <option value="ModalFooter" />
+        <option value="Image" />
+        <option value="AccordionSideBar" />
+        <option value="Logo" />
+        <option value="Toast" />
       </list>
     </option>
   </component>
@@ -40,12 +93,18 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/public/assets/js/script.min.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/public/bootstrap.min.css" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/public/styles.min.css" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/public/assets/js/script.min.js" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
   </component>
   <component name="ProjectId" id="1yrXZaTNeFPWeje0vLWGEgcq1jh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -60,16 +119,18 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2020.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\luqma\Desktop\Study materials\2nd year HBO-ICT\Web Technology 2.1\frontend\auction\src\components" />
       <recent name="D:\Users\Yibing Chen\Documents\Google Cloud Back Up\Saxion Courses Materials\year2\q1\Web Technology\repo\frontend\auction\src\images" />
       <recent name="C:\Users\luqma\Desktop\Study materials\2nd year HBO-ICT\Web Technology\frontend\auction\public\images" />
       <recent name="C:\Users\luqma\Desktop\Study materials\2nd year HBO-ICT\Web Technology\frontend\auction\src\assets" />
@@ -165,6 +226,8 @@
       <workItem from="1639688175106" duration="2824000" />
       <workItem from="1639788790491" duration="49000" />
       <workItem from="1639792817583" duration="612000" />
+      <workItem from="1639841306466" duration="18322000" />
+      <workItem from="1639880183728" duration="13000" />
     </task>
     <servers />
   </component>
@@ -181,7 +244,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

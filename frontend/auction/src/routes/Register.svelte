@@ -1,51 +1,74 @@
 <script>
     import router from 'page';
+    import Image from "../components/Image.svelte";
+    import { toast } from "@zerodevx/svelte-toast";
+
     let targetURL = 'http://localhost:3000/users';
-    let name,email,password,passwordRepeat = '';
-
-    let emailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //validation pattern to check email
-    let passw1 = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; //validation pattern to check password
-
-
+    let name,email,password,repeatedPassword = '';
+    let validEmailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //validation pattern to check email
+    let validPasswordFormat = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; //validation pattern to check password
 
     async function register(){
-        if (password && passwordRepeat && email && name){
-            if(password == passwordRepeat){
-                let userBody=[];
-                userBody.name=name;
-                userBody.email=email;
-                userBody.password=password;
+        if (password && repeatedPassword && email && name){
+            if(password == repeatedPassword){
+                if (email.match(validEmailFormat) && password.match(validPasswordFormat)){
+                    let userBody=[];
+                    userBody.name=name;
+                    userBody.email=email;
+                    userBody.password=password;
 
-                console.log("name:"+name);
-                console.log("email:"+email);
-                console.log("pwd:"+passwordRepeat);
-                const response=await fetch(targetURL,{
-                    method:'POST',
-                    headers:{
-                        'Content-type': 'application/json'
-                    },
-                    body:JSON.stringify({
-                        name:name,
-                        email:email,
-                        passwordHashValue:password
+                    console.log("name:"+name);
+                    console.log("email:"+email);
+                    console.log("pwd:"+repeatedPassword);
+                    const response=await fetch(targetURL,{
+                        method:'POST',
+                        headers:{
+                            'Content-type': 'application/json'
+                        },
+                        body:JSON.stringify({
+                            name:name,
+                            email:email,
+                            passwordHashValue:password
+                        })
+                    }).then(async (res)=>{
+                        if(res.ok){
+                            toast.push('Success! Now you can login', {
+                                theme: {
+                                    '--toastBackground': '#48BB78',
+                                    '--toastBarBackground': '#2F855A'
+                                }
+                            })
+                            router.redirect('/login');
+                            return response.json();
+                        }else{
+                            toast.push(await res.text());
+                            throw new Error(await res.text());
+                        }
                     })
-                }).then(async (res)=>{
-                    if(res.ok){
-                        alert('Register successfully.');
-                        router.redirect('/login');
-                        return response.json();
-                    }else{
-                        throw new Error(await res.text());
-                    }
-                })
-
+                } else {
+                    toast.push('Invalid email or password format. Please check...', {
+                        theme: {
+                            '--toastBackground': '#F56565',
+                            '--toastBarBackground': '#C53030'
+                        }
+                    });
+                }
             } else {
-                alert('The passwords you entered are not the same. Please check...')
+                toast.push('The passwords you entered are not the same. Please check...', {
+                    theme: {
+                        '--toastBackground': '#F56565',
+                        '--toastBarBackground': '#C53030'
+                    }
+                });
             }
         } else {
-            alert('Some inputs are missing!')
+            toast.push('Some inputs are missing', {
+                theme: {
+                    '--toastBackground': '#d28c25',
+                    '--toastBarBackground': '#f69a06'
+                }
+            });
         }
-
     }
 
 </script>
@@ -55,9 +78,7 @@
     <div class="card shadow-lg o-hidden border-0 my-5">
         <div class="card-body p-0">
             <div class="row">
-                <div class="col-lg-5 d-none d-lg-flex">                           <!-- Also this is correct -->
-                    <div class="flex-grow-1 bg-register-image" style="background: url('images/register.jpg') center / cover no-repeat;"></div>
-                </div>
+                <Image pageType="register"/>
                 <div class="col-lg-7">
                     <div class="p-5">
                         <div class="text-center">
@@ -77,7 +98,7 @@
                                        placeholder="Enter your Email Address" name="email" required
                                        inputmode="email">
                                 {#if (email)}
-                                    {#if !email.match(emailValid) && email != 0}
+                                    {#if !email.match(validEmailFormat) && email != 0}
                                         <p class="mt-2" style="color:#FF0000;font-size:medium">You have entered an invalid email address!</p>
                                     {/if}
                                 {/if}
@@ -89,7 +110,7 @@
                                            placeholder="Enter your Password"
                                            name="password" required>
                                     {#if (password)}
-                                        {#if !password.match(passw1) && password != 0}
+                                        {#if !password.match(validPasswordFormat) && password != 0}
                                             <p style="color:#FF0000;font-size:medium">Password must contain at least 6 characters,
                                                 one number , one uppercase and lowercase
                                                 letter!</p>
@@ -97,17 +118,17 @@
                                     {/if}
                                 </div>
                                 <div class="col-sm-6">
-                                    <input bind:value={passwordRepeat} class="form-control form-control-user" type="password"
+                                    <input bind:value={repeatedPassword} class="form-control form-control-user" type="password"
                                            id="exampleRepeatPasswordInput"
                                            placeholder="Repeat your Password" name="password_repeat" required>
-                                    {#if (passwordRepeat)}
-                                        {#if !password.match(passwordRepeat) && passwordRepeat != 0}
+                                    {#if (repeatedPassword)}
+                                        {#if !password.match(repeatedPassword) && repeatedPassword != 0}
                                             <p style="color:#FF0000;font-size:medium">Passwords don't match!</p>
                                         {/if}
                                     {/if}
                                 </div>
                             </div>
-                            <button on:click|preventDefault={register} class="btn btn-primary d-block btn-user w-100" type="submit">Register Account
+                            <button disabled={!name && !email && password && !repeatedPassword} on:click|preventDefault={register} class="btn btn-primary d-block btn-user w-100" type="submit">Register Account
                             </button>
                         </form>
                         <div class="text-center" style="margin-top: 5px;">
@@ -119,6 +140,7 @@
         </div>
     </div>
 </div>
+
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <script defer src="assets/js/script.min.js"></script>
 </body>
