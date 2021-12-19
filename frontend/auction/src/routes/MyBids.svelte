@@ -87,8 +87,8 @@
                 router.redirect('/home');
                 router.redirect('/my-bids');
             } else {
-                res.json().then((body) => {
-                    toast.push(body.message, {
+                res.json().then(async (body) => {
+                    toast.push(await body.message, {
                         theme: {
                             '--toastBackground': '#F56565',
                             '--toastBarBackground': '#C53030'
@@ -97,7 +97,7 @@
                 });
             }
             }).catch(async (err) => {
-            toast.push(err.message, {
+            toast.push(await err.message, {
                 theme: {
                     '--toastBackground': '#F56565',
                     '--toastBarBackground': '#C53030'

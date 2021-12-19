@@ -42,10 +42,16 @@
                 }
                // document.cookie='token='+$tokenStore.token;
             } else {
+                toast.push(await res.text(), {
+                    theme: {
+                        '--toastBackground': '#F56565',
+                        '--toastBarBackground': '#C53030'
+                    }
+                })
                 throw new Error(await res.text());
             }
-        }).catch((err)=>{
-            toast.push(err.message, {
+        }).catch(async (err) => {
+            toast.push(await err.message, {
                 theme: {
                     '--toastBackground': '#F56565',
                     '--toastBarBackground': '#C53030'

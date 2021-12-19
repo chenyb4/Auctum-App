@@ -42,7 +42,7 @@
             });
             items = await resp.json();
         }catch (e){
-            toast.push(e.message, {
+            toast.push(await e.message, {
                 theme: {
                     '--toastBackground': '#F56565',
                     '--toastBarBackground': '#C53030'
@@ -82,8 +82,8 @@
                         }
                     })
                 } else {
-                    res.json().then((body) => {
-                        toast.push(body.message, {
+                    res.json().then(async (body) => {
+                        toast.push(await body.message, {
                             theme: {
                                 '--toastBackground': '#F56565',
                                 '--toastBarBackground': '#C53030'
@@ -93,7 +93,7 @@
                 }
             })
             .catch(async (err) => {
-                toast.push(err.message, {
+                toast.push(await err.message, {
                     theme: {
                         '--toastBackground': '#F56565',
                         '--toastBarBackground': '#C53030'
@@ -132,8 +132,8 @@
                     }
                 })
             } else {
-                res.json().then((body) => {
-                    toast.push(body.message, {
+                res.json().then(async (body) => {
+                    toast.push(await body.message, {
                         theme: {
                             '--toastBackground': '#F56565',
                             '--toastBarBackground': '#C53030'
@@ -142,7 +142,7 @@
                 });
             }
         }).catch(async (err) => {
-            toast.push(err.message, {
+            toast.push(await err.message, {
                 theme: {
                     '--toastBackground': '#F56565',
                     '--toastBarBackground': '#C53030'
@@ -177,8 +177,13 @@
                         }
                     })
                 } else {
-                    res.json().then((body) => {
-                        alert(body.message || "Internal error");
+                    res.json().then(async (body) => {
+                        toast.push(await body.message, {
+                            theme: {
+                                '--toastBackground': '#F56565',
+                                '--toastBarBackground': '#C53030'
+                            }
+                        })
                     });
                 }
             })
