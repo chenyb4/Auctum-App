@@ -157,7 +157,7 @@
             }
             return highestBid;
         }catch (e){
-            toast.push(e.message, {
+            toast.push(await e.message, {
                 theme: {
                     '--toastBackground': '#F56565',
                     '--toastBarBackground': '#C53030'
@@ -192,7 +192,7 @@
                 }
             }
         }catch (e){
-            toast.push(e.message, {
+            toast.push(await e.message, {
                 theme: {
                     '--toastBackground': '#F56565',
                     '--toastBarBackground': '#C53030'
@@ -241,12 +241,12 @@
                     })
                 } else {
                     res.json().then( async (body) => {
-                        toast.push(body.message)
+                        toast.push(await body.message)
                     });
                 }
             })
-            .catch((err) => {
-                toast.push(err.message, {
+            .catch(async (err) => {
+                toast.push(await err.message, {
                     theme: {
                         '--toastBackground': '#F56565',
                         '--toastBarBackground': '#C53030'
