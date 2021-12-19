@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2676c03-8669-4547-805e-171211e0b156" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/src/routes/Login.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Login.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/Register.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Register.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/middleware/is-logged-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/middleware/is-logged-in.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,10 +57,10 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/public/assets/js/script.min.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/public/bootstrap.min.css" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/public/styles.min.css" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/node_modules/svelte-notifications/index.d.ts" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/public/assets/js/script.min.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -196,6 +196,7 @@
       <workItem from="1639916443846" duration="133000" />
       <workItem from="1639919688822" duration="2253000" />
       <workItem from="1639925989360" duration="3058000" />
+      <workItem from="1639933942850" duration="762000" />
     </task>
     <servers />
   </component>
@@ -212,6 +213,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
